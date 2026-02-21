@@ -1,0 +1,56 @@
+---
+description: Core conventions for the IBM CLG Custom Agents website. Enforces Carbon Design System patterns, file structure, and coding standards.
+alwaysApply: true
+---
+
+# IBM CLG Custom Agents — Project Conventions
+
+## Design System
+
+This site follows IBM's **Carbon Design System** aligned with watsonx Orchestrate.
+
+- **Border radius**: Always `0` on interactive elements (buttons, inputs, modals, cards, badges containers)
+- **Header**: Dark sticky header (`--header-bg: #161616`) with format: `Title | powered by IBM watsonx Orchestrate [BADGE]`
+- **Page background**: `var(--bg-page)` (`#f4f4f4`)
+- **Card hover effects**: Preserve existing card styling — do not modify
+
+## CSS Variables (defined in `style.css`)
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| `--ibm-blue` | `#0f62fe` | Primary actions, links |
+| `--vendor-blue` | `#0066CC` | Vendor card accents |
+| `--text-primary` | `#161616` | Headings, body text |
+| `--text-secondary` | `#525252` | Subheadings, labels |
+| `--text-helper` | `#6f6f6f` | Helper/muted text |
+| `--header-bg` | `#161616` | Dark header |
+| `--bg-page` | `#f4f4f4` | Page background |
+
+Badge color: IBM Blue 50 (`#4589ff`)
+
+## Font Weights (IBM Plex Sans)
+
+| Weight | Usage |
+|--------|-------|
+| 100 (Thin) | "powered by" in header |
+| 400 (Regular) | Body text, titles |
+| 600 (Semi-Bold) | Buttons, labels |
+| 700 (Bold) | "IBM" branding text |
+
+## File Naming
+
+- Agent pages: `agent-{category}-{type}-{paper}.html` (e.g., `agent-procurement-mpa-redhat.html`)
+- All agent pages share one `wxOConfiguration` pattern with unique `agentId` and `agentEnvironmentId`
+
+## Commit Style
+
+- Small, focused commits with descriptive messages
+- Use HEREDOC format for multi-line commit messages
+- Always push after committing
+
+## Key Behaviors
+
+- The "Last updated" date in index.html auto-updates via `document.lastModified` — never hardcode it
+- Impact Calculator data auto-saves to `localStorage` (key: `clg_calculator_data`)
+- Welcome modal shows once per browser session (`sessionStorage`)
+- Admin page mirrors main page header (only badge text differs)

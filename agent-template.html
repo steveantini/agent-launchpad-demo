@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{AGENT_TITLE}} - {{SITE_TITLE}}</title>
+    <script>
+        window.wxOConfiguration = {
+            orchestrationID: "{{ORCHESTRATION_ID}}",
+            hostURL: "https://cio.watson-orchestrate.ibm.com",
+            rootElementID: "root",
+            showLauncher: false,
+            chatOptions: {
+                agentId: "{{AGENT_ID}}",
+                agentEnvironmentId: "{{AGENT_ENVIRONMENT_ID}}",
+            },
+            layout: {
+                form: "fullscreen-overlay",
+                showOrchestrateHeader: true,
+            }
+        };
+        setTimeout(function () {
+            const script = document.createElement('script');
+            script.src = `${window.wxOConfiguration.hostURL}/wxochat/wxoLoader.js?embed=true`;
+            script.addEventListener('load', function () {
+                wxoLoader.init();
+            });
+            document.head.appendChild(script);
+        }, 0);
+    </script>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+</html>
