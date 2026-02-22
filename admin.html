@@ -411,6 +411,7 @@
             padding: 0.75rem;
             border-bottom: 1px solid #eee;
             color: var(--text-primary);
+            text-align: left;
         }
         .detail-table tr:hover td {
             background-color: #fafafa;
@@ -591,7 +592,7 @@
             }
         }
 
-        /* Impact Calculator Styles */
+        /* Productivity Gains Calculator Styles */
         .calculator-container {
             background-color: #fff;
             border-radius: 4px;
@@ -756,12 +757,17 @@
             color: #fff;
         }
 
-        /* Updated Overall Summary layout */
-        .summary-primary-row {
+        /* Updated Overall Productivity Gains layout */
+        .summary-columns {
             display: flex;
             justify-content: center;
             gap: 3rem;
-            margin-bottom: 1.5rem;
+        }
+        .summary-column {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.75rem;
         }
         .summary-primary-item {
             background-color: #f8f9fa;
@@ -771,7 +777,7 @@
             min-width: 180px;
         }
         .summary-primary-value {
-            font-size: 2rem;
+            font-size: 2.5rem;
             font-weight: 700;
             color: #1f2937;
         }
@@ -780,17 +786,12 @@
             color: var(--text-secondary);
             margin-top: 0.25rem;
         }
-        .summary-secondary-row {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-        }
         .summary-secondary-item {
             background-color: #f8f9fa;
             padding: 0.75rem 1.5rem;
             border-radius: 0;
             text-align: center;
-            min-width: 140px;
+            min-width: 180px;
         }
         .summary-secondary-value {
             font-size: 1.25rem;
@@ -853,8 +854,8 @@
                 <p>View usage statistics, active users, and engagement data</p>
             </a>
             <a href="#impact-calculator" class="nav-card">
-                <h3>Impact Calculator</h3>
-                <p>Calculate and measure the impact of Gem usage</p>
+                <h3>Productivity Gains Calculator</h3>
+                <p>Calculate and measure the impact of Agent usage</p>
             </a>
         </div>
 
@@ -911,7 +912,7 @@
                             <th>Rank</th>
                             <th>User</th>
                             <th>Interactions</th>
-                            <th>Most Used Gem</th>
+                            <th>Most Used Agent</th>
                         </tr>
                     </thead>
                     <tbody id="topUsersBody">
@@ -1042,13 +1043,12 @@
             </div>
         </div>
 
-        <!-- Impact Calculator Section -->
+        <!-- Productivity Gains Calculator Section -->
         <div class="dashboard-section" id="impact-calculator">
-            <h2>Impact Calculator</h2>
+            <h2>Productivity Gains Calculator</h2>
             
             <div class="calculator-container">
                 <div class="calculator-intro">
-                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Time & Cost Savings Calculator</h3>
                     <p>Add Legal Associates and their tasks to calculate the time and cost savings of using custom agents.</p>
                 </div>
 
@@ -1069,27 +1069,27 @@
                 <!-- Grand Totals & Export -->
                 <div class="space-y-4">
                     <div class="bg-gray-50 p-4 rounded-none">
-                        <h3 class="text-lg font-semibold text-gray-800 text-center mb-4">Overall Summary</h3>
-                        <!-- Primary metrics row -->
-                        <div class="summary-primary-row">
-                            <div class="summary-primary-item">
-                                <div class="summary-primary-label">Total Hours Saved</div>
-                                <div id="grand-total-hours" class="summary-primary-value">0</div>
+                        <h3 class="text-lg font-semibold text-gray-800 text-center mb-4">Overall Productivity Gains</h3>
+                        <div class="summary-columns">
+                            <div class="summary-column">
+                                <div class="summary-primary-item">
+                                    <div class="summary-primary-label">Total Hours Saved</div>
+                                    <div id="grand-total-hours" class="summary-primary-value">0</div>
+                                </div>
+                                <div class="summary-secondary-item">
+                                    <div class="summary-secondary-label">watsonx Orchestrate Annual Cost <span class="calc-info-icon" data-info="agent-cost">?</span></div>
+                                    <div id="agent-cost-total" class="summary-secondary-value">$0</div>
+                                </div>
                             </div>
-                            <div class="summary-primary-item">
-                                <div class="summary-primary-label">Total Savings</div>
-                                <div id="grand-total-savings" class="summary-primary-value">$0</div>
-                            </div>
-                        </div>
-                        <!-- Secondary metrics row -->
-                        <div class="summary-secondary-row">
-                            <div class="summary-secondary-item">
-                                <div class="summary-secondary-label">watsonx Orchestrate Annual Cost <span class="calc-info-icon" data-info="gem-cost">?</span></div>
-                                <div id="gem-cost-total" class="summary-secondary-value">$0</div>
-                            </div>
-                            <div class="summary-secondary-item">
-                                <div class="summary-secondary-label">Total ROI <span class="calc-info-icon" data-info="total-roi">?</span></div>
-                                <div id="grand-total-roi" class="summary-secondary-value">0.00%</div>
+                            <div class="summary-column">
+                                <div class="summary-primary-item">
+                                    <div class="summary-primary-label">Total Savings</div>
+                                    <div id="grand-total-savings" class="summary-primary-value">$0</div>
+                                </div>
+                                <div class="summary-secondary-item">
+                                    <div class="summary-secondary-label">Total ROI <span class="calc-info-icon" data-info="total-roi">?</span></div>
+                                    <div id="grand-total-roi" class="summary-secondary-value">0.00%</div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -1135,7 +1135,7 @@
                         <tr>
                             <th>Date</th>
                             <th>Time</th>
-                            <th>Agent/Gem Used</th>
+                            <th>Agent Used</th>
                         </tr>
                     </thead>
                     <tbody id="userDetailBody">
@@ -1247,7 +1247,7 @@
         // 
         // Live analytics is currently disabled pending a hosting solution.
         // The dashboard displays sample data for demonstration purposes.
-        // The Impact Calculator remains fully functional.
+        // The Productivity Gains Calculator remains fully functional.
         //
         // See server/ folder for Node.js backend implementation.
         
@@ -1330,12 +1330,12 @@
                                 <td><span class="rank-badge ${rankClass}">${user.rank}</span></td>
                                 <td><span class="clickable-user" data-user="${user.user}">${user.user}</span></td>
                                 <td>${user.interactions.toLocaleString()}</td>
-                                <td>${user.mostUsedGem || 'N/A'}</td>
+                                <td>${user.mostUsedAgent || 'N/A'}</td>
                             </tr>
                         `;
                     }).join('');
                 } else {
-                    topUsersBody.innerHTML = '<tr><td colspan="4" style="text-align: center; color: #888; padding: 2rem;">No user data available yet. Click on some Gems to start tracking!</td></tr>';
+                    topUsersBody.innerHTML = '<tr><td colspan="4" style="text-align: center; color: #888; padding: 2rem;">No user data available yet. Click on some agents to start tracking!</td></tr>';
                 }
             } catch (error) {
                 console.error('Failed to load top users:', error);
@@ -1367,7 +1367,7 @@
                         </div>
                     `).join('');
                 } else {
-                    clicksBarChart.innerHTML = '<div style="text-align: center; color: #888; padding: 2rem;">No click data available yet. Click on some Gems to start tracking!</div>';
+                    clicksBarChart.innerHTML = '<div style="text-align: center; color: #888; padding: 2rem;">No click data available yet. Click on some agents to start tracking!</div>';
                 }
             } catch (error) {
                 console.error('Failed to load clicks by agent:', error);
@@ -1395,7 +1395,7 @@
                         <tr>
                             <td>${item.date}</td>
                             <td>${item.time}</td>
-                            <td>${item.gem}</td>
+                            <td>${item.agent}</td>
                         </tr>
                     `).join('');
                 } else {
@@ -1457,7 +1457,7 @@
         // Grand Total Elements
         const grandTotalHoursEl = document.getElementById('grand-total-hours');
         const grandTotalSavingsEl = document.getElementById('grand-total-savings');
-        const gemCostTotalEl = document.getElementById('gem-cost-total');
+        const agentCostTotalEl = document.getElementById('agent-cost-total');
         const grandTotalRoiEl = document.getElementById('grand-total-roi');
 
         function addAssociate() {
@@ -1471,7 +1471,7 @@
                         <input type="text" placeholder="Associate Name" class="associate-name-input p-2 border rounded-none w-48">
                         <div class="flex items-center">
                             <span class="mr-2 text-sm text-gray-600">$</span>
-                            <input type="number" placeholder="Annual Salary" class="annual-salary-input p-2 border rounded-none w-40 text-right">
+                            <input type="number" placeholder="Annual Salary" class="annual-salary-input p-2 border rounded-none w-40" style="text-align: right;">
                         </div>
                         <div class="text-sm text-gray-700 p-2 rounded-none bg-gray-100">
                             Hourly Rate: <span class="hourly-rate font-semibold">$0.00</span> <span class="calc-info-icon" data-info="hourly-rate">?</span>
@@ -1483,13 +1483,13 @@
                     <table class="task-table">
                         <thead>
                             <tr>
-                                <th class="px-2 py-2 text-left">Task Description</th>
-                                <th class="px-2 py-2 text-center">Tasks/Year</th>
-                                <th class="px-2 py-2 text-center">Annual Time w/o Gem (Hours)</th>
-                                <th class="px-2 py-2 text-center">Annual Time w/ Gem (Hours)</th>
-                                <th class="px-2 py-2 text-right">Annual Hours Saved</th>
-                                <th class="px-2 py-2 text-right">Annual Savings ($)</th>
-                                <th class="px-2 py-2 text-center"></th>
+                                <th style="text-align: left;">Task Description</th>
+                                <th style="text-align: right;">Tasks/Year</th>
+                                <th style="text-align: right;">Annual Time w/o Agent (Hours)</th>
+                                <th style="text-align: right;">Annual Time w/ Agent (Hours)</th>
+                                <th style="text-align: right;">Annual Hours Saved</th>
+                                <th style="text-align: right;">Annual Savings ($)</th>
+                                <th style="text-align: center;"></th>
                             </tr>
                         </thead>
                         <tbody class="task-body">
@@ -1497,12 +1497,12 @@
                         </tbody>
                         <tfoot>
                             <tr>
-                                <td class="px-2 py-2 text-left font-bold">Associate Total</td>
-                                <td class="px-2 py-2 text-center font-bold associate-total-tasks">0</td>
-                                <td class="px-2 py-2 text-center font-bold associate-total-time-without">0.00</td>
-                                <td class="px-2 py-2 text-center font-bold associate-total-time-with">0.00</td>
-                                <td class="px-2 py-2 text-right font-bold associate-total-hours">0.00</td>
-                                <td class="px-2 py-2 text-right font-bold associate-total-savings">$0.00</td>
+                                <td style="text-align: left; font-weight: 700;">Associate Total</td>
+                                <td style="text-align: right; font-weight: 700;" class="associate-total-tasks">0</td>
+                                <td style="text-align: right; font-weight: 700;" class="associate-total-time-without">0.00</td>
+                                <td style="text-align: right; font-weight: 700;" class="associate-total-time-with">0.00</td>
+                                <td style="text-align: right; font-weight: 700;" class="associate-total-hours">0.00</td>
+                                <td style="text-align: right; font-weight: 700;" class="associate-total-savings">$0.00</td>
                                 <td></td>
                             </tr>
                         </tfoot>
@@ -1519,14 +1519,14 @@
             const row = document.createElement('tr');
             row.className = 'task-row';
             row.innerHTML = `
-                <td class="px-2 py-2"><input type="text" placeholder="e.g., Review Enterprise Agreement" class="task-name-input p-1 border rounded-none w-full"></td>
-                <td class="px-2 py-2 text-center"><input type="number" class="tasks-per-year-input p-1 border rounded-none w-16 text-center"></td>
-                <td class="px-2 py-2 text-center"><input type="number" step="0.1" class="time-without-input p-1 border rounded-none w-20 text-center"></td>
-                <td class="px-2 py-2 text-center"><input type="number" step="0.1" class="time-with-input p-1 border rounded-none w-20 text-center"></td>
-                <td class="px-2 py-2 text-right text-sm font-medium task-hours-saved">0.00</td>
-                <td class="px-2 py-2 text-right text-sm font-medium task-savings">$0.00</td>
-                <td class="px-2 py-2 text-center">
-                    <button class="delete-task-btn text-gray-400 hover:text-red-500">🗑</button>
+                <td style="text-align: left;"><input type="text" placeholder="e.g., Review Enterprise Agreement" class="task-name-input p-1 border rounded-none w-full"></td>
+                <td style="text-align: right;"><input type="number" class="tasks-per-year-input p-1 border rounded-none w-16" style="text-align: right;"></td>
+                <td style="text-align: right;"><input type="number" step="0.1" class="time-without-input p-1 border rounded-none w-20" style="text-align: right;"></td>
+                <td style="text-align: right;"><input type="number" step="0.1" class="time-with-input p-1 border rounded-none w-20" style="text-align: right;"></td>
+                <td style="text-align: right; font-size: 0.85rem; font-weight: 500;" class="task-hours-saved">0.00</td>
+                <td style="text-align: right; font-size: 0.85rem; font-weight: 500;" class="task-savings">$0.00</td>
+                <td style="text-align: center;">
+                    <button class="delete-task-btn" style="color: #9ca3af; cursor: pointer;">🗑</button>
                 </td>
             `;
             taskBody.appendChild(row);
@@ -1547,7 +1547,7 @@
                 const salaryInput = card.querySelector('.annual-salary-input');
                 const salary = parseFloat(salaryInput.value) || 0;
                 const hourlyRate = (salary / 2080) * 1.3;
-                card.querySelector('.hourly-rate').textContent = `$${hourlyRate.toFixed(2)}`;
+                card.querySelector('.hourly-rate').textContent = `$${hourlyRate.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
 
                 card.querySelectorAll('.task-row').forEach(row => {
                     const tasksPerYear = parseInt(row.querySelector('.tasks-per-year-input').value, 10) || 0;
@@ -1557,8 +1557,8 @@
                     const annualTotalHoursSavedForRow = timeWithout - timeWith > 0 ? timeWithout - timeWith : 0;
                     const annualSavingsForRow = annualTotalHoursSavedForRow * hourlyRate;
 
-                    row.querySelector('.task-hours-saved').textContent = annualTotalHoursSavedForRow.toFixed(2);
-                    row.querySelector('.task-savings').textContent = `$${annualSavingsForRow.toFixed(2)}`;
+                    row.querySelector('.task-hours-saved').textContent = annualTotalHoursSavedForRow.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+                    row.querySelector('.task-savings').textContent = `$${annualSavingsForRow.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
                     
                     associateTotalTasks += tasksPerYear;
                     associateTotalTimeWithout += timeWithout;
@@ -1568,21 +1568,21 @@
                 });
                 
                 card.querySelector('.associate-total-tasks').textContent = associateTotalTasks.toLocaleString();
-                card.querySelector('.associate-total-time-without').textContent = associateTotalTimeWithout.toFixed(2);
-                card.querySelector('.associate-total-time-with').textContent = associateTotalTimeWith.toFixed(2);
-                card.querySelector('.associate-total-hours').textContent = associateTotalHours.toFixed(2);
+                card.querySelector('.associate-total-time-without').textContent = associateTotalTimeWithout.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+                card.querySelector('.associate-total-time-with').textContent = associateTotalTimeWith.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+                card.querySelector('.associate-total-hours').textContent = associateTotalHours.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
                 card.querySelector('.associate-total-savings').textContent = `$${associateTotalSavings.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
 
                 grandTotalHours += associateTotalHours;
                 grandTotalSavings += associateTotalSavings;
             });
 
-            const gemCost = associates.length * 500;
-            const roi = gemCost > 0 ? ((grandTotalSavings - gemCost) / gemCost) * 100 : 0;
+            const agentCost = associates.length * 500;
+            const roi = agentCost > 0 ? ((grandTotalSavings - agentCost) / agentCost) * 100 : 0;
 
             grandTotalHoursEl.textContent = grandTotalHours.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
             grandTotalSavingsEl.textContent = `$${grandTotalSavings.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
-            gemCostTotalEl.textContent = `$${gemCost.toLocaleString()}`;
+            agentCostTotalEl.textContent = `$${agentCost.toLocaleString()}`;
             grandTotalRoiEl.textContent = `${roi.toFixed(2)}%`;
 
             grandTotalRoiEl.classList.remove('positive-roi', 'negative-roi');
@@ -1602,25 +1602,25 @@
         // Sample data for top users by different time periods
         const topUsersData = {
             week: [
-                { rank: 1, user: 'sarah.johnson@ibm.com', interactions: 45, gem: 'Revenue EA Review - Red Hat Paper' },
-                { rank: 2, user: 'michael.chen@ibm.com', interactions: 38, gem: 'Procurement MPA Review – Vendor Paper' },
-                { rank: 3, user: 'emily.rodriguez@ibm.com', interactions: 32, gem: 'General Document Comparison' },
-                { rank: 4, user: 'david.kim@ibm.com', interactions: 24, gem: 'Revenue NDA Review - Customer Paper' },
-                { rank: 5, user: 'jennifer.martinez@ibm.com', interactions: 21, gem: 'Procurement MPA Review – Red Hat Paper' }
+                { rank: 1, user: 'sarah.johnson@ibm.com', interactions: 45, agent: 'Revenue EA Review - Red Hat Paper' },
+                { rank: 2, user: 'michael.chen@ibm.com', interactions: 38, agent: 'Procurement MPA Review – Vendor Paper' },
+                { rank: 3, user: 'emily.rodriguez@ibm.com', interactions: 32, agent: 'General Document Comparison' },
+                { rank: 4, user: 'david.kim@ibm.com', interactions: 24, agent: 'Revenue NDA Review - Customer Paper' },
+                { rank: 5, user: 'jennifer.martinez@ibm.com', interactions: 21, agent: 'Procurement MPA Review – Red Hat Paper' }
             ],
             month: [
-                { rank: 1, user: 'sarah.johnson@ibm.com', interactions: 187, gem: 'Revenue EA Review - Red Hat Paper' },
-                { rank: 2, user: 'michael.chen@ibm.com', interactions: 154, gem: 'Procurement MPA Review – Vendor Paper' },
-                { rank: 3, user: 'emily.rodriguez@ibm.com', interactions: 132, gem: 'General Document Comparison' },
-                { rank: 4, user: 'david.kim@ibm.com', interactions: 98, gem: 'Revenue NDA Review - Customer Paper' },
-                { rank: 5, user: 'jennifer.martinez@ibm.com', interactions: 87, gem: 'Procurement MPA Review – Red Hat Paper' }
+                { rank: 1, user: 'sarah.johnson@ibm.com', interactions: 187, agent: 'Revenue EA Review - Red Hat Paper' },
+                { rank: 2, user: 'michael.chen@ibm.com', interactions: 154, agent: 'Procurement MPA Review – Vendor Paper' },
+                { rank: 3, user: 'emily.rodriguez@ibm.com', interactions: 132, agent: 'General Document Comparison' },
+                { rank: 4, user: 'david.kim@ibm.com', interactions: 98, agent: 'Revenue NDA Review - Customer Paper' },
+                { rank: 5, user: 'jennifer.martinez@ibm.com', interactions: 87, agent: 'Procurement MPA Review – Red Hat Paper' }
             ],
             year: [
-                { rank: 1, user: 'sarah.johnson@ibm.com', interactions: 2145, gem: 'Revenue EA Review - Red Hat Paper' },
-                { rank: 2, user: 'michael.chen@ibm.com', interactions: 1876, gem: 'Procurement MPA Review – Vendor Paper' },
-                { rank: 3, user: 'emily.rodriguez@ibm.com', interactions: 1654, gem: 'General Document Comparison' },
-                { rank: 4, user: 'david.kim@ibm.com', interactions: 1243, gem: 'Revenue NDA Review - Customer Paper' },
-                { rank: 5, user: 'jennifer.martinez@ibm.com', interactions: 1098, gem: 'Procurement MPA Review – Red Hat Paper' }
+                { rank: 1, user: 'sarah.johnson@ibm.com', interactions: 2145, agent: 'Revenue EA Review - Red Hat Paper' },
+                { rank: 2, user: 'michael.chen@ibm.com', interactions: 1876, agent: 'Procurement MPA Review – Vendor Paper' },
+                { rank: 3, user: 'emily.rodriguez@ibm.com', interactions: 1654, agent: 'General Document Comparison' },
+                { rank: 4, user: 'david.kim@ibm.com', interactions: 1243, agent: 'Revenue NDA Review - Customer Paper' },
+                { rank: 5, user: 'jennifer.martinez@ibm.com', interactions: 1098, agent: 'Procurement MPA Review – Red Hat Paper' }
             ]
         };
 
@@ -1637,7 +1637,7 @@
                         <td><span class="rank-badge ${rankClass}">${user.rank}</span></td>
                         <td><span class="clickable-user" data-user="${user.user}">${user.user}</span></td>
                         <td>${user.interactions.toLocaleString()}</td>
-                        <td>${user.gem}</td>
+                        <td>${user.agent}</td>
                     </tr>
                 `;
             }).join('');
@@ -1655,12 +1655,12 @@
         
         function exportToCSV() {
             let csvContent = "data:text/csv;charset=utf-8,";
-            csvContent += "Associate,Annual Salary,Hourly Rate,Task Description,Tasks Per Year,Annual Time w/o Gem (Hours),Annual Time w/ Gem (Hours),Annual Hours Saved,Annual Savings ($)\n";
+            csvContent += "Associate,Annual Salary,Hourly Rate,Task Description,Tasks Per Year,Annual Time w/o Agent (Hours),Annual Time w/ Agent (Hours),Annual Hours Saved,Annual Savings ($)\n";
 
             document.querySelectorAll('.associate-card').forEach(card => {
                 const associateName = card.querySelector('.associate-name-input').value.replace(/,/g, '');
                 const salary = card.querySelector('.annual-salary-input').value;
-                const hourlyRate = card.querySelector('.hourly-rate').textContent.replace('$', '');
+                const hourlyRate = card.querySelector('.hourly-rate').textContent.replace('$', '').replace(/,/g, '');
                 
                 csvContent += `${associateName},${salary},${hourlyRate},,,,\n`;
 
@@ -1669,22 +1669,22 @@
                     const tasksPerYear = row.querySelector('.tasks-per-year-input').value;
                     const timeWithout = row.querySelector('.time-without-input').value;
                     const timeWith = row.querySelector('.time-with-input').value;
-                    const hoursSaved = row.querySelector('.task-hours-saved').textContent;
+                    const hoursSaved = row.querySelector('.task-hours-saved').textContent.replace(/,/g, '');
                     const savings = row.querySelector('.task-savings').textContent.replace('$', '').replace(/,/g, '');
                     csvContent += ` ,,${taskName},${tasksPerYear},${timeWithout},${timeWith},${hoursSaved},${savings}\n`;
                 });
 
                 const totalTasks = card.querySelector('.associate-total-tasks').textContent;
-                const totalHours = card.querySelector('.associate-total-hours').textContent;
+                const totalHours = card.querySelector('.associate-total-hours').textContent.replace(/,/g, '');
                 const totalSavings = card.querySelector('.associate-total-savings').textContent.replace('$', '').replace(/,/g, '');
                 csvContent += ` ,Associate Total,,${totalTasks},, ,${totalHours},${totalSavings}\n`;
                 csvContent += `\n`;
             });
             
-            csvContent += "\nOverall Summary\n";
-            csvContent += `Total Hours Saved,${grandTotalHoursEl.textContent}\n`;
+            csvContent += "\nOverall Productivity Gains\n";
+            csvContent += `Total Hours Saved,${grandTotalHoursEl.textContent.replace(/,/g, '')}\n`;
             csvContent += `Total Savings ($),${grandTotalSavingsEl.textContent.replace('$', '').replace(/,/g, '')}\n`;
-            csvContent += `Gemini Annual Cost ($),${gemCostTotalEl.textContent.replace('$', '').replace(/,/g, '')}\n`;
+            csvContent += `watsonx Orchestrate Annual Cost ($),${agentCostTotalEl.textContent.replace('$', '').replace(/,/g, '')}\n`;
             csvContent += `Total ROI (%),${grandTotalRoiEl.textContent.replace('%', '')}\n`;
 
             const encodedUri = encodeURI(csvContent);
@@ -1798,7 +1798,7 @@
         const calcInfoContent = {
             "hourly-rate": { title: "Fully Loaded Hourly Rate", body: "An estimate of the true cost of an employee per hour. <br><strong>Formula:</strong> (Annual Salary / 2080) * 1.3" },
             "total-roi": { title: "Total ROI Calculation", body: "The overall Return on Investment for the tool. <br><strong>Formula:</strong> ((Total Savings - Annual Cost) / Annual Cost) * 100%" },
-            "gem-cost": { title: "watsonx Orchestrate Annual Cost", body: "Based on $500 per user per year (this is a best guess and need to confirm with IBM watsonx team). Cost is automatically calculated based on the number of associates entered." }
+            "agent-cost": { title: "watsonx Orchestrate Annual Cost", body: "Based on $500 per user per year (this is a best guess and need to confirm with IBM watsonx team). Cost is automatically calculated based on the number of associates entered." }
         };
         
         document.body.addEventListener('click', e => {
@@ -1861,95 +1861,95 @@
         const userInteractionData = {
             'sarah.johnson@ibm.com': {
                 week: [
-                    { date: '2024-12-14', time: '09:23 AM', gem: 'Revenue EA Review - Red Hat Paper' },
-                    { date: '2024-12-14', time: '02:15 PM', gem: 'General Document Comparison' },
-                    { date: '2024-12-13', time: '11:45 AM', gem: 'Revenue EA Review - Red Hat Paper' },
-                    { date: '2024-12-12', time: '03:30 PM', gem: 'Procurement MPA Review – Red Hat Paper' },
-                    { date: '2024-12-11', time: '10:00 AM', gem: 'Revenue EA Review - Red Hat Paper' },
+                    { date: '2024-12-14', time: '09:23 AM', agent: 'Revenue EA Review - Red Hat Paper' },
+                    { date: '2024-12-14', time: '02:15 PM', agent: 'General Document Comparison' },
+                    { date: '2024-12-13', time: '11:45 AM', agent: 'Revenue EA Review - Red Hat Paper' },
+                    { date: '2024-12-12', time: '03:30 PM', agent: 'Procurement MPA Review – Red Hat Paper' },
+                    { date: '2024-12-11', time: '10:00 AM', agent: 'Revenue EA Review - Red Hat Paper' },
                 ],
                 month: [
-                    { date: '2024-12-14', time: '09:23 AM', gem: 'Revenue EA Review - Red Hat Paper' },
-                    { date: '2024-12-14', time: '02:15 PM', gem: 'General Document Comparison' },
-                    { date: '2024-12-13', time: '11:45 AM', gem: 'Revenue EA Review - Red Hat Paper' },
-                    { date: '2024-12-12', time: '03:30 PM', gem: 'Procurement MPA Review – Red Hat Paper' },
-                    { date: '2024-12-11', time: '10:00 AM', gem: 'Revenue EA Review - Red Hat Paper' },
-                    { date: '2024-12-08', time: '04:22 PM', gem: 'Revenue NDA Review - Customer Paper' },
-                    { date: '2024-12-05', time: '09:10 AM', gem: 'Revenue EA Review - Red Hat Paper' },
-                    { date: '2024-12-02', time: '01:45 PM', gem: 'Revenue Appendix 1 Review – Red Hat Paper' },
-                    { date: '2024-11-28', time: '11:30 AM', gem: 'Revenue EA Review - Red Hat Paper' },
-                    { date: '2024-11-25', time: '02:00 PM', gem: 'General Document Comparison' },
+                    { date: '2024-12-14', time: '09:23 AM', agent: 'Revenue EA Review - Red Hat Paper' },
+                    { date: '2024-12-14', time: '02:15 PM', agent: 'General Document Comparison' },
+                    { date: '2024-12-13', time: '11:45 AM', agent: 'Revenue EA Review - Red Hat Paper' },
+                    { date: '2024-12-12', time: '03:30 PM', agent: 'Procurement MPA Review – Red Hat Paper' },
+                    { date: '2024-12-11', time: '10:00 AM', agent: 'Revenue EA Review - Red Hat Paper' },
+                    { date: '2024-12-08', time: '04:22 PM', agent: 'Revenue NDA Review - Customer Paper' },
+                    { date: '2024-12-05', time: '09:10 AM', agent: 'Revenue EA Review - Red Hat Paper' },
+                    { date: '2024-12-02', time: '01:45 PM', agent: 'Revenue Appendix 1 Review – Red Hat Paper' },
+                    { date: '2024-11-28', time: '11:30 AM', agent: 'Revenue EA Review - Red Hat Paper' },
+                    { date: '2024-11-25', time: '02:00 PM', agent: 'General Document Comparison' },
                 ],
                 year: Array.from({length: 187}, (_, i) => ({
                     date: `2024-${String(Math.floor(Math.random() * 12) + 1).padStart(2, '0')}-${String(Math.floor(Math.random() * 28) + 1).padStart(2, '0')}`,
                     time: `${String(Math.floor(Math.random() * 12) + 1).padStart(2, '0')}:${String(Math.floor(Math.random() * 60)).padStart(2, '0')} ${Math.random() > 0.5 ? 'AM' : 'PM'}`,
-                    gem: ['Revenue EA Review - Red Hat Paper', 'General Document Comparison', 'Procurement MPA Review – Red Hat Paper', 'Revenue Appendix 1 Review – Red Hat Paper'][Math.floor(Math.random() * 4)]
+                    agent: ['Revenue EA Review - Red Hat Paper', 'General Document Comparison', 'Procurement MPA Review – Red Hat Paper', 'Revenue Appendix 1 Review – Red Hat Paper'][Math.floor(Math.random() * 4)]
                 }))
             },
             'michael.chen@ibm.com': {
                 week: [
-                    { date: '2024-12-14', time: '10:15 AM', gem: 'Procurement MPA Review – Vendor Paper' },
-                    { date: '2024-12-13', time: '03:45 PM', gem: 'Procurement MPA Review – Vendor Paper' },
-                    { date: '2024-12-12', time: '09:30 AM', gem: 'Procurement DPA Review – Red Hat Paper' },
-                    { date: '2024-12-10', time: '02:00 PM', gem: 'Procurement MPA Review – Vendor Paper' },
+                    { date: '2024-12-14', time: '10:15 AM', agent: 'Procurement MPA Review – Vendor Paper' },
+                    { date: '2024-12-13', time: '03:45 PM', agent: 'Procurement MPA Review – Vendor Paper' },
+                    { date: '2024-12-12', time: '09:30 AM', agent: 'Procurement DPA Review – Red Hat Paper' },
+                    { date: '2024-12-10', time: '02:00 PM', agent: 'Procurement MPA Review – Vendor Paper' },
                 ],
                 month: Array.from({length: 35}, (_, i) => ({
                     date: `2024-12-${String(Math.floor(Math.random() * 14) + 1).padStart(2, '0')}`,
                     time: `${String(Math.floor(Math.random() * 12) + 1).padStart(2, '0')}:${String(Math.floor(Math.random() * 60)).padStart(2, '0')} ${Math.random() > 0.5 ? 'AM' : 'PM'}`,
-                    gem: ['Procurement MPA Review – Vendor Paper', 'Procurement DPA Review – Red Hat Paper', 'Procurement AIA Review – Vendor Paper'][Math.floor(Math.random() * 3)]
+                    agent: ['Procurement MPA Review – Vendor Paper', 'Procurement DPA Review – Red Hat Paper', 'Procurement AIA Review – Vendor Paper'][Math.floor(Math.random() * 3)]
                 })),
                 year: Array.from({length: 154}, (_, i) => ({
                     date: `2024-${String(Math.floor(Math.random() * 12) + 1).padStart(2, '0')}-${String(Math.floor(Math.random() * 28) + 1).padStart(2, '0')}`,
                     time: `${String(Math.floor(Math.random() * 12) + 1).padStart(2, '0')}:${String(Math.floor(Math.random() * 60)).padStart(2, '0')} ${Math.random() > 0.5 ? 'AM' : 'PM'}`,
-                    gem: ['Procurement MPA Review – Vendor Paper', 'Procurement DPA Review – Red Hat Paper', 'Procurement AIA Review – Vendor Paper'][Math.floor(Math.random() * 3)]
+                    agent: ['Procurement MPA Review – Vendor Paper', 'Procurement DPA Review – Red Hat Paper', 'Procurement AIA Review – Vendor Paper'][Math.floor(Math.random() * 3)]
                 }))
             },
             'emily.rodriguez@ibm.com': {
                 week: [
-                    { date: '2024-12-14', time: '11:00 AM', gem: 'General Document Comparison' },
-                    { date: '2024-12-13', time: '04:30 PM', gem: 'General Document Comparison' },
-                    { date: '2024-12-11', time: '09:15 AM', gem: 'Revenue Appendix 1 Review – Red Hat Paper' },
+                    { date: '2024-12-14', time: '11:00 AM', agent: 'General Document Comparison' },
+                    { date: '2024-12-13', time: '04:30 PM', agent: 'General Document Comparison' },
+                    { date: '2024-12-11', time: '09:15 AM', agent: 'Revenue Appendix 1 Review – Red Hat Paper' },
                 ],
                 month: Array.from({length: 28}, (_, i) => ({
                     date: `2024-12-${String(Math.floor(Math.random() * 14) + 1).padStart(2, '0')}`,
                     time: `${String(Math.floor(Math.random() * 12) + 1).padStart(2, '0')}:${String(Math.floor(Math.random() * 60)).padStart(2, '0')} ${Math.random() > 0.5 ? 'AM' : 'PM'}`,
-                    gem: ['General Document Comparison', 'Revenue Appendix 1 Review – Red Hat Paper', 'Revenue DORA Review - Red Hat Paper'][Math.floor(Math.random() * 3)]
+                    agent: ['General Document Comparison', 'Revenue Appendix 1 Review – Red Hat Paper', 'Revenue DORA Review - Red Hat Paper'][Math.floor(Math.random() * 3)]
                 })),
                 year: Array.from({length: 132}, (_, i) => ({
                     date: `2024-${String(Math.floor(Math.random() * 12) + 1).padStart(2, '0')}-${String(Math.floor(Math.random() * 28) + 1).padStart(2, '0')}`,
                     time: `${String(Math.floor(Math.random() * 12) + 1).padStart(2, '0')}:${String(Math.floor(Math.random() * 60)).padStart(2, '0')} ${Math.random() > 0.5 ? 'AM' : 'PM'}`,
-                    gem: ['General Document Comparison', 'Revenue Appendix 1 Review – Red Hat Paper', 'Revenue DORA Review - Red Hat Paper'][Math.floor(Math.random() * 3)]
+                    agent: ['General Document Comparison', 'Revenue Appendix 1 Review – Red Hat Paper', 'Revenue DORA Review - Red Hat Paper'][Math.floor(Math.random() * 3)]
                 }))
             },
             'david.kim@ibm.com': {
                 week: [
-                    { date: '2024-12-13', time: '10:30 AM', gem: 'Revenue NDA Review - Customer Paper' },
-                    { date: '2024-12-11', time: '02:45 PM', gem: 'Revenue NDA Review - Customer Paper' },
+                    { date: '2024-12-13', time: '10:30 AM', agent: 'Revenue NDA Review - Customer Paper' },
+                    { date: '2024-12-11', time: '02:45 PM', agent: 'Revenue NDA Review - Customer Paper' },
                 ],
                 month: Array.from({length: 22}, (_, i) => ({
                     date: `2024-12-${String(Math.floor(Math.random() * 14) + 1).padStart(2, '0')}`,
                     time: `${String(Math.floor(Math.random() * 12) + 1).padStart(2, '0')}:${String(Math.floor(Math.random() * 60)).padStart(2, '0')} ${Math.random() > 0.5 ? 'AM' : 'PM'}`,
-                    gem: ['Revenue NDA Review - Customer Paper', 'Revenue EA Review - Red Hat Paper'][Math.floor(Math.random() * 2)]
+                    agent: ['Revenue NDA Review - Customer Paper', 'Revenue EA Review - Red Hat Paper'][Math.floor(Math.random() * 2)]
                 })),
                 year: Array.from({length: 98}, (_, i) => ({
                     date: `2024-${String(Math.floor(Math.random() * 12) + 1).padStart(2, '0')}-${String(Math.floor(Math.random() * 28) + 1).padStart(2, '0')}`,
                     time: `${String(Math.floor(Math.random() * 12) + 1).padStart(2, '0')}:${String(Math.floor(Math.random() * 60)).padStart(2, '0')} ${Math.random() > 0.5 ? 'AM' : 'PM'}`,
-                    gem: ['Revenue NDA Review - Customer Paper', 'Revenue EA Review - Red Hat Paper'][Math.floor(Math.random() * 2)]
+                    agent: ['Revenue NDA Review - Customer Paper', 'Revenue EA Review - Red Hat Paper'][Math.floor(Math.random() * 2)]
                 }))
             },
             'jennifer.martinez@ibm.com': {
                 week: [
-                    { date: '2024-12-14', time: '01:15 PM', gem: 'Procurement MPA Review – Red Hat Paper' },
-                    { date: '2024-12-12', time: '11:00 AM', gem: 'Procurement MPA Review – Red Hat Paper' },
+                    { date: '2024-12-14', time: '01:15 PM', agent: 'Procurement MPA Review – Red Hat Paper' },
+                    { date: '2024-12-12', time: '11:00 AM', agent: 'Procurement MPA Review – Red Hat Paper' },
                 ],
                 month: Array.from({length: 18}, (_, i) => ({
                     date: `2024-12-${String(Math.floor(Math.random() * 14) + 1).padStart(2, '0')}`,
                     time: `${String(Math.floor(Math.random() * 12) + 1).padStart(2, '0')}:${String(Math.floor(Math.random() * 60)).padStart(2, '0')} ${Math.random() > 0.5 ? 'AM' : 'PM'}`,
-                    gem: ['Procurement MPA Review – Red Hat Paper', 'General Document Comparison'][Math.floor(Math.random() * 2)]
+                    agent: ['Procurement MPA Review – Red Hat Paper', 'General Document Comparison'][Math.floor(Math.random() * 2)]
                 })),
                 year: Array.from({length: 87}, (_, i) => ({
                     date: `2024-${String(Math.floor(Math.random() * 12) + 1).padStart(2, '0')}-${String(Math.floor(Math.random() * 28) + 1).padStart(2, '0')}`,
                     time: `${String(Math.floor(Math.random() * 12) + 1).padStart(2, '0')}:${String(Math.floor(Math.random() * 60)).padStart(2, '0')} ${Math.random() > 0.5 ? 'AM' : 'PM'}`,
-                    gem: ['Procurement MPA Review – Red Hat Paper', 'General Document Comparison', 'Revenue Appendix 1 Review – Red Hat Paper'][Math.floor(Math.random() * 3)]
+                    agent: ['Procurement MPA Review – Red Hat Paper', 'General Document Comparison', 'Revenue Appendix 1 Review – Red Hat Paper'][Math.floor(Math.random() * 3)]
                 }))
             }
         };
@@ -1977,7 +1977,7 @@
                 <tr>
                     <td>${item.date}</td>
                     <td>${item.time}</td>
-                    <td>${item.gem}</td>
+                    <td>${item.agent}</td>
                 </tr>
             `).join('');
             

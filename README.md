@@ -6,7 +6,7 @@ A reusable template for creating IBM legal department websites powered by **wats
 
 This template includes:
 - A main landing page with categorized agent cards
-- A password-protected admin dashboard with adoption metrics and an Impact Calculator
+- A password-protected admin dashboard with adoption metrics and a Productivity Gains Calculator
 - Embedded watsonx Orchestrate chat for each agent (fullscreen overlay)
 - Carbon Design System styling aligned with watsonx Orchestrate
 - Cursor IDE rules and skills for AI-assisted development
@@ -55,7 +55,7 @@ Minimal HTML pages that load the watsonx Orchestrate chat widget in fullscreen o
 ### Admin Dashboard (`admin.html`)
 Password-protected panel with:
 - **Adoption Metrics:** Key metrics, top users, clicks per agent (sample data until backend is deployed)
-- **Impact Calculator:** Time & cost savings calculator with localStorage persistence
+- **Productivity Gains Calculator:** Time & cost savings calculator with localStorage persistence
 - **Report Export:** CSV export of calculator data
 
 ## File Structure
@@ -111,8 +111,14 @@ See `SETUP.md` Step 6 and the `wxO-embed-chat-security-tool.sh` script for detai
 
 This template includes Cursor IDE configuration:
 
-- **Rules** — Auto-applied Carbon Design System conventions
-- **Skills** — Guided workflows for adding agents and setting up new sites
+| Type | Path | Description |
+|------|------|-------------|
+| Rule | `.cursor/rules/project-conventions.mdc` | Always-on. Enforces Carbon Design System conventions, CSS tokens, file naming, and commit style. |
+| Skill | `.cursor/skills/add-agent/SKILL.md` | On-demand. Guided workflow for adding a new watsonx Orchestrate agent. |
+| Skill | `.cursor/skills/new-site-from-template/SKILL.md` | On-demand. Guided workflow for setting up a new department site from this template. |
+
+- **Rules** are automatically applied in every Cursor session — the AI always follows them.
+- **Skills** are triggered on-demand when a request matches their purpose (e.g., "add a new agent").
 
 ## License
 

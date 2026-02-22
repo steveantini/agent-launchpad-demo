@@ -80,7 +80,7 @@ In `admin.html`:
 
 1. Update the admin password (search for the password check in the `<script>` section)
 2. The header badge says "ADMIN" by default — change if desired
-3. The Impact Calculator works immediately with localStorage — no backend needed
+3. The Productivity Gains Calculator works immediately with localStorage — no backend needed
 
 ## Step 5: Disable Embed Security (GitHub Pages only)
 
@@ -114,8 +114,11 @@ ACTION=disable ./wxO-embed-chat-security-tool.sh
 
 This template includes Cursor IDE configuration for AI-assisted development:
 
-- **`.cursor/rules/`** — Project conventions that apply automatically in every Cursor session
-- **`.cursor/skills/add-agent/`** — Guided workflow for adding new agents
-- **`.cursor/skills/new-site-from-template/`** — Guided workflow for setting up from this template
+| Type | Path | Description |
+|------|------|-------------|
+| Rule | `.cursor/rules/project-conventions.mdc` | Always-on. Enforces Carbon Design System conventions, CSS tokens, file naming, and commit style. |
+| Skill | `.cursor/skills/add-agent/SKILL.md` | On-demand. Guided workflow for adding a new watsonx Orchestrate agent. |
+| Skill | `.cursor/skills/new-site-from-template/SKILL.md` | On-demand. Guided workflow for setting up a new department site from this template. |
 
-When working in Cursor, the AI agent will automatically follow the project's Carbon Design System conventions, file naming patterns, and coding standards.
+- **Rules** are automatically applied in every Cursor session — the AI always follows them.
+- **Skills** are triggered on-demand when a request matches their purpose (e.g., "add a new agent").

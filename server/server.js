@@ -74,20 +74,20 @@ function getDateRange(period) {
 // API ENDPOINTS
 // ============================================
 
-// Track a gem click
+// Track an agent click
 app.post('/api/track-click', (req, res) => {
     try {
-        const { gemName, gemCategory, userEmail, userName } = req.body;
+        const { agentName, agentCategory, userEmail, userName } = req.body;
         const ipAddress = req.ip || req.connection.remoteAddress;
         const userAgent = req.headers['user-agent'];
         
-        if (!gemName) {
-            return res.status(400).json({ error: 'gemName is required' });
+        if (!agentName) {
+            return res.status(400).json({ error: 'agentName is required' });
         }
         
         const result = recordClick({
-            gemName,
-            gemCategory,
+            agentName,
+            agentCategory,
             userEmail: userEmail || null,
             userName: userName || null,
             ipAddress,
@@ -209,7 +209,7 @@ app.get('/api/analytics/top-users', (req, res) => {
                 rank: index + 1,
                 user: user.user_email,
                 interactions: user.interactions,
-                mostUsedGem: user.most_used_gem
+                mostUsedAgent: user.most_used_agent
             }))
         });
     } catch (error) {
@@ -230,7 +230,7 @@ app.get('/api/analytics/clicks-by-agent', (req, res) => {
         res.json({
             period,
             agents: clicks.map(item => ({
-                label: item.gem_name,
+                label: item.agent_name,
                 value: item.clicks,
                 percentage: Math.round((item.clicks / maxClicks) * 100)
             }))
@@ -258,7 +258,7 @@ app.get('/api/analytics/user/:email', (req, res) => {
             interactions: details.map(item => ({
                 date: item.date,
                 time: item.time,
-                gem: item.gem_name
+                agent: item.agent_name
             }))
         });
     } catch (error) {
@@ -302,14 +302,14 @@ app.get('/api/health', (req, res) => {
 app.listen(PORT, () => {
     console.log(`
 ╔═══════════════════════════════════════════════════════════╗
-║     CLG Custom Gems Analytics Server                      ║
+║     CLG Custom Agents Analytics Server                    ║
 ╠═══════════════════════════════════════════════════════════╣
 ║  Server running at: http://localhost:${PORT}                 ║
 ║  API endpoints:                                           ║
-║    POST /api/track-click     - Record gem clicks          ║
+║    POST /api/track-click     - Record agent clicks        ║
 ║    GET  /api/analytics/metrics - Dashboard metrics        ║
 ║    GET  /api/analytics/top-users - Top users              ║
-║    GET  /api/analytics/clicks-by-agent - Clicks per gem   ║
+║    GET  /api/analytics/clicks-by-agent - Clicks per agent ║
 ║    GET  /api/analytics/user/:email - User details         ║
 ║    GET  /api/analytics/agent/:name - Agent details        ║
 ║    GET  /api/health          - Health check               ║

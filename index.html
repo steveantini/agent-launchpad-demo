@@ -109,8 +109,9 @@
     <div class="welcome-modal-overlay" id="welcomeModalOverlay">
         <div class="welcome-modal">
             <div class="welcome-modal-header">
-                <h3>Welcome to {{SITE_TITLE}}!</h3>
-                <p>watsonX Orchestrate AI-powered tools for Legal Associates</p>
+                <h3>Welcome to {{DEPARTMENT_NAME}} Custom Agents!</h3>
+                <p>AI tools for {{DEPARTMENT_NAME}} Associates</p>
+                <p>powered by watsonx Orchestrate</p>
             </div>
             <div class="welcome-modal-body">
                 <p class="intro-text">
@@ -249,8 +250,8 @@
         // ============================================
         // AGENT CLICK TRACKING (Disabled - awaiting hosting solution)
         // ============================================
-        function trackGemClick(gemName, gemCategory) {
-            console.log('Analytics: Click tracking disabled. Agent clicked:', gemName);
+        function trackAgentClick(agentName, agentCategory) {
+            console.log('Analytics: Click tracking disabled. Agent clicked:', agentName);
         }
         
         // ============================================

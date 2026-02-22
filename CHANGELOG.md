@@ -12,7 +12,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Main landing page with categorized agent cards
 - Password-protected admin dashboard
 - Adoption Metrics section (sample data)
-- Impact Calculator with localStorage persistence
+- Productivity Gains Calculator with localStorage persistence
 - Embedded watsonx Orchestrate agent chat (fullscreen overlay)
 - Carbon Design System styling (dark header, squared UI, IBM tokens)
 - Welcome modal with session-based email collection

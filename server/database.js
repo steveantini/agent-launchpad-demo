@@ -10,12 +10,12 @@ db.pragma('journal_mode = WAL');
 
 // Initialize database tables
 function initializeDatabase() {
-    // Create clicks table to store all gem click events
+    // Create clicks table to store all agent click events
     db.exec(`
         CREATE TABLE IF NOT EXISTS clicks (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            gem_name TEXT NOT NULL,
-            gem_category TEXT,
+            agent_name TEXT NOT NULL,
+            agent_category TEXT,
             user_email TEXT,
             user_name TEXT,
             timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -27,7 +27,7 @@ function initializeDatabase() {
     // Create index for faster queries
     db.exec(`
         CREATE INDEX IF NOT EXISTS idx_clicks_timestamp ON clicks(timestamp);
-        CREATE INDEX IF NOT EXISTS idx_clicks_gem_name ON clicks(gem_name);
+        CREATE INDEX IF NOT EXISTS idx_clicks_agent_name ON clicks(agent_name);
         CREATE INDEX IF NOT EXISTS idx_clicks_user_email ON clicks(user_email);
     `);
 
@@ -35,13 +35,13 @@ function initializeDatabase() {
 }
 
 // Record a click event
-function recordClick({ gemName, gemCategory, userEmail, userName, ipAddress, userAgent }) {
+function recordClick({ agentName, agentCategory, userEmail, userName, ipAddress, userAgent }) {
     const stmt = db.prepare(`
-        INSERT INTO clicks (gem_name, gem_category, user_email, user_name, ip_address, user_agent)
+        INSERT INTO clicks (agent_name, agent_category, user_email, user_name, ip_address, user_agent)
         VALUES (?, ?, ?, ?, ?, ?)
     `);
     
-    return stmt.run(gemName, gemCategory, userEmail, userName, ipAddress, userAgent);
+    return stmt.run(agentName, agentCategory, userEmail, userName, ipAddress, userAgent);
 }
 
 // Get total interactions for a time period
@@ -83,12 +83,12 @@ function getTopUsers(startDate, endDate, limit = 5) {
         SELECT 
             user_email,
             COUNT(*) as interactions,
-            (SELECT gem_name FROM clicks c2 
+            (SELECT agent_name FROM clicks c2 
              WHERE c2.user_email = clicks.user_email 
              AND c2.timestamp >= ? AND c2.timestamp <= ?
-             GROUP BY gem_name 
+             GROUP BY agent_name 
              ORDER BY COUNT(*) DESC 
-             LIMIT 1) as most_used_gem
+             LIMIT 1) as most_used_agent
         FROM clicks
         WHERE timestamp >= ? AND timestamp <= ?
         AND user_email IS NOT NULL AND user_email != ''
@@ -99,13 +99,13 @@ function getTopUsers(startDate, endDate, limit = 5) {
     return stmt.all(startDate, endDate, startDate, endDate, limit);
 }
 
-// Get clicks per agent/gem
+// Get clicks per agent
 function getClicksByAgent(startDate, endDate) {
     const stmt = db.prepare(`
-        SELECT gem_name, COUNT(*) as clicks
+        SELECT agent_name, COUNT(*) as clicks
         FROM clicks
         WHERE timestamp >= ? AND timestamp <= ?
-        GROUP BY gem_name
+        GROUP BY agent_name
         ORDER BY clicks DESC
     `);
     return stmt.all(startDate, endDate);
@@ -117,7 +117,7 @@ function getUserDetails(userEmail, startDate, endDate, limit = 50) {
         SELECT 
             DATE(timestamp) as date,
             TIME(timestamp) as time,
-            gem_name
+            agent_name
         FROM clicks
         WHERE user_email = ?
         AND timestamp >= ? AND timestamp <= ?
@@ -138,29 +138,29 @@ function getUserInteractionCount(userEmail, startDate, endDate) {
 }
 
 // Get agent usage details
-function getAgentDetails(gemName, startDate, endDate, limit = 50) {
+function getAgentDetails(agentName, startDate, endDate, limit = 50) {
     const stmt = db.prepare(`
         SELECT 
             DATE(timestamp) as date,
             TIME(timestamp) as time,
             user_email
         FROM clicks
-        WHERE gem_name = ?
+        WHERE agent_name = ?
         AND timestamp >= ? AND timestamp <= ?
         ORDER BY timestamp DESC
         LIMIT ?
     `);
-    return stmt.all(gemName, startDate, endDate, limit);
+    return stmt.all(agentName, startDate, endDate, limit);
 }
 
 // Get total uses for an agent
-function getAgentUsageCount(gemName, startDate, endDate) {
+function getAgentUsageCount(agentName, startDate, endDate) {
     const stmt = db.prepare(`
         SELECT COUNT(*) as total FROM clicks
-        WHERE gem_name = ?
+        WHERE agent_name = ?
         AND timestamp >= ? AND timestamp <= ?
     `);
-    return stmt.get(gemName, startDate, endDate).total;
+    return stmt.get(agentName, startDate, endDate).total;
 }
 
 // Get comparison metrics (for trend calculations)
