@@ -1,9 +1,4 @@
----
-description: Core conventions for the IBM CLG Custom Agents website. Enforces Carbon Design System patterns, file structure, and coding standards.
-alwaysApply: true
----
-
-# IBM CLG Custom Agents — Project Conventions
+# IBM {{DEPARTMENT_NAME}} Custom Agents — Project Conventions
 
 ## Design System
 
@@ -51,13 +46,13 @@ Badge color: IBM Blue 50 (`#4589ff`)
 ## Key Behaviors
 
 - The "Last updated" date in index.html auto-updates via `document.lastModified` — never hardcode it
-- Productivity Gains Calculator data auto-saves to `localStorage` (key: `clg_calculator_data`)
+- Productivity Gains Calculator data auto-saves to `localStorage` (key: `{{DEPARTMENT_NAME_LOWERCASE}}_calculator_data`)
 - Welcome modal shows once per browser session (`sessionStorage`)
 - Admin page mirrors main page header (only badge text differs)
 
 ## Documentation Sync
 
-When adding, removing, or modifying rules or skills in `.cursor/`, update the following to reflect the change:
-- The **"Cursor AI Integration"** section in `README.md` (including the summary table)
+When adding, removing, or modifying skills in `.claude/`, update the following to reflect the change:
+- The **"Claude Code Integration"** section in `README.md` (including the summary table)
 - The **file structure tree** in `README.md`
-- The **"Cursor AI Integration"** section in `SETUP.md`
+- The **"Claude Code Integration"** section in `SETUP.md`

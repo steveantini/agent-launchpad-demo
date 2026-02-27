@@ -1,6 +1,6 @@
 ---
 name: add-agent
-description: Add a new watsonx Orchestrate agent to the CLG Custom Agents website. Use when the user wants to add a new agent card, create a new agent embed page, or connect a new watsonx Orchestrate agent.
+description: Add a new watsonx Orchestrate agent to the {{DEPARTMENT_NAME}} Custom Agents website. Use when the user wants to add a new agent card, create a new agent embed page, or connect a new watsonx Orchestrate agent.
 ---
 
 # Add a New Agent
@@ -54,7 +54,7 @@ Find the correct category section and add a card:
 ## Step 3: Update Documentation
 
 1. Update `README.md` — add the new file to the File Structure section
-2. Update the agent count if referenced (currently "16 agents")
+2. Update the agent count if referenced
 
 ## Step 4: Commit and Push
 

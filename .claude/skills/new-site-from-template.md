@@ -1,6 +1,6 @@
 ---
 name: new-site-from-template
-description: Set up a new IBM legal department website from the CLG Custom Agents template. Use when the user wants to create a new site for a different department, replicate the website, or spin up a new instance from the template.
+description: Set up a new IBM legal department website from the {{DEPARTMENT_NAME}} Custom Agents template. Use when the user wants to create a new site for a different department, replicate the website, or spin up a new instance from the template.
 ---
 
 # Set Up a New Department Site from Template

@@ -9,7 +9,7 @@ This template includes:
 - A password-protected admin dashboard with adoption metrics and a Productivity Gains Calculator
 - Embedded watsonx Orchestrate chat for each agent (fullscreen overlay)
 - Carbon Design System styling aligned with watsonx Orchestrate
-- Cursor IDE rules and skills for AI-assisted development
+- Claude Code conventions and skills for AI-assisted development
 
 ## Quick Start
 
@@ -78,12 +78,12 @@ project-root/
 │   ├── package.json
 │   └── README.md
 │
-└── .cursor/                            # Cursor IDE AI configuration
-    ├── rules/
-    │   └── project-conventions.mdc     # Auto-applied project conventions
+├── CLAUDE.md                           # Claude Code project conventions & skills reference
+└── .claude/                            # Claude Code AI configuration
     └── skills/
-        ├── add-agent/SKILL.md          # Guided workflow: add a new agent
-        └── new-site-from-template/SKILL.md  # Guided workflow: set up new site
+        ├── add-agent.md                # Guided workflow: add a new agent
+        ├── new-site-from-template.md   # Guided workflow: set up new site
+        └── sync-to-template.md         # Review & sync changes to template repo
 ```
 
 ## Design System
@@ -107,17 +107,18 @@ This template follows IBM's **Carbon Design System**:
 
 See `SETUP.md` Step 6 and the `wxO-embed-chat-security-tool.sh` script for details.
 
-## Cursor AI Integration
+## Claude Code Integration
 
-This template includes Cursor IDE configuration:
+This template includes Claude Code configuration:
 
 | Type | Path | Description |
 |------|------|-------------|
-| Rule | `.cursor/rules/project-conventions.mdc` | Always-on. Enforces Carbon Design System conventions, CSS tokens, file naming, and commit style. |
-| Skill | `.cursor/skills/add-agent/SKILL.md` | On-demand. Guided workflow for adding a new watsonx Orchestrate agent. |
-| Skill | `.cursor/skills/new-site-from-template/SKILL.md` | On-demand. Guided workflow for setting up a new department site from this template. |
+| Conventions | `CLAUDE.md` | Always-on. Enforces Carbon Design System conventions, CSS tokens, file naming, commit style, and template sync prompts. |
+| Skill | `.claude/skills/add-agent.md` | On-demand. Guided workflow for adding a new watsonx Orchestrate agent. |
+| Skill | `.claude/skills/new-site-from-template.md` | On-demand. Guided workflow for setting up a new department site from this template. |
+| Skill | `.claude/skills/sync-to-template.md` | On-demand. Review and finalize accumulated changes for syncing to the template repo. |
 
-- **Rules** are automatically applied in every Cursor session — the AI always follows them.
+- **`CLAUDE.md`** is automatically applied in every Claude Code session — the AI always follows the conventions defined there.
 - **Skills** are triggered on-demand when a request matches their purpose (e.g., "add a new agent").
 
 ## License

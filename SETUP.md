@@ -110,15 +110,16 @@ ACTION=disable ./wxO-embed-chat-security-tool.sh
 
 ---
 
-## Cursor AI Integration
+## Claude Code Integration
 
-This template includes Cursor IDE configuration for AI-assisted development:
+This template includes Claude Code configuration for AI-assisted development:
 
 | Type | Path | Description |
 |------|------|-------------|
-| Rule | `.cursor/rules/project-conventions.mdc` | Always-on. Enforces Carbon Design System conventions, CSS tokens, file naming, and commit style. |
-| Skill | `.cursor/skills/add-agent/SKILL.md` | On-demand. Guided workflow for adding a new watsonx Orchestrate agent. |
-| Skill | `.cursor/skills/new-site-from-template/SKILL.md` | On-demand. Guided workflow for setting up a new department site from this template. |
+| Conventions | `CLAUDE.md` | Always-on. Conventions, file naming, commit style, and template sync prompts. |
+| Skill | `.claude/skills/add-agent.md` | On-demand. Guided workflow for adding new agents. |
+| Skill | `.claude/skills/new-site-from-template.md` | On-demand. Guided workflow for setting up from this template. |
+| Skill | `.claude/skills/sync-to-template.md` | On-demand. Review and sync accumulated changes to the template repo. |
 
-- **Rules** are automatically applied in every Cursor session — the AI always follows them.
+- **`CLAUDE.md`** is automatically applied in every Claude Code session — the AI always follows the conventions defined there.
 - **Skills** are triggered on-demand when a request matches their purpose (e.g., "add a new agent").
