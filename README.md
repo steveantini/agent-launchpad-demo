@@ -121,6 +121,15 @@ This template includes Claude Code configuration:
 - **`CLAUDE.md`** is automatically applied in every Claude Code session — the AI always follows the conventions defined there.
 - **Skills** are triggered on-demand when a request matches their purpose (e.g., "add a new agent").
 
+## Related Projects
+
+This template is part of the IBM Legal Review Assistant ecosystem. Each project delivers the same watsonx Orchestrate agents through a different channel:
+
+| Project | Description |
+|---------|-------------|
+| [ibm-lra-rh-clg-custom-agents-website](https://github.ibm.com/santini/IBM-LRA-RH-CLG-custom-agents-website) | CLG-specific implementation of this template — the live Red Hat Commercial Legal Group agent website |
+| [ibm-lra-custom-agent-word-add-in](https://github.ibm.com/santini/ibm-lra-custom-agent-word-add-in) | Microsoft Word add-in that brings contract review agents directly into the document editing experience |
+
 ## License
 
 *Internal Use Only — IBM Legal and Regulatory Affairs.*
