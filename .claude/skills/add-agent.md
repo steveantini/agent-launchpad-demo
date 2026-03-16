@@ -12,7 +12,7 @@ Gather from the user:
 2. **Category** where the card should appear
 3. **Brief description** of what the agent does
 4. **Platform-specific info:**
-   - For **watsonx**: Agent environment ID
+   - For **widget**: Agent ID and environment ID
    - For **iframe**: Agent embed URL
    - For **link**: Agent URL
 

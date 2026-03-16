@@ -13,7 +13,7 @@
          * on <div id="root"> to determine how to load the agent.
          *
          * Supported platforms:
-         *   "watsonx"  – IBM watsonx Orchestrate embed widget
+         *   "widget"   – platform-specific embed widget
          *   "iframe"   – generic iframe (set data-agent-url on #root)
          *   "script"   – custom embed script (set SITE_CONFIG.agentDefaults.embedScriptURL)
          *   "link"     – redirect to URL (set data-agent-url on #root)
@@ -24,29 +24,23 @@
             var agentUrl = rootEl ? rootEl.getAttribute('data-agent-url') : '';
             var defaults = SITE_CONFIG.agentDefaults;
 
-            if (platform === 'watsonx') {
-                window.wxOConfiguration = {
-                    orchestrationID: defaults.orchestrationID || '{{ORCHESTRATION_ID}}',
+            if (platform === 'widget') {
+                // Platform-specific widget embed
+                // Configure this block for your agent platform's embed SDK
+                var widgetConfig = {
+                    platformID: defaults.platformID || '{{PLATFORM_ID}}',
                     hostURL: defaults.hostURL || '{{HOST_URL}}',
                     rootElementID: 'root',
                     showLauncher: false,
-                    chatOptions: {
-                        agentId: rootEl ? rootEl.getAttribute('data-agent-id') : '{{AGENT_ID}}',
-                        agentEnvironmentId: rootEl ? rootEl.getAttribute('data-agent-env-id') : '{{AGENT_ENVIRONMENT_ID}}',
-                    },
-                    layout: {
-                        form: 'fullscreen-overlay',
-                        showOrchestrateHeader: defaults.showOrchestrateHeader !== false,
-                    }
+                    agentId: rootEl ? rootEl.getAttribute('data-agent-id') : '{{AGENT_ID}}',
+                    agentEnvironmentId: rootEl ? rootEl.getAttribute('data-agent-env-id') : '{{AGENT_ENVIRONMENT_ID}}',
+                    showPlatformHeader: defaults.showPlatformHeader !== false,
                 };
-                setTimeout(function () {
-                    var script = document.createElement('script');
-                    script.src = window.wxOConfiguration.hostURL + '/wxochat/wxoLoader.js?embed=true';
-                    script.addEventListener('load', function () {
-                        wxoLoader.init();
-                    });
-                    document.head.appendChild(script);
-                }, 0);
+                // Load your platform's embed script here
+                // Example:
+                // var script = document.createElement('script');
+                // script.src = widgetConfig.hostURL + '/embed/loader.js';
+                // document.head.appendChild(script);
 
             } else if (platform === 'iframe' && agentUrl) {
                 var iframe = document.createElement('iframe');

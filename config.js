@@ -32,24 +32,24 @@ const SITE_CONFIG = {
         textSecondary: "#525252",
         textHelper: "#6f6f6f",
         borderRadius: "0px",
-        fontFamily: "'IBM Plex Sans', sans-serif",
-        fontUrl: "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@100;300;400;600;700&display=swap",
+        fontFamily: "'Inter', sans-serif",
+        fontUrl: "https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;600;700&display=swap",
     },
 
     // ── Agent Platform ─────────────────────────────────────────
-    // "watsonx" | "iframe" | "script" | "link"
+    // "widget" | "iframe" | "script" | "link"
     //
-    //   watsonx  – IBM watsonx Orchestrate embed widget
+    //   widget   – platform-specific embed widget (set hostURL + config)
     //   iframe   – generic iframe embed (Dialogflow, Botpress, etc.)
     //   script   – load a custom embed script URL
     //   link     – simply open a URL in a new tab (default card behavior)
     agentPlatform: "link",
 
     agentDefaults: {
-        // watsonx-specific
+        // widget-specific
         hostURL: "",
-        orchestrationID: "",
-        showOrchestrateHeader: true,
+        platformID: "",
+        showPlatformHeader: true,
 
         // iframe-specific
         iframeBaseURL: "",
@@ -95,8 +95,8 @@ const THEME_PRESETS = {
         textSecondary: "#525252",
         textHelper: "#6f6f6f",
         borderRadius: "0px",
-        fontFamily: "'IBM Plex Sans', sans-serif",
-        fontUrl: "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@100;300;400;600;700&display=swap",
+        fontFamily: "'Inter', sans-serif",
+        fontUrl: "https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;600;700&display=swap",
     },
     modern: {
         primaryColor: "#6366f1",

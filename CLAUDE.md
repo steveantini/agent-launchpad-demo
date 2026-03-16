@@ -22,7 +22,7 @@ This site uses a **configurable theme engine** defined in `config.js`. All color
 | `--header-bg` | `#161616` | Header background |
 | `--bg-page` | `#f4f4f4` | Page background |
 | `--radius` | `0px` | Border radius for interactive elements |
-| `--font-family` | `'IBM Plex Sans'` | Site font |
+| `--font-family` | `'Inter'` | Site font |
 
 ## Theme Presets
 
@@ -48,7 +48,7 @@ All branding, theming, and platform settings live in `config.js`:
 - `SITE_CONFIG.siteTitle` — page header title
 - `SITE_CONFIG.companyName` — company name
 - `SITE_CONFIG.themePreset` — `"carbon"`, `"modern"`, `"minimal"`, or `"custom"`
-- `SITE_CONFIG.agentPlatform` — `"watsonx"`, `"iframe"`, `"script"`, or `"link"`
+- `SITE_CONFIG.agentPlatform` — `"widget"`, `"iframe"`, `"script"`, or `"link"`
 - `SITE_CONFIG.storagePrefix` — localStorage/sessionStorage key prefix
 
 HTML uses `data-bind` attributes for dynamic text injection from config.

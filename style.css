@@ -14,7 +14,7 @@
     --header-divider: #525252;
     --bg-page: #f4f4f4;
     --radius: 0px;
-    --font-family: 'IBM Plex Sans', sans-serif;
+    --font-family: 'Inter', sans-serif;
 }
 body {
     font-family: var(--font-family);

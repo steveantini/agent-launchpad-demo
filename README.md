@@ -2,12 +2,12 @@
 
 ## Description
 
-A reusable, **platform-agnostic** template for creating agent launchpad websites. Provides organized access to AI agents through a modern web interface — works with any agent platform (watsonx Orchestrate, Dialogflow, Botpress, custom, or simple links).
+A reusable, **platform-agnostic** template for creating agent launchpad websites. Provides organized access to AI agents through a modern web interface — works with any agent platform (Dialogflow, Botpress, custom widgets, or simple links).
 
 This template includes:
 - A main landing page with categorized agent cards
 - A password-protected admin dashboard with adoption metrics and a Productivity Gains Calculator
-- Configurable agent embedding (watsonx, iframe, custom script, or external links)
+- Configurable agent embedding (widget, iframe, custom script, or external links)
 - A theme engine with built-in presets (Carbon, Modern, Minimal) or fully custom theming
 - AI assistant conventions and skills for AI-assisted development
 
@@ -28,7 +28,7 @@ All site settings are centralized in a single file:
 | `siteTitle` | Header title | `"AI Agent Hub"` |
 | `departmentName` | Department name | `"Operations"` |
 | `themePreset` | Visual theme | `"carbon"`, `"modern"`, `"minimal"`, `"custom"` |
-| `agentPlatform` | How agents are loaded | `"watsonx"`, `"iframe"`, `"script"`, `"link"` |
+| `agentPlatform` | How agents are loaded | `"widget"`, `"iframe"`, `"script"`, `"link"` |
 | `adminPassword` | Admin dashboard password | `"your-secure-password"` |
 | `calculator.costPerUserPerYear` | Platform cost for ROI calc | `500` |
 | `storagePrefix` | localStorage key prefix | `"mysite_"` |
@@ -42,8 +42,8 @@ These placeholders remain in HTML files for per-page customization:
 | `{{CATEGORY_1_NAME}}` | First category section heading |
 | `{{CATEGORY_2_NAME}}` | Second category section heading |
 | `{{AGENT_TITLE}}` | Agent page title (in agent-template.html) |
-| `{{AGENT_ID}}` | Agent ID (watsonx platform) |
-| `{{AGENT_ENVIRONMENT_ID}}` | Agent environment ID (watsonx platform) |
+| `{{AGENT_ID}}` | Agent ID (widget platform) |
+| `{{AGENT_ENVIRONMENT_ID}}` | Agent environment ID (widget platform) |
 | `{{AGENT_URL}}` | Agent URL (iframe/link platform) |
 
 ## Features
@@ -59,7 +59,7 @@ These placeholders remain in HTML files for per-page customization:
 
 ### Agent Embed Pages (`agent-template.html`)
 Platform-agnostic agent pages that load the appropriate embed based on `config.js`:
-- **watsonx:** Loads the watsonx Orchestrate chat widget
+- **widget:** Loads a platform-specific embed widget
 - **iframe:** Embeds any agent via iframe URL
 - **script:** Loads a custom embed script
 - **link:** Redirects to an external URL
@@ -83,7 +83,6 @@ project-root/
 ├── SETUP.md                            # Template setup guide
 ├── CHANGELOG.md                        # Version history
 ├── agent-template.html                 # Copy this for each new agent
-├── wxO-embed-chat-security-tool.sh     # Embed security tool (watsonx only)
 │
 ├── server/                             # Node.js analytics backend (future use)
 │   ├── server.js
@@ -101,16 +100,10 @@ project-root/
 
 | Preset | Primary Color | Font | Border Radius | Header |
 |--------|---------------|------|---------------|--------|
-| `carbon` | `#0f62fe` | IBM Plex Sans | `0px` | Dark (`#161616`) |
+| `carbon` | `#0f62fe` | Inter | `0px` | Dark (`#161616`) |
 | `modern` | `#6366f1` | Inter | `8px` | Dark Indigo (`#1e1b4b`) |
 | `minimal` | `#18181b` | DM Sans | `6px` | Light (`#fafafa`) |
 | `custom` | Your choice | Your choice | Your choice | Your choice |
-
-## Embedded Chat Security (watsonx only)
-
-> **WARNING:** Embedded chat security is DISABLED by default for GitHub Pages compatibility. Re-enable before deploying to any environment accessible outside your organization.
-
-See `SETUP.md` Step 5 and the `wxO-embed-chat-security-tool.sh` script for details.
 
 ## AI Assistant Integration
 

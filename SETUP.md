@@ -29,7 +29,7 @@ const SITE_CONFIG = {
 
 ### Theme Options
 
-- `"carbon"` — IBM-style squared UI with dark header
+- `"carbon"` — Squared UI with dark header
 - `"modern"` — Rounded corners, indigo palette
 - `"minimal"` — Clean, light header, neutral palette
 - `"custom"` — Fill in the `custom` object with your own colors and font
@@ -42,7 +42,7 @@ In `config.js`, set `agentPlatform`:
 |----------|-------------|-----------------|
 | `"link"` | Agent cards open URLs in new tabs (default) | Card `href` attributes |
 | `"iframe"` | Embed agents via iframe | `agentDefaults.iframeBaseURL` or per-page `data-agent-url` |
-| `"watsonx"` | IBM watsonx Orchestrate widget | `agentDefaults.hostURL`, `agentDefaults.orchestrationID` |
+| `"widget"` | Platform-specific embed widget | `agentDefaults.hostURL`, `agentDefaults.platformID` |
 | `"script"` | Load a custom embed script | `agentDefaults.embedScriptURL` |
 
 ## Step 3: Set Up Agent Categories
@@ -69,7 +69,7 @@ For each agent you want to include:
 1. Copy `agent-template.html` to a new file (e.g., `agent-compliance-vendor.html`)
 2. Replace `{{AGENT_TITLE}}` with the agent name
 3. Set the appropriate data attributes on the `#root` div:
-   - For **watsonx**: set `data-agent-id` and `data-agent-env-id`
+   - For **widget**: set `data-agent-id` and `data-agent-env-id`
    - For **iframe**: set `data-agent-url`
    - For **link**: set `data-agent-url`
 
@@ -88,18 +88,7 @@ Add a card in the appropriate category section:
 - `icon-card primary-accent` — Primary color accent on the title
 - `icon-card` — Default card (no accent color)
 
-## Step 5: Configure Security (watsonx only)
-
-If using watsonx Orchestrate and deploying to GitHub Pages:
-
-```bash
-chmod +x wxO-embed-chat-security-tool.sh
-ACTION=disable ./wxO-embed-chat-security-tool.sh
-```
-
-> **Important:** Only disable security for internal deployments.
-
-## Step 6: Enable GitHub Pages
+## Step 5: Enable GitHub Pages
 
 1. Go to your repo's **Settings** > **Pages**
 2. Source: **Deploy from a branch**
@@ -107,7 +96,7 @@ ACTION=disable ./wxO-embed-chat-security-tool.sh
 4. Click **Save**
 5. Your site will be live in 1-2 minutes
 
-## Step 7: Clean Up
+## Step 6: Clean Up
 
 - Delete `agent-template.html` (or keep it for future reference)
 - Remove any example agent cards from `index.html`
