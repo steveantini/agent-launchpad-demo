@@ -6,21 +6,43 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
-## [1.0.0] - Template Release
+## [2.0.0] - Generic Template Release
+
+### Changed
+- **De-branded from IBM/watsonx** — All IBM, watsonx Orchestrate, and Carbon-specific branding removed from the UI
+- **Centralized configuration** — New `config.js` file drives all branding, theming, and agent platform settings
+- **Theme engine** — CSS custom properties now set dynamically at runtime from config; three built-in presets (Carbon, Modern, Minimal) plus fully custom option
+- **Generic agent platform** — Agent embed pages now support watsonx, iframe, custom script, or simple link platforms via `config.js`
+- **Dynamic text injection** — Header branding, welcome modal, and calculator labels populate from config via `data-bind` attributes
+- **Generic mock data** — Admin dashboard sample data uses `@example.com` emails and generic agent names
+- **Configurable storage keys** — All localStorage/sessionStorage keys use a configurable prefix
+- **Configurable calculator** — Platform cost label and per-user cost driven by config
+
+### Added
+- `config.js` — Centralized site configuration with theme presets
+- `--color-primary`, `--color-primary-hover`, `--color-accent`, `--radius`, `--font-family` CSS variables
+- `data-bind` attribute system for dynamic text injection from config
+- Platform abstraction in `agent-template.html` supporting multiple agent providers
+
+### Removed
+- Hardcoded IBM Plex Sans font (now configurable, still default in Carbon preset)
+- Hardcoded `--ibm-blue` CSS variable (now `--color-primary`)
+- `@ibm.com` email addresses in sample data
+- IBM watsonx Orchestrate branding in headers and modals
+- Procurement/Revenue-specific agent names in sample data
+
+---
+
+## [1.0.0] - Initial Template Release
 
 ### Included
 - Main landing page with categorized agent cards
 - Password-protected admin dashboard
 - Adoption Metrics section (sample data)
 - Productivity Gains Calculator with localStorage persistence
-- Embedded watsonx Orchestrate agent chat (fullscreen overlay)
-- Carbon Design System styling (dark header, squared UI, IBM tokens)
-- Welcome modal with session-based email collection
-- Support contact modal
-- Auto-updating "Last updated" date
 - Agent embed template page with placeholders
 - Template setup guide (SETUP.md)
-- Cursor IDE rules and skills
+- AI assistant rules and skills
 - Embed security configuration tool
 
 ---

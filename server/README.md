@@ -1,6 +1,6 @@
-# IBM CLG Custom Agents Analytics Server
+# Agent Launchpad Analytics Server
 
-A Node.js/Express backend server that tracks and stores analytics data for the IBM CLG Custom Agents website.
+A Node.js/Express backend server that tracks and stores analytics data for the Agent Launchpad website.
 
 ## Features
 
@@ -41,10 +41,10 @@ POST /api/track-click
 Content-Type: application/json
 
 {
-  "agentName": "Revenue EA Review - Red Hat Paper",
-  "agentCategory": "Revenue",
-  "userEmail": "user@ibm.com",  // optional
-  "userName": "John Doe"        // optional
+  "agentName": "Contract Review Agent - Internal",
+  "agentCategory": "Compliance",
+  "userEmail": "user@example.com",  // optional
+  "userName": "John Doe"            // optional
 }
 ```
 
@@ -87,7 +87,7 @@ The server uses SQLite with the database file stored at `server/analytics.db`. T
 **clicks** table:
 - `id` - Primary key
 - `agent_name` - Name of the agent clicked
-- `agent_category` - Category (Procurement, Revenue, General)
+- `agent_category` - Category of the agent
 - `user_email` - User's email (if provided)
 - `user_name` - User's name (if provided)
 - `timestamp` - When the click occurred
@@ -104,15 +104,6 @@ The server uses SQLite with the database file stored at `server/analytics.db`. T
 
 4. **Fallback Mode**: If the server is not running, the admin dashboard gracefully falls back to displaying sample data.
 
-## User Identification
-
-For better tracking, users can optionally be identified. The frontend stores user email in `localStorage`. To enable the email prompt on first visit, uncomment the relevant code block in `index.html`.
-
-Alternatively, you can integrate with:
-- IBM SSO/w3id authentication
-- Google Sign-In
-- Any other identity provider
-
 ## Production Deployment
 
 For production use, consider:
@@ -126,7 +117,7 @@ For production use, consider:
 Example with PM2:
 ```bash
 npm install -g pm2
-pm2 start server.js --name "ibm-clg-analytics"
+pm2 start server.js --name "agent-launchpad-analytics"
 pm2 save
 pm2 startup
 ```
@@ -144,7 +135,3 @@ Ensure only one instance of the server is running. SQLite supports concurrent re
 
 ### CORS errors
 The server includes CORS middleware. If accessing from a different domain, update the CORS configuration in `server.js`.
-
-## License
-
-Internal Use Only - IBM Legal and Regulatory Affairs

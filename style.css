@@ -1,6 +1,7 @@
 :root {
-    --ibm-blue: #0f62fe;
-    --vendor-blue: #0066CC;
+    --color-primary: #0f62fe;
+    --color-primary-hover: #0043ce;
+    --color-accent: #4589ff;
     --card-bg: #ffffff;
     --text-primary: #161616;
     --text-secondary: #525252;
@@ -9,10 +10,14 @@
     --disabled-color: #bbbbbb;
     --disabled-bg: #f5f5f5;
     --header-bg: #161616;
+    --header-text: #ffffff;
+    --header-divider: #525252;
     --bg-page: #f4f4f4;
+    --radius: 0px;
+    --font-family: 'IBM Plex Sans', sans-serif;
 }
 body {
-    font-family: 'IBM Plex Sans', sans-serif;
+    font-family: var(--font-family);
     font-weight: 300;
     background-color: var(--bg-page);
     color: var(--text-primary);
@@ -21,10 +26,10 @@ body {
     text-align: center;
 }
 
-/* Dark Carbon Header */
+/* Dark Header */
 .site-header {
     background-color: var(--header-bg);
-    color: #fff;
+    color: var(--header-text);
     padding: 0 2rem;
     height: 48px;
     display: flex;
@@ -46,34 +51,34 @@ body {
     align-items: center;
     gap: 0.75rem;
 }
-.header-ibm-text {
+.header-brand-text {
     font-size: 0.875rem;
     font-weight: 700;
-    color: #fff;
+    color: var(--header-text);
     letter-spacing: 0.05em;
 }
 .header-powered {
     font-size: 0.875rem;
     font-weight: 100;
-    color: #fff;
+    color: var(--header-text);
     letter-spacing: 0.01em;
 }
 .header-divider {
     width: 1px;
     height: 20px;
-    background-color: #525252;
+    background-color: var(--header-divider);
 }
 .header-title {
     font-size: 0.875rem;
     font-weight: 400;
-    color: #fff;
+    color: var(--header-text);
     letter-spacing: 0.01em;
 }
 .header-badge {
     font-size: 0.625rem;
     font-weight: 600;
     color: #fff;
-    background-color: #4589ff;
+    background-color: var(--color-accent);
     padding: 2px 8px;
     border-radius: 100px;
     text-transform: uppercase;
@@ -84,14 +89,14 @@ body {
     align-items: center;
 }
 .admin-btn {
-    font-family: 'IBM Plex Sans', sans-serif;
+    font-family: var(--font-family);
     font-size: 0.75rem;
     font-weight: 400;
-    color: #fff;
+    color: var(--header-text);
     background-color: transparent;
     border: 1px solid #6f6f6f;
     padding: 4px 12px;
-    border-radius: 0;
+    border-radius: var(--radius);
     text-decoration: none;
     cursor: pointer;
     transition: all 0.15s ease;
@@ -176,8 +181,8 @@ h5 {
     box-shadow: 0 4px 12px var(--shadow-color);
 }
 
-.ibm h3 {
-    color: var(--ibm-blue);
+.primary-accent h3 {
+    color: var(--color-primary);
 }
 
 .tips-container {
@@ -194,8 +199,8 @@ h5 {
     font-size: 1.5rem;
     margin-top: 0;
 }
-.content-section h3.ibm-paper {
-    color: var(--ibm-blue);
+.content-section h3.section-accent {
+    color: var(--color-primary);
 }
 .content-section p, .content-section li {
     font-size: 1rem;
@@ -236,12 +241,12 @@ h5 {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    background-color: var(--ibm-blue);
+    background-color: var(--color-primary);
     color: #fff;
     padding: 10px 15px;
-    border-radius: 0;
+    border-radius: var(--radius);
     text-decoration: none;
-    font-family: 'IBM Plex Sans', sans-serif;
+    font-family: var(--font-family);
     font-size: 1rem;
     font-weight: 600;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
@@ -262,7 +267,7 @@ h5 {
     right: 20px;
     width: 60px;
     height: 60px;
-    background-color: var(--ibm-blue);
+    background-color: var(--color-primary);
     border: none;
     border-radius: 50%;
     cursor: pointer;
@@ -306,7 +311,7 @@ h5 {
 /* Support Modal Content */
 .support-modal {
     background-color: #fff;
-    border-radius: 0;
+    border-radius: var(--radius);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
     max-width: 420px;
     width: 90%;
@@ -326,7 +331,7 @@ h5 {
 }
 
 .support-modal-header {
-    background-color: var(--ibm-blue);
+    background-color: var(--color-primary);
     color: #fff;
     padding: 1rem 1.5rem;
     display: flex;
@@ -379,15 +384,15 @@ h5 {
 
 .support-contact {
     background-color: #f8f9fa;
-    border-radius: 0;
+    border-radius: var(--radius);
     padding: 1rem;
-    border-left: 4px solid var(--ibm-blue);
+    border-left: 4px solid var(--color-primary);
 }
 
 .support-contact p {
     margin: 0 0 0.75rem 0;
     font-weight: 600;
-    color: var(--ibm-blue);
+    color: var(--color-primary);
 }
 
 .support-contact a {
@@ -402,7 +407,7 @@ h5 {
 }
 
 .support-contact a:hover {
-    color: var(--ibm-blue);
+    color: var(--color-primary);
 }
 
 .support-contact .contact-item {
@@ -437,7 +442,7 @@ h5 {
 
 .agent-modal {
     background-color: #fff;
-    border-radius: 0;
+    border-radius: var(--radius);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
     width: 90%;
     max-width: 800px;
@@ -448,7 +453,7 @@ h5 {
 }
 
 .agent-modal-header {
-    background-color: var(--ibm-blue);
+    background-color: var(--color-primary);
     color: #fff;
     padding: 1rem 1.5rem;
     display: flex;
@@ -513,7 +518,7 @@ h5 {
 
 .welcome-modal {
     background-color: #fff;
-    border-radius: 0;
+    border-radius: var(--radius);
     box-shadow: 0 12px 48px rgba(0, 0, 0, 0.25);
     max-width: 440px;
     width: 90%;
@@ -533,7 +538,7 @@ h5 {
 }
 
 .welcome-modal-header {
-    background: linear-gradient(135deg, var(--ibm-blue) 0%, #0043ce 100%);
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-hover) 100%);
     color: #fff;
     padding: 1.5rem;
     text-align: center;
@@ -576,19 +581,19 @@ h5 {
 }
 
 .welcome-form-group input {
-    font-family: 'IBM Plex Sans', sans-serif;
+    font-family: var(--font-family);
     width: 100%;
     padding: 12px 16px;
     font-size: 1rem;
     border: 2px solid #ddd;
-    border-radius: 0;
+    border-radius: var(--radius);
     box-sizing: border-box;
     transition: border-color 0.2s ease;
 }
 
 .welcome-form-group input:focus {
     outline: none;
-    border-color: var(--ibm-blue);
+    border-color: var(--color-primary);
 }
 
 .welcome-form-group input::placeholder {
@@ -602,24 +607,24 @@ h5 {
 }
 
 .welcome-btn {
-    font-family: 'IBM Plex Sans', sans-serif;
+    font-family: var(--font-family);
     flex: 1;
     padding: 12px 20px;
     font-size: 0.95rem;
     font-weight: 600;
-    border-radius: 0;
+    border-radius: var(--radius);
     cursor: pointer;
     transition: all 0.2s ease;
 }
 
 .welcome-btn-primary {
-    background-color: var(--ibm-blue);
+    background-color: var(--color-primary);
     color: #fff;
     border: none;
 }
 
 .welcome-btn-primary:hover {
-    background-color: #0043ce;
+    background-color: var(--color-primary-hover);
 }
 
 .welcome-btn-secondary {
@@ -641,7 +646,7 @@ h5 {
 }
 
 .welcome-privacy-note a {
-    color: var(--ibm-blue);
+    color: var(--color-primary);
     text-decoration: none;
 }
 

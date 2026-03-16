@@ -3,25 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{SITE_TITLE}} - BETA</title>
+    <title>AI Agent Launchpad</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@100;300;400;600;700&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="style.css">
+    <script src="config.js"></script>
 </head>
 <body>
 
     <a id="top"></a>
 
-    <!-- Dark Carbon Header -->
+    <!-- Site Header -->
     <header class="site-header">
         <div class="site-header-inner">
             <div class="site-header-left">
-                <span class="header-title">{{SITE_TITLE}}</span>
+                <span class="header-title" data-bind="siteTitle">AI Agent Launchpad</span>
                 <span class="header-divider"></span>
-                <span class="header-powered">powered by <span class="header-title">IBM watsonx Orchestrate</span></span>
-                <span class="header-badge">BETA</span>
+                <span class="header-powered" data-bind="poweredBy">powered by AI Agents</span>
+                <span class="header-badge" data-bind="badgeText">BETA</span>
             </div>
             <div class="site-header-right">
                 <a href="admin.html" class="admin-btn">Admin</a>
@@ -32,7 +32,7 @@
     <div class="container">
 
         <div class="section tips-container">
-             <a href="#before-you-start" class="icon-card tips ibm">
+             <a href="#before-you-start" class="icon-card tips primary-accent">
                <h3>Before You Start</h3>
                 <p>Tips & best practices for building and using custom agents</p>
             </a>
@@ -45,13 +45,13 @@
             <h2>{{CATEGORY_1_NAME}}</h2>
             <div class="icon-grid">
                 <!-- Example card — copy and customize for each agent -->
-                <a href="agent-example-redhat.html" class="icon-card ibm" target="_blank" rel="noopener noreferrer">
-                    <h3>Example Agent - Red Hat Paper</h3>
-                    <p>A custom agent designed to help Legal Associates review a specific document type.</p>
+                <a href="agent-example-a.html" class="icon-card primary-accent" target="_blank" rel="noopener noreferrer">
+                    <h3>Example Agent A</h3>
+                    <p>A custom agent designed to help associates with a specific task.</p>
                 </a>
-                <a href="agent-example-vendor.html" class="icon-card vendor" target="_blank" rel="noopener noreferrer">
-                    <h3>Example Agent - Vendor Paper</h3>
-                    <p>A custom agent designed to help Legal Associates review a specific document type.</p>
+                <a href="agent-example-b.html" class="icon-card" target="_blank" rel="noopener noreferrer">
+                    <h3>Example Agent B</h3>
+                    <p>A custom agent designed to help associates with a specific task.</p>
                 </a>
             </div>
         </div>
@@ -62,9 +62,9 @@
         <div class="section">
             <h2>{{CATEGORY_2_NAME}}</h2>
             <div class="icon-grid">
-                <a href="agent-example-customer.html" class="icon-card customer" target="_blank" rel="noopener noreferrer">
-                    <h3>Example Agent - Customer Paper</h3>
-                    <p>A custom agent designed to help Legal Associates review a specific document type.</p>
+                <a href="agent-example-c.html" class="icon-card" target="_blank" rel="noopener noreferrer">
+                    <h3>Example Agent C</h3>
+                    <p>A custom agent designed to help associates with a specific task.</p>
                 </a>
             </div>
         </div>
@@ -75,24 +75,24 @@
         <div class="section">
              <h2>GENERAL PURPOSE AGENTS</h2>
             <div class="icon-grid">
-              <a href="agent-general-doc-comparison.html" class="icon-card ibm" target="_blank" rel="noopener noreferrer">
+              <a href="agent-general-doc-comparison.html" class="icon-card primary-accent" target="_blank" rel="noopener noreferrer">
                     <h3>General Document Comparison</h3>
-                    <p>A custom agent designed to help Legal Associates compare a new document against a source document.</p>
+                    <p>A custom agent designed to help associates compare a new document against a source document.</p>
               </a>
             </div>
         </div>
 
 
         <div class="content-section" id="before-you-start">
-				<h3 class="ibm-paper"><a href="#top" style="text-decoration: none; color: inherit;">BEFORE YOU START - TIPS & BEST PRACTICES</a></h3>
+				<h3 class="section-accent"><a href="#top" style="text-decoration: none; color: inherit;">BEFORE YOU START - TIPS & BEST PRACTICES</a></h3>
 				<p>(Last updated: <span id="lastUpdatedDate"></span>)</p>
 
-                <h4 style="color: var(--ibm-blue);">IBM watsonx Orchestrate</h4>
-				<p>To learn more about building your own custom agents using watsonx Orchestrate go <a href="https://www.ibm.com/docs/en/watsonx/watson-orchestrate/base" target="_blank" rel="noopener noreferrer" style="color: var(--ibm-blue); font-weight: 700;"><strong>here</strong></a>.</p>
+                <h4 style="color: var(--color-primary);">Getting Started</h4>
+				<p>To learn more about building your own custom agents, consult your platform's documentation.</p>
 
-				<h4 style="color: var(--ibm-blue);">BEST PRACTICES</h4>
-				<p><strong>"Human in the loop" - </strong> AI cannot replace your legal advice and judgment. Use agents as an <strong>assistant</strong> to <strong>augment</strong> your work.</p>
-				<p><strong>Version Control - </strong> To ensure your agent's output is based on the most accurate information, you are responsible for uploading the latest approved versions to the 'Knowledge' section of the watsonx Orchestrate agent. This is required until a central 'single source of truth' repository is established.</p>
+				<h4 style="color: var(--color-primary);">BEST PRACTICES</h4>
+				<p><strong>"Human in the loop" - </strong> AI cannot replace your expertise and judgment. Use agents as an <strong>assistant</strong> to <strong>augment</strong> your work.</p>
+				<p><strong>Version Control - </strong> To ensure your agent's output is based on the most accurate information, you are responsible for uploading the latest approved versions to the agent's knowledge base.</p>
 		</div>
     </div>
 
@@ -109,9 +109,9 @@
     <div class="welcome-modal-overlay" id="welcomeModalOverlay">
         <div class="welcome-modal">
             <div class="welcome-modal-header">
-                <h3>Welcome to {{DEPARTMENT_NAME}} Custom Agents!</h3>
-                <p>AI tools for {{DEPARTMENT_NAME}} Associates</p>
-                <p>powered by watsonx Orchestrate</p>
+                <h3>Welcome to <span data-bind="departmentName">Operations</span> Custom Agents!</h3>
+                <p>AI tools for <span data-bind="departmentName">Operations</span> associates</p>
+                <p data-bind="poweredBy">powered by AI Agents</p>
             </div>
             <div class="welcome-modal-body">
                 <p class="intro-text">
@@ -119,8 +119,8 @@
                 </p>
                 <form id="welcomeForm">
                     <div class="welcome-form-group">
-                        <label for="userEmailInput">Your IBM Email</label>
-                        <input type="email" id="userEmailInput" placeholder="yourname@ibm.com" autocomplete="email">
+                        <label for="userEmailInput">Your Email</label>
+                        <input type="email" id="userEmailInput" placeholder="name@example.com" autocomplete="email">
                     </div>
                     <div class="welcome-form-group">
                         <label for="userNameInput">Your Name (optional)</label>
@@ -155,13 +155,13 @@
                 <div class="support-contact">
                     <p>Contact a Human in the Loop!</p>
                     <div class="contact-item">
-                        <a href="{{SUPPORT_SLACK_URL}}" target="_blank" rel="noopener noreferrer">
-                            Slack: {{SUPPORT_SLACK_NAME}}
+                        <a href="" id="supportSlackLink" target="_blank" rel="noopener noreferrer">
+                            Slack: <span id="supportSlackName"></span>
                         </a>
                     </div>
                     <div class="contact-item">
-                        <a href="mailto:{{SUPPORT_EMAIL}}">
-                            Email: {{SUPPORT_EMAIL}}
+                        <a href="" id="supportEmailLink">
+                            Email: <span id="supportEmailText"></span>
                         </a>
                     </div>
                 </div>
@@ -186,17 +186,30 @@
     <script>
         // Auto-update "Last updated" date from file modification time
         (function() {
-            const el = document.getElementById('lastUpdatedDate');
+            var el = document.getElementById('lastUpdatedDate');
             if (el) {
-                const d = new Date(document.lastModified);
+                var d = new Date(document.lastModified);
                 el.textContent = (d.getMonth() + 1) + '.' + d.getDate() + '.' + String(d.getFullYear()).slice(-2);
             }
         })();
 
+        // Populate support contact from config
+        (function() {
+            var s = SITE_CONFIG.support;
+            var slackLink = document.getElementById('supportSlackLink');
+            var slackName = document.getElementById('supportSlackName');
+            var emailLink = document.getElementById('supportEmailLink');
+            var emailText = document.getElementById('supportEmailText');
+            if (slackLink) slackLink.href = s.slackUrl || '#';
+            if (slackName) slackName.textContent = s.slackName || '';
+            if (emailLink) emailLink.href = 'mailto:' + (s.email || '');
+            if (emailText) emailText.textContent = s.email || '';
+        })();
+
         // Support Chat Modal Logic
-        const supportChatBtn = document.getElementById('supportChatBtn');
-        const supportModalOverlay = document.getElementById('supportModalOverlay');
-        const supportModalClose = document.getElementById('supportModalClose');
+        var supportChatBtn = document.getElementById('supportChatBtn');
+        var supportModalOverlay = document.getElementById('supportModalOverlay');
+        var supportModalClose = document.getElementById('supportModalClose');
 
         supportChatBtn.addEventListener('click', function() {
             supportModalOverlay.classList.add('active');
@@ -215,10 +228,10 @@
         // ============================================
         // AGENT IFRAME MODAL
         // ============================================
-        const agentModalOverlay = document.getElementById('agentModalOverlay');
-        const agentModalTitle = document.getElementById('agentModalTitle');
-        const agentModalClose = document.getElementById('agentModalClose');
-        const agentModalIframe = document.getElementById('agentModalIframe');
+        var agentModalOverlay = document.getElementById('agentModalOverlay');
+        var agentModalTitle = document.getElementById('agentModalTitle');
+        var agentModalClose = document.getElementById('agentModalClose');
+        var agentModalIframe = document.getElementById('agentModalIframe');
 
         function openAgentModal(agentUrl, agentName) {
             agentModalTitle.textContent = agentName;
@@ -257,15 +270,17 @@
         // ============================================
         // WELCOME MODAL - EMAIL COLLECTION
         // ============================================
-        const welcomeModalOverlay = document.getElementById('welcomeModalOverlay');
-        const welcomeForm = document.getElementById('welcomeForm');
-        const welcomeSkipBtn = document.getElementById('welcomeSkipBtn');
-        const userEmailInput = document.getElementById('userEmailInput');
-        const userNameInput = document.getElementById('userNameInput');
+        var welcomeModalOverlay = document.getElementById('welcomeModalOverlay');
+        var welcomeForm = document.getElementById('welcomeForm');
+        var welcomeSkipBtn = document.getElementById('welcomeSkipBtn');
+        var userEmailInput = document.getElementById('userEmailInput');
+        var userNameInput = document.getElementById('userNameInput');
+
+        var SP = SITE_CONFIG.storagePrefix;
         
         function showWelcomeModal() {
-            if (!sessionStorage.getItem('clg_session_welcomed')) {
-                setTimeout(() => {
+            if (!sessionStorage.getItem(SP + 'session_welcomed')) {
+                setTimeout(function() {
                     welcomeModalOverlay.classList.add('active');
                     userEmailInput.focus();
                 }, 500);
@@ -275,31 +290,31 @@
         welcomeForm.addEventListener('submit', function(e) {
             e.preventDefault();
             
-            const email = userEmailInput.value.trim();
-            const name = userNameInput.value.trim();
+            var email = userEmailInput.value.trim();
+            var name = userNameInput.value.trim();
             
             if (email && email.includes('@')) {
-                localStorage.setItem('clg_user_email', email);
+                localStorage.setItem(SP + 'user_email', email);
             }
             if (name) {
-                localStorage.setItem('clg_user_name', name);
+                localStorage.setItem(SP + 'user_name', name);
             }
             
-            localStorage.setItem('clg_user_prompted', 'true');
-            sessionStorage.setItem('clg_session_welcomed', 'true');
+            localStorage.setItem(SP + 'user_prompted', 'true');
+            sessionStorage.setItem(SP + 'session_welcomed', 'true');
             welcomeModalOverlay.classList.remove('active');
         });
         
         welcomeSkipBtn.addEventListener('click', function() {
-            localStorage.setItem('clg_user_prompted', 'true');
-            sessionStorage.setItem('clg_session_welcomed', 'true');
+            localStorage.setItem(SP + 'user_prompted', 'true');
+            sessionStorage.setItem(SP + 'session_welcomed', 'true');
             welcomeModalOverlay.classList.remove('active');
         });
         
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape' && welcomeModalOverlay.classList.contains('active')) {
-                localStorage.setItem('clg_user_prompted', 'true');
-                sessionStorage.setItem('clg_session_welcomed', 'true');
+                localStorage.setItem(SP + 'user_prompted', 'true');
+                sessionStorage.setItem(SP + 'session_welcomed', 'true');
                 welcomeModalOverlay.classList.remove('active');
             }
         });

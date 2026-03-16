@@ -3,33 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{AGENT_TITLE}} - {{SITE_TITLE}}</title>
+    <title>{{AGENT_TITLE}}</title>
+    <script src="config.js"></script>
     <script>
-        window.wxOConfiguration = {
-            orchestrationID: "{{ORCHESTRATION_ID}}",
-            hostURL: "https://cio.watson-orchestrate.ibm.com",
-            rootElementID: "root",
-            showLauncher: false,
-            chatOptions: {
-                agentId: "{{AGENT_ID}}",
-                agentEnvironmentId: "{{AGENT_ENVIRONMENT_ID}}",
-            },
-            layout: {
-                form: "fullscreen-overlay",
-                showOrchestrateHeader: true,
+        /**
+         * Agent Embed Loader
+         *
+         * Reads SITE_CONFIG.agentPlatform and the per-page data attributes
+         * on <div id="root"> to determine how to load the agent.
+         *
+         * Supported platforms:
+         *   "watsonx"  – IBM watsonx Orchestrate embed widget
+         *   "iframe"   – generic iframe (set data-agent-url on #root)
+         *   "script"   – custom embed script (set SITE_CONFIG.agentDefaults.embedScriptURL)
+         *   "link"     – redirect to URL (set data-agent-url on #root)
+         */
+        (function() {
+            var platform = SITE_CONFIG.agentPlatform;
+            var rootEl = document.getElementById('root');
+            var agentUrl = rootEl ? rootEl.getAttribute('data-agent-url') : '';
+            var defaults = SITE_CONFIG.agentDefaults;
+
+            if (platform === 'watsonx') {
+                window.wxOConfiguration = {
+                    orchestrationID: defaults.orchestrationID || '{{ORCHESTRATION_ID}}',
+                    hostURL: defaults.hostURL || '{{HOST_URL}}',
+                    rootElementID: 'root',
+                    showLauncher: false,
+                    chatOptions: {
+                        agentId: rootEl ? rootEl.getAttribute('data-agent-id') : '{{AGENT_ID}}',
+                        agentEnvironmentId: rootEl ? rootEl.getAttribute('data-agent-env-id') : '{{AGENT_ENVIRONMENT_ID}}',
+                    },
+                    layout: {
+                        form: 'fullscreen-overlay',
+                        showOrchestrateHeader: defaults.showOrchestrateHeader !== false,
+                    }
+                };
+                setTimeout(function () {
+                    var script = document.createElement('script');
+                    script.src = window.wxOConfiguration.hostURL + '/wxochat/wxoLoader.js?embed=true';
+                    script.addEventListener('load', function () {
+                        wxoLoader.init();
+                    });
+                    document.head.appendChild(script);
+                }, 0);
+
+            } else if (platform === 'iframe' && agentUrl) {
+                var iframe = document.createElement('iframe');
+                iframe.src = agentUrl;
+                iframe.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;border:none;';
+                iframe.allow = 'clipboard-write';
+                document.body.appendChild(iframe);
+
+            } else if (platform === 'script' && defaults.embedScriptURL) {
+                var script = document.createElement('script');
+                script.src = defaults.embedScriptURL;
+                document.head.appendChild(script);
+
+            } else if (platform === 'link' && agentUrl) {
+                window.location.href = agentUrl;
             }
-        };
-        setTimeout(function () {
-            const script = document.createElement('script');
-            script.src = `${window.wxOConfiguration.hostURL}/wxochat/wxoLoader.js?embed=true`;
-            script.addEventListener('load', function () {
-                wxoLoader.init();
-            });
-            document.head.appendChild(script);
-        }, 0);
+        })();
     </script>
 </head>
 <body>
-    <div id="root"></div>
+    <div id="root"
+         data-agent-id="{{AGENT_ID}}"
+         data-agent-env-id="{{AGENT_ENVIRONMENT_ID}}"
+         data-agent-url="{{AGENT_URL}}">
+    </div>
 </body>
 </html>

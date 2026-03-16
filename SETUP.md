@@ -1,6 +1,6 @@
 # Template Setup Guide
 
-This guide walks you through setting up a new department website from this template.
+This guide walks you through setting up a new agent launchpad website from this template.
 
 ## Quick Start
 
@@ -10,26 +10,42 @@ This guide walks you through setting up a new department website from this templ
 
 ---
 
-## Step 1: Replace Placeholders
+## Step 1: Configure Branding & Theme (`config.js`)
 
-Search and replace the following placeholders across all files:
+Open `config.js` and update the settings:
 
-| Placeholder | Description | Example |
-|-------------|-------------|---------|
-| `{{DEPARTMENT_NAME}}` | Your department's name | `IP Law` |
-| `{{SITE_TITLE}}` | Header title text | `IP Law Custom Agents` |
-| `{{ORCHESTRATION_ID}}` | watsonx Orchestrate instance ID | `20250729-1457-...` |
-| `{{ADMIN_PASSWORD}}` | Password for admin dashboard | `your-secure-password` |
-| `{{GITHUB_REPO_URL}}` | Your new repo's clone URL | `git@github.ibm.com:user/repo.git` |
-| `{{GITHUB_PAGES_URL}}` | Your GitHub Pages URL | `https://pages.github.ibm.com/user/repo/` |
+```javascript
+const SITE_CONFIG = {
+    companyName: "Your Company",
+    siteTitle: "Your Agent Hub",
+    departmentName: "Your Department",
+    poweredByText: "powered by AI Agents",
+    badgeText: "BETA",
+    themePreset: "carbon",  // or "modern", "minimal", "custom"
+    adminPassword: "your-secure-password",
+    // ...
+};
+```
 
-**Files that contain placeholders:**
-- `index.html` — Main page header, title
-- `admin.html` — Admin page header, password
-- `agent-template.html` — Agent embed template
-- `README.md` — Documentation URLs and descriptions
+### Theme Options
 
-## Step 2: Set Up Agent Categories
+- `"carbon"` — IBM-style squared UI with dark header
+- `"modern"` — Rounded corners, indigo palette
+- `"minimal"` — Clean, light header, neutral palette
+- `"custom"` — Fill in the `custom` object with your own colors and font
+
+## Step 2: Choose Your Agent Platform
+
+In `config.js`, set `agentPlatform`:
+
+| Platform | Description | Required Config |
+|----------|-------------|-----------------|
+| `"link"` | Agent cards open URLs in new tabs (default) | Card `href` attributes |
+| `"iframe"` | Embed agents via iframe | `agentDefaults.iframeBaseURL` or per-page `data-agent-url` |
+| `"watsonx"` | IBM watsonx Orchestrate widget | `agentDefaults.hostURL`, `agentDefaults.orchestrationID` |
+| `"script"` | Load a custom embed script | `agentDefaults.embedScriptURL` |
+
+## Step 3: Set Up Agent Categories
 
 In `index.html`, you'll find three category sections. Customize them:
 
@@ -44,58 +60,48 @@ In `index.html`, you'll find three category sections. Customize them:
 
 You can add, remove, or rename category sections as needed.
 
-## Step 3: Add Agents
+## Step 4: Add Agents
 
 For each agent you want to include:
 
-### 3a. Create the Agent Embed Page
+### 4a. Create the Agent Embed Page
 
-1. Copy `agent-template.html` to a new file (e.g., `agent-ip-patent-review.html`)
+1. Copy `agent-template.html` to a new file (e.g., `agent-compliance-vendor.html`)
 2. Replace `{{AGENT_TITLE}}` with the agent name
-3. Replace `{{ORCHESTRATION_ID}}` with your instance ID
-4. Replace `{{AGENT_ID}}` with the agent's ID
-5. Replace `{{AGENT_ENVIRONMENT_ID}}` with the agent's environment ID
+3. Set the appropriate data attributes on the `#root` div:
+   - For **watsonx**: set `data-agent-id` and `data-agent-env-id`
+   - For **iframe**: set `data-agent-url`
+   - For **link**: set `data-agent-url`
 
-**Where to find agent IDs:** In watsonx Orchestrate, go to your agent → Channels → Embedded Chat → copy the embed configuration values.
-
-### 3b. Add the Card to `index.html`
+### 4b. Add the Card to `index.html`
 
 Add a card in the appropriate category section:
 
 ```html
-<a href="agent-ip-patent-review.html" class="icon-card ibm" target="_blank" rel="noopener noreferrer">
-    <h3>Patent Review - Red Hat Paper</h3>
-    <p>A custom agent designed to help Legal Associates review patent documents.</p>
+<a href="agent-compliance-vendor.html" class="icon-card primary-accent" target="_blank" rel="noopener noreferrer">
+    <h3>Compliance Check Agent</h3>
+    <p>A custom agent designed to help associates review vendor compliance.</p>
 </a>
 ```
 
-**Card CSS classes by paper type:**
-- `icon-card ibm` — Red Hat / IBM paper (blue accent)
-- `icon-card vendor` — Vendor paper (teal accent)
-- `icon-card customer` — Customer paper (green accent)
+**Card CSS classes:**
+- `icon-card primary-accent` — Primary color accent on the title
+- `icon-card` — Default card (no accent color)
 
-## Step 4: Configure the Admin Page
+## Step 5: Configure Security (watsonx only)
 
-In `admin.html`:
-
-1. Update the admin password (search for the password check in the `<script>` section)
-2. The header badge says "ADMIN" by default — change if desired
-3. The Productivity Gains Calculator works immediately with localStorage — no backend needed
-
-## Step 5: Disable Embed Security (GitHub Pages only)
-
-Since GitHub Pages can't run server-side code for JWT authentication:
+If using watsonx Orchestrate and deploying to GitHub Pages:
 
 ```bash
 chmod +x wxO-embed-chat-security-tool.sh
 ACTION=disable ./wxO-embed-chat-security-tool.sh
 ```
 
-> **Important:** Only disable security for internal IBM GitHub Pages. See `README.md` for details on re-enabling security for production deployments.
+> **Important:** Only disable security for internal deployments.
 
 ## Step 6: Enable GitHub Pages
 
-1. Go to your repo's **Settings** → **Pages**
+1. Go to your repo's **Settings** > **Pages**
 2. Source: **Deploy from a branch**
 3. Branch: `main`, Folder: `/ (root)`
 4. Click **Save**
@@ -104,22 +110,16 @@ ACTION=disable ./wxO-embed-chat-security-tool.sh
 ## Step 7: Clean Up
 
 - Delete `agent-template.html` (or keep it for future reference)
-- Remove any agent pages from the original template that don't apply to your department
-- Update `README.md` with your department-specific documentation
-- Update `CHANGELOG.md` or start fresh
+- Remove any example agent cards from `index.html`
+- Update `README.md` with your site-specific documentation
 
 ---
 
-## Claude Code Integration
+## AI Assistant Integration
 
-This template includes Claude Code configuration for AI-assisted development:
+This template includes AI assistant configuration for AI-assisted development:
 
 | Type | Path | Description |
 |------|------|-------------|
-| Conventions | `CLAUDE.md` | Always-on. Conventions, file naming, commit style, and template sync prompts. |
+| Conventions | `CLAUDE.md` | Always-on. Conventions, file naming, commit style. |
 | Skill | `.claude/skills/add-agent.md` | On-demand. Guided workflow for adding new agents. |
-| Skill | `.claude/skills/new-site-from-template.md` | On-demand. Guided workflow for setting up from this template. |
-| Skill | `.claude/skills/sync-to-template.md` | On-demand. Review and sync accumulated changes to the template repo. |
-
-- **`CLAUDE.md`** is automatically applied in every Claude Code session — the AI always follows the conventions defined there.
-- **Skills** are triggered on-demand when a request matches their purpose (e.g., "add a new agent").

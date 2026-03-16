@@ -1,56 +1,68 @@
-# IBM Custom Agents — Website Template
+# Agent Launchpad — Website Template
 
 ## Description
 
-A reusable template for creating IBM legal department websites powered by **watsonx Orchestrate**. Each site provides Legal Associates with organized access to AI agents for contract review and legal inquiries.
+A reusable, **platform-agnostic** template for creating agent launchpad websites. Provides organized access to AI agents through a modern web interface — works with any agent platform (watsonx Orchestrate, Dialogflow, Botpress, custom, or simple links).
 
 This template includes:
 - A main landing page with categorized agent cards
 - A password-protected admin dashboard with adoption metrics and a Productivity Gains Calculator
-- Embedded watsonx Orchestrate chat for each agent (fullscreen overlay)
-- Carbon Design System styling aligned with watsonx Orchestrate
-- Claude Code conventions and skills for AI-assisted development
+- Configurable agent embedding (watsonx, iframe, custom script, or external links)
+- A theme engine with built-in presets (Carbon, Modern, Minimal) or fully custom theming
+- AI assistant conventions and skills for AI-assisted development
 
 ## Quick Start
 
 1. Click **"Use this template"** on GitHub to create a new repository
 2. Clone the new repo locally
-3. Follow **[SETUP.md](SETUP.md)** to customize for your department
+3. Edit **`config.js`** to set your branding, theme, and agent platform
+4. Follow **[SETUP.md](SETUP.md)** for detailed customization
 
-## Placeholders
+## Configuration (`config.js`)
 
-Search and replace these placeholders throughout the project:
+All site settings are centralized in a single file:
 
-| Placeholder | Description | Example |
-|-------------|-------------|---------|
-| `{{SITE_TITLE}}` | Site title for header and page titles | `IP Law Custom Agents` |
-| `{{DEPARTMENT_NAME}}` | Department name | `IP Law` |
-| `{{ORCHESTRATION_ID}}` | watsonx Orchestrate instance ID | `20250729-1457-...` |
-| `{{ADMIN_PASSWORD}}` | Admin dashboard password | `your-secure-password` |
-| `{{CATEGORY_1_NAME}}` | First category section heading | `PATENT AGENTS` |
-| `{{CATEGORY_2_NAME}}` | Second category section heading | `TRADEMARK AGENTS` |
-| `{{AGENT_ID}}` | Agent ID (in agent embed pages) | `155363d1-12e8-...` |
-| `{{AGENT_ENVIRONMENT_ID}}` | Agent environment ID (in agent embed pages) | `1cb05a09-a6c8-...` |
-| `{{SUPPORT_SLACK_URL}}` | Slack profile URL for support contact | `https://ibm.enterprise.slack.com/team/...` |
-| `{{SUPPORT_SLACK_NAME}}` | Slack display name for support contact | `@YourName` |
-| `{{SUPPORT_EMAIL}}` | Email for support contact | `yourname@ibm.com` |
-| `{{GITHUB_REPO_URL}}` | Repo clone URL | `git@github.ibm.com:user/repo.git` |
-| `{{GITHUB_PAGES_URL}}` | GitHub Pages URL | `https://pages.github.ibm.com/user/repo/` |
+| Setting | Description | Example |
+|---------|-------------|---------|
+| `companyName` | Your company name | `"Acme Corp"` |
+| `siteTitle` | Header title | `"AI Agent Hub"` |
+| `departmentName` | Department name | `"Operations"` |
+| `themePreset` | Visual theme | `"carbon"`, `"modern"`, `"minimal"`, `"custom"` |
+| `agentPlatform` | How agents are loaded | `"watsonx"`, `"iframe"`, `"script"`, `"link"` |
+| `adminPassword` | Admin dashboard password | `"your-secure-password"` |
+| `calculator.costPerUserPerYear` | Platform cost for ROI calc | `500` |
+| `storagePrefix` | localStorage key prefix | `"mysite_"` |
+
+### Template Placeholders
+
+These placeholders remain in HTML files for per-page customization:
+
+| Placeholder | Description |
+|-------------|-------------|
+| `{{CATEGORY_1_NAME}}` | First category section heading |
+| `{{CATEGORY_2_NAME}}` | Second category section heading |
+| `{{AGENT_TITLE}}` | Agent page title (in agent-template.html) |
+| `{{AGENT_ID}}` | Agent ID (watsonx platform) |
+| `{{AGENT_ENVIRONMENT_ID}}` | Agent environment ID (watsonx platform) |
+| `{{AGENT_URL}}` | Agent URL (iframe/link platform) |
 
 ## Features
 
 ### Main Website (`index.html`)
-- **Agent Launchpad:** Categorized cards that open embedded watsonx Orchestrate chat
-- **Carbon Design System Styling:** Dark header, squared UI, IBM Carbon color tokens
-- **Header Branding:** "{{SITE_TITLE}} | powered by IBM watsonx Orchestrate BETA"
+- **Agent Launchpad:** Categorized cards linking to agent experiences
+- **Configurable Theme:** Switch between Carbon, Modern, Minimal, or fully custom styling
+- **Dynamic Header:** Branding populated from `config.js`
 - **Welcome Modal:** Session-based email collection (once per browser tab)
 - **Support Button:** Floating chat button with contact modal
 - **Tips & Best Practices:** Guidance section for users
 - **Auto-updating "Last Updated" date:** Uses `document.lastModified`
-- **Back to Top:** Dynamic button on scroll
 
-### Embedded Agent Pages (`agent-template.html`)
-Minimal HTML pages that load the watsonx Orchestrate chat widget in fullscreen overlay mode. Copy `agent-template.html` for each new agent.
+### Agent Embed Pages (`agent-template.html`)
+Platform-agnostic agent pages that load the appropriate embed based on `config.js`:
+- **watsonx:** Loads the watsonx Orchestrate chat widget
+- **iframe:** Embeds any agent via iframe URL
+- **script:** Loads a custom embed script
+- **link:** Redirects to an external URL
 
 ### Admin Dashboard (`admin.html`)
 Password-protected panel with:
@@ -64,13 +76,14 @@ Password-protected panel with:
 project-root/
 ├── index.html                          # Main landing page
 ├── admin.html                          # Admin dashboard
-├── style.css                           # Shared styles (Carbon Design System)
+├── config.js                           # Site configuration (branding, theme, platform)
+├── style.css                           # Shared styles (theme-aware CSS variables)
 ├── script.js                           # Back-to-top button logic
 ├── README.md                           # This file
 ├── SETUP.md                            # Template setup guide
 ├── CHANGELOG.md                        # Version history
 ├── agent-template.html                 # Copy this for each new agent
-├── wxO-embed-chat-security-tool.sh     # Embed security configuration tool
+├── wxO-embed-chat-security-tool.sh     # Embed security tool (watsonx only)
 │
 ├── server/                             # Node.js analytics backend (future use)
 │   ├── server.js
@@ -78,58 +91,36 @@ project-root/
 │   ├── package.json
 │   └── README.md
 │
-├── CLAUDE.md                           # Claude Code project conventions & skills reference
-└── .claude/                            # Claude Code AI configuration
+├── CLAUDE.md                           # AI assistant conventions
+└── .claude/                            # AI assistant configuration
     └── skills/
-        ├── add-agent.md                # Guided workflow: add a new agent
-        ├── new-site-from-template.md   # Guided workflow: set up new site
-        └── sync-to-template.md         # Review & sync changes to template repo
+        └── add-agent.md                # Guided workflow: add a new agent
 ```
 
-## Design System
+## Theme Presets
 
-This template follows IBM's **Carbon Design System**:
+| Preset | Primary Color | Font | Border Radius | Header |
+|--------|---------------|------|---------------|--------|
+| `carbon` | `#0f62fe` | IBM Plex Sans | `0px` | Dark (`#161616`) |
+| `modern` | `#6366f1` | Inter | `8px` | Dark Indigo (`#1e1b4b`) |
+| `minimal` | `#18181b` | DM Sans | `6px` | Light (`#fafafa`) |
+| `custom` | Your choice | Your choice | Your choice | Your choice |
 
-| Convention | Value |
-|------------|-------|
-| Border radius | `0` on all interactive elements |
-| Header background | `#161616` (Gray 100) |
-| Page background | `#f4f4f4` (Gray 10) |
-| Primary blue | `#0f62fe` (Blue 60) |
-| Badge color | `#4589ff` (Blue 50) |
-| Text primary | `#161616` |
-| Text secondary | `#525252` |
-| Font | IBM Plex Sans (weights: 100, 300, 400, 600, 700) |
+## Embedded Chat Security (watsonx only)
 
-## Embedded Chat Security
+> **WARNING:** Embedded chat security is DISABLED by default for GitHub Pages compatibility. Re-enable before deploying to any environment accessible outside your organization.
 
-> **WARNING:** Embedded chat security is DISABLED by default for GitHub Pages compatibility. Re-enable before deploying to any environment accessible outside IBM.
+See `SETUP.md` Step 5 and the `wxO-embed-chat-security-tool.sh` script for details.
 
-See `SETUP.md` Step 6 and the `wxO-embed-chat-security-tool.sh` script for details.
+## AI Assistant Integration
 
-## Claude Code Integration
-
-This template includes Claude Code configuration:
+This template includes AI assistant configuration:
 
 | Type | Path | Description |
 |------|------|-------------|
-| Conventions | `CLAUDE.md` | Always-on. Enforces Carbon Design System conventions, CSS tokens, file naming, commit style, and template sync prompts. |
-| Skill | `.claude/skills/add-agent.md` | On-demand. Guided workflow for adding a new watsonx Orchestrate agent. |
-| Skill | `.claude/skills/new-site-from-template.md` | On-demand. Guided workflow for setting up a new department site from this template. |
-| Skill | `.claude/skills/sync-to-template.md` | On-demand. Review and finalize accumulated changes for syncing to the template repo. |
-
-- **`CLAUDE.md`** is automatically applied in every Claude Code session — the AI always follows the conventions defined there.
-- **Skills** are triggered on-demand when a request matches their purpose (e.g., "add a new agent").
-
-## Related Projects
-
-This template is part of the IBM Legal Review Assistant ecosystem. Each project delivers the same watsonx Orchestrate agents through a different channel:
-
-| Project | Description |
-|---------|-------------|
-| [ibm-lra-rh-clg-custom-agents-website](https://github.ibm.com/santini/IBM-LRA-RH-CLG-custom-agents-website) | CLG-specific implementation of this template — the live Red Hat Commercial Legal Group agent website |
-| [ibm-lra-custom-agent-word-add-in](https://github.ibm.com/santini/ibm-lra-custom-agent-word-add-in) | Microsoft Word add-in that brings contract review agents directly into the document editing experience |
+| Conventions | `CLAUDE.md` | Always-on. Enforces design system conventions, CSS tokens, file naming, and commit style. |
+| Skill | `.claude/skills/add-agent.md` | On-demand. Guided workflow for adding a new agent. |
 
 ## License
 
-*Internal Use Only — IBM Legal and Regulatory Affairs.*
+Open source — use and customize freely.

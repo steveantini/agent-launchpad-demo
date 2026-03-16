@@ -3,13 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin - {{SITE_TITLE}} - BETA</title>
+    <title>Admin - AI Agent Launchpad</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@100;300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="config.js"></script>
     <style>
+        /* Calculator layout utilities */
+        .calc-flex { display: flex; }
+        .calc-flex-col { display: flex; flex-direction: column; }
+        .calc-flex-wrap { flex-wrap: wrap; }
+        .calc-items-center { align-items: center; }
+        .calc-items-start { align-items: flex-start; }
+        .calc-justify-center { justify-content: center; }
+        .calc-justify-between { justify-content: space-between; }
+        .calc-text-center { text-align: center; }
+        .calc-gap-4 { gap: 1rem; }
+        .calc-gap-x-4 { column-gap: 1rem; }
+        .calc-gap-y-2 { row-gap: 0.5rem; }
+        .calc-space-y-6 > * + * { margin-top: 1.5rem; }
+        .calc-space-y-4 > * + * { margin-top: 1rem; }
+        .calc-mt-4 { margin-top: 1rem; }
+        .calc-mt-6 { margin-top: 1.5rem; }
+        .calc-mb-4 { margin-bottom: 1rem; }
+        .calc-mr-2 { margin-right: 0.5rem; }
+        .calc-my-6 { margin-top: 1.5rem; margin-bottom: 1.5rem; }
+        .calc-p-1 { padding: 0.25rem; }
+        .calc-p-2 { padding: 0.5rem; }
+        .calc-p-4 { padding: 1rem; }
+        .calc-overflow-x-auto { overflow-x: auto; }
+        .calc-w-full { width: 100%; }
+        .calc-w-48 { width: 12rem; }
+        .calc-w-40 { width: 10rem; }
+        .calc-w-20 { width: 5rem; }
+        .calc-w-16 { width: 4rem; }
+        .calc-bg-gray-50 { background-color: #f9fafb; }
+        .calc-bg-gray-100 { background-color: #f3f4f6; }
+        .calc-text-sm { font-size: 0.875rem; }
+        .calc-text-lg { font-size: 1.125rem; }
+        .calc-font-semibold { font-weight: 600; }
+        .calc-font-bold { font-weight: 700; }
+        .calc-text-gray-400 { color: #9ca3af; }
+        .calc-text-gray-600 { color: #4b5563; }
+        .calc-text-gray-700 { color: #374151; }
+        .calc-text-gray-800 { color: #1f2937; }
+        .calc-text-white { color: #fff; }
+        .calc-border { border: 1px solid #e5e7eb; }
+        .calc-border-gray-200 { border-color: #e5e7eb; }
+        .calc-rounded-none { border-radius: 0; }
+        .calc-outline-btn {
+            font-family: var(--font-family);
+            font-weight: 600;
+            color: var(--color-primary);
+            border: 1px solid var(--color-primary);
+            background-color: #fff;
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .calc-outline-btn:hover { background-color: #eff6ff; }
+        .calc-primary-btn {
+            font-family: var(--font-family);
+            font-weight: 600;
+            color: #fff;
+            background-color: var(--color-primary);
+            border: none;
+            border-radius: var(--radius);
+            cursor: pointer;
+        }
+        .calc-delete-task { color: #9ca3af; background: none; border: none; cursor: pointer; }
+        .calc-delete-task:hover { color: #ef4444; }
+        .calc-info-title { font-weight: 700; font-size: 1.125rem; margin-bottom: 0.5rem; }
+        .calc-info-body { font-size: 0.875rem; color: #4b5563; }
+        @media (min-width: 768px) {
+            .calc-md-flex-row { flex-direction: row; }
+            .calc-md-items-center { align-items: center; }
+        }
         /* Login overlay styles */
         .login-overlay {
             position: fixed;
@@ -33,7 +102,7 @@
             width: 90%;
         }
         .login-box h2 {
-            color: var(--ibm-blue);
+            color: var(--color-primary);
             margin-bottom: 0.5rem;
             font-size: 1.5rem;
             border-bottom: none;
@@ -47,38 +116,38 @@
             font-size: 0.9rem;
         }
         .login-box input[type="password"] {
-            font-family: 'IBM Plex Sans', sans-serif;
+            font-family: var(--font-family);
             width: 100%;
             padding: 12px 16px;
             font-size: 1rem;
             border: 2px solid #ddd;
-            border-radius: 0;
+            border-radius: var(--radius);
             box-sizing: border-box;
             margin-bottom: 1rem;
             transition: border-color 0.2s ease;
         }
         .login-box input[type="password"]:focus {
             outline: none;
-            border-color: var(--ibm-blue);
+            border-color: var(--color-primary);
         }
         .login-box button {
-            font-family: 'IBM Plex Sans', sans-serif;
+            font-family: var(--font-family);
             width: 100%;
             padding: 12px 24px;
             font-size: 1rem;
             font-weight: 600;
             color: #fff;
-            background-color: var(--ibm-blue);
+            background-color: var(--color-primary);
             border: none;
-            border-radius: 0;
+            border-radius: var(--radius);
             cursor: pointer;
             transition: background-color 0.2s ease;
         }
         .login-box button:hover {
-            background-color: #0043ce;
+            background-color: var(--color-primary-hover);
         }
         .login-error {
-            color: var(--ibm-blue);
+            color: var(--color-primary);
             font-size: 0.85rem;
             margin-top: 0.5rem;
             display: none;
@@ -92,7 +161,7 @@
             text-decoration: none;
         }
         .back-link a:hover {
-            color: var(--ibm-blue);
+            color: var(--color-primary);
             text-decoration: underline;
         }
         
@@ -122,14 +191,14 @@
             font-weight: 700;
         }
         .logout-btn {
-            font-family: 'IBM Plex Sans', sans-serif;
+            font-family: var(--font-family);
             font-size: 0.8rem;
             font-weight: 600;
             color: var(--text-secondary);
             background-color: #e8e8e8;
             border: 1px solid #ccc;
             padding: 8px 16px;
-            border-radius: 0;
+            border-radius: var(--radius);
             text-decoration: none;
             cursor: pointer;
             transition: all 0.2s ease;
@@ -144,7 +213,7 @@
             text-decoration: none;
         }
         .home-link:hover {
-            color: var(--ibm-blue);
+            color: var(--color-primary);
         }
 
         /* Navigation buttons container */
@@ -177,7 +246,7 @@
             font-size: 1.1rem;
             margin: 0 0 0.5rem 0;
             font-weight: 600;
-            color: var(--ibm-blue);
+            color: var(--color-primary);
         }
         .nav-card p {
             font-size: 0.85rem;
@@ -218,7 +287,7 @@
             padding: 1.5rem;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
             text-align: center;
-            border-left: 4px solid var(--ibm-blue);
+            border-left: 4px solid var(--color-primary);
         }
         .metric-value {
             font-size: 2.5rem;
@@ -273,7 +342,7 @@
             padding: 0.75rem 1rem;
             text-align: left;
             border-bottom: 1px solid #eee;
-            font-family: 'IBM Plex Sans', sans-serif;
+            font-family: var(--font-family);
         }
         .data-table th {
             background-color: #f8f9fa;
@@ -303,7 +372,7 @@
             font-size: 0.75rem;
             font-weight: 600;
         }
-        .rank-1 { background-color: var(--ibm-blue); color: #fff; }
+        .rank-1 { background-color: var(--color-primary); color: #fff; }
         .rank-2 { background-color: #666; color: #fff; }
         .rank-3 { background-color: #999; color: #fff; }
         .rank-default { background-color: #e9ecef; color: var(--text-secondary); }
@@ -312,13 +381,13 @@
         .clickable-user,
         .clickable-agent {
             cursor: pointer;
-            color: var(--ibm-blue);
+            color: var(--color-primary);
             text-decoration: underline;
             transition: color 0.2s;
         }
         .clickable-user:hover,
         .clickable-agent:hover {
-            color: #0043ce;
+            color: var(--color-primary-hover);
         }
 
         /* Detail popup modal */
@@ -348,7 +417,7 @@
             flex-direction: column;
         }
         .detail-modal-header {
-            background-color: var(--ibm-blue);
+            background-color: var(--color-primary);
             color: #fff;
             padding: 1rem 1.5rem;
             display: flex;
@@ -423,13 +492,13 @@
             text-align: center;
             padding: 1rem;
             background-color: #f8f9fa;
-            border-radius: 0;
+            border-radius: var(--radius);
             margin-bottom: 1rem;
         }
         .detail-count-value {
             font-size: 2rem;
             font-weight: 700;
-            color: var(--ibm-blue);
+            color: var(--color-primary);
         }
         .detail-count-label {
             font-size: 0.8rem;
@@ -448,10 +517,10 @@
             margin: 0;
         }
         .time-period-select {
-            font-family: 'IBM Plex Sans', sans-serif;
+            font-family: var(--font-family);
             padding: 0.5rem 1rem;
             border: 1px solid #ddd;
-            border-radius: 0;
+            border-radius: var(--radius);
             background-color: #fff;
             font-size: 0.85rem;
             color: var(--text-primary);
@@ -459,7 +528,7 @@
         }
         .time-period-select:focus {
             outline: none;
-            border-color: var(--ibm-blue);
+            border-color: var(--color-primary);
         }
 
         /* Dynamic back to top button */
@@ -467,12 +536,12 @@
             position: fixed;
             bottom: 20px;
             right: 20px;
-            background-color: var(--ibm-blue);
+            background-color: var(--color-primary);
             color: #fff;
             padding: 10px 15px;
-            border-radius: 0;
+            border-radius: var(--radius);
             text-decoration: none;
-            font-family: 'IBM Plex Sans', sans-serif;
+            font-family: var(--font-family);
             font-size: 1rem;
             font-weight: 600;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
@@ -484,7 +553,7 @@
             border: none;
         }
         .admin-back-to-top:hover {
-            background-color: #0043ce;
+            background-color: var(--color-primary-hover);
         }
         .admin-back-to-top.show {
             opacity: 1;
@@ -535,7 +604,7 @@
             border-radius: 4px;
             transition: width 0.5s ease;
         }
-        .bar-fill.red { background: linear-gradient(90deg, #0f62fe, #4589ff); }
+        .bar-fill.primary { background: linear-gradient(90deg, var(--color-primary), var(--color-accent)); }
         .bar-value {
             width: 50px;
             font-size: 0.85rem;
@@ -563,8 +632,8 @@
         .sample-notice {
             background-color: #f8f9fa;
             border: 1px solid #ddd;
-            border-left: 4px solid var(--ibm-blue);
-            border-radius: 0;
+            border-left: 4px solid var(--color-primary);
+            border-radius: var(--radius);
             padding: 0.75rem 1rem;
             margin-bottom: 1.5rem;
             text-align: left;
@@ -575,7 +644,7 @@
             color: var(--text-secondary);
         }
         .sample-notice strong {
-            color: var(--ibm-blue);
+            color: var(--color-primary);
         }
 
         /* Responsive adjustments */
@@ -617,7 +686,7 @@
         }
         .calc-info-icon {
             cursor: pointer;
-            color: #0f62fe;
+            color: var(--color-primary);
             transition: all 0.2s;
             font-size: 0.65rem;
             font-weight: 700;
@@ -628,12 +697,12 @@
             justify-content: center;
             width: 14px;
             height: 14px;
-            border: 1px solid #0f62fe;
+            border: 1px solid var(--color-primary);
             border-radius: 50%;
         }
         .calc-info-icon:hover {
             color: #fff;
-            background-color: #0f62fe;
+            background-color: var(--color-primary);
         }
         .calc-modal {
             display: none;
@@ -679,14 +748,14 @@
         }
         .associate-card input[type="text"],
         .associate-card input[type="number"] {
-            font-family: 'IBM Plex Sans', sans-serif;
+            font-family: var(--font-family);
             padding: 0.5rem;
             border: 1px solid #ddd;
-            border-radius: 0;
+            border-radius: var(--radius);
         }
         .associate-card input:focus {
             outline: none;
-            border-color: var(--ibm-blue);
+            border-color: var(--color-primary);
         }
         .task-table {
             width: 100%;
@@ -711,7 +780,7 @@
             font-weight: 600;
         }
         .task-table input {
-            font-family: 'IBM Plex Sans', sans-serif;
+            font-family: var(--font-family);
             padding: 0.35rem;
             border: 1px solid #ddd;
             border-radius: 4px;
@@ -726,7 +795,7 @@
         .calc-summary-item {
             background-color: #f8f9fa;
             padding: 1rem;
-            border-radius: 0;
+            border-radius: var(--radius);
         }
         .calc-summary-value {
             font-size: 1.75rem;
@@ -741,23 +810,23 @@
 
         /* Create Report button */
         .create-report-btn {
-            font-family: 'IBM Plex Sans', sans-serif;
+            font-family: var(--font-family);
             font-size: 0.75rem;
             font-weight: 600;
-            color: var(--ibm-blue);
+            color: var(--color-primary);
             background-color: #fff;
-            border: 1px solid var(--ibm-blue);
+            border: 1px solid var(--color-primary);
             padding: 6px 12px;
-            border-radius: 0;
+            border-radius: var(--radius);
             cursor: pointer;
             transition: all 0.2s ease;
         }
         .create-report-btn:hover {
-            background-color: var(--ibm-blue);
+            background-color: var(--color-primary);
             color: #fff;
         }
 
-        /* Updated Overall Productivity Gains layout */
+        /* Overall Productivity Gains layout */
         .summary-columns {
             display: flex;
             justify-content: center;
@@ -772,7 +841,7 @@
         .summary-primary-item {
             background-color: #f8f9fa;
             padding: 1.25rem 2rem;
-            border-radius: 0;
+            border-radius: var(--radius);
             text-align: center;
             min-width: 180px;
         }
@@ -789,7 +858,7 @@
         .summary-secondary-item {
             background-color: #f8f9fa;
             padding: 0.75rem 1.5rem;
-            border-radius: 0;
+            border-radius: var(--radius);
             text-align: center;
             min-width: 180px;
         }
@@ -809,14 +878,14 @@
 
     <a id="top"></a>
 
-    <!-- Dark Carbon Header -->
+    <!-- Site Header -->
     <header class="site-header">
         <div class="site-header-inner">
             <div class="site-header-left">
-                <span class="header-title">{{SITE_TITLE}}</span>
+                <span class="header-title" data-bind="siteTitle">AI Agent Launchpad</span>
                 <span class="header-divider"></span>
-                <span class="header-powered">powered by <span class="header-title">IBM watsonx Orchestrate</span></span>
-                <span class="header-badge">ADMIN</span>
+                <span class="header-powered" data-bind="poweredBy">powered by AI Agents</span>
+                <span class="header-badge" data-bind="adminBadgeText">ADMIN</span>
             </div>
             <div class="site-header-right">
                 <a href="index.html" class="admin-btn">Home</a>
@@ -829,14 +898,13 @@
         <div class="login-box">
             <h2>Admin Access</h2>
             <p>Enter the password to continue</p>
-            <p>(password: {{ADMIN_PASSWORD}})</p>
             <form id="loginForm">
                 <input type="password" id="passwordInput" placeholder="Password" autocomplete="off">
                 <button type="submit">Login</button>
                 <p class="login-error" id="loginError">Incorrect password. Please try again.</p>
             </form>
             <div class="back-link">
-                <a href="index.html">← Back to main page</a>
+                <a href="index.html">&larr; Back to main page</a>
             </div>
         </div>
     </div>
@@ -872,27 +940,27 @@
                 <div class="metric-card">
                     <div class="metric-value">2,847</div>
                     <div class="metric-label">Total Interactions</div>
-                    <div class="metric-trend up">↑ 12% this week</div>
+                    <div class="metric-trend up">&uarr; 12% this week</div>
                 </div>
                 <div class="metric-card">
                     <div class="metric-value">156</div>
                     <div class="metric-label">Daily Active Users</div>
-                    <div class="metric-trend up">↑ 8% vs yesterday</div>
+                    <div class="metric-trend up">&uarr; 8% vs yesterday</div>
                 </div>
                 <div class="metric-card">
                     <div class="metric-value">423</div>
                     <div class="metric-label">Weekly Active Users</div>
-                    <div class="metric-trend up">↑ 15% vs last week</div>
+                    <div class="metric-trend up">&uarr; 15% vs last week</div>
                 </div>
                 <div class="metric-card">
                     <div class="metric-value">89</div>
                     <div class="metric-label">Daily Repeat Users</div>
-                    <div class="metric-trend up">↑ 5% vs yesterday</div>
+                    <div class="metric-trend up">&uarr; 5% vs yesterday</div>
                 </div>
                 <div class="metric-card">
                     <div class="metric-value">267</div>
                     <div class="metric-label">Weekly Repeat Users</div>
-                    <div class="metric-trend up">↑ 18% vs last week</div>
+                    <div class="metric-trend up">&uarr; 18% vs last week</div>
                 </div>
             </div>
 
@@ -918,33 +986,33 @@
                     <tbody id="topUsersBody">
                         <tr>
                             <td><span class="rank-badge rank-1">1</span></td>
-                            <td><span class="clickable-user" data-user="sarah.johnson@ibm.com">sarah.johnson@ibm.com</span></td>
+                            <td><span class="clickable-user" data-user="sarah.johnson@example.com">sarah.johnson@example.com</span></td>
                             <td>187</td>
-                            <td>Revenue EA Review - Red Hat Paper</td>
+                            <td>Contract Review Agent - Internal</td>
                         </tr>
                         <tr>
                             <td><span class="rank-badge rank-2">2</span></td>
-                            <td><span class="clickable-user" data-user="michael.chen@ibm.com">michael.chen@ibm.com</span></td>
+                            <td><span class="clickable-user" data-user="michael.chen@example.com">michael.chen@example.com</span></td>
                             <td>154</td>
-                            <td>Procurement MPA Review – Vendor Paper</td>
+                            <td>Compliance Check Agent - Vendor</td>
                         </tr>
                         <tr>
                             <td><span class="rank-badge rank-3">3</span></td>
-                            <td><span class="clickable-user" data-user="emily.rodriguez@ibm.com">emily.rodriguez@ibm.com</span></td>
+                            <td><span class="clickable-user" data-user="emily.rodriguez@example.com">emily.rodriguez@example.com</span></td>
                             <td>132</td>
                             <td>General Document Comparison</td>
                         </tr>
                         <tr>
                             <td><span class="rank-badge rank-default">4</span></td>
-                            <td><span class="clickable-user" data-user="david.kim@ibm.com">david.kim@ibm.com</span></td>
+                            <td><span class="clickable-user" data-user="david.kim@example.com">david.kim@example.com</span></td>
                             <td>98</td>
-                            <td>Revenue NDA Review - Customer Paper</td>
+                            <td>Policy Review Agent - Customer</td>
                         </tr>
                         <tr>
                             <td><span class="rank-badge rank-default">5</span></td>
-                            <td><span class="clickable-user" data-user="jennifer.martinez@ibm.com">jennifer.martinez@ibm.com</span></td>
+                            <td><span class="clickable-user" data-user="jennifer.martinez@example.com">jennifer.martinez@example.com</span></td>
                             <td>87</td>
-                            <td>Procurement MPA Review – Red Hat Paper</td>
+                            <td>Compliance Check Agent - Internal</td>
                         </tr>
                     </tbody>
                 </table>
@@ -966,72 +1034,72 @@
                 </div>
                 <div class="bar-chart" id="clicksBarChart">
                     <div class="bar-item">
-                        <div class="bar-label"><span class="clickable-agent" data-agent="Revenue EA Review - Red Hat Paper">Revenue EA Review - Red Hat Paper</span></div>
+                        <div class="bar-label"><span class="clickable-agent" data-agent="Contract Review Agent - Internal">Contract Review Agent - Internal</span></div>
                         <div class="bar-track">
-                            <div class="bar-fill red" style="width: 100%;"></div>
+                            <div class="bar-fill primary" style="width: 100%;"></div>
                         </div>
                         <div class="bar-value">342</div>
                     </div>
                     <div class="bar-item">
-                        <div class="bar-label"><span class="clickable-agent" data-agent="Procurement MPA Review – Vendor Paper">Procurement MPA Review – Vendor Paper</span></div>
+                        <div class="bar-label"><span class="clickable-agent" data-agent="Compliance Check Agent - Vendor">Compliance Check Agent - Vendor</span></div>
                         <div class="bar-track">
-                            <div class="bar-fill red" style="width: 82%;"></div>
+                            <div class="bar-fill primary" style="width: 82%;"></div>
                         </div>
                         <div class="bar-value">281</div>
                     </div>
                     <div class="bar-item">
                         <div class="bar-label"><span class="clickable-agent" data-agent="General Document Comparison">General Document Comparison</span></div>
                         <div class="bar-track">
-                            <div class="bar-fill red" style="width: 71%;"></div>
+                            <div class="bar-fill primary" style="width: 71%;"></div>
                         </div>
                         <div class="bar-value">243</div>
                     </div>
                     <div class="bar-item">
-                        <div class="bar-label"><span class="clickable-agent" data-agent="Procurement MPA Review – Red Hat Paper">Procurement MPA Review – Red Hat Paper</span></div>
+                        <div class="bar-label"><span class="clickable-agent" data-agent="Compliance Check Agent - Internal">Compliance Check Agent - Internal</span></div>
                         <div class="bar-track">
-                            <div class="bar-fill red" style="width: 65%;"></div>
+                            <div class="bar-fill primary" style="width: 65%;"></div>
                         </div>
                         <div class="bar-value">222</div>
                     </div>
                     <div class="bar-item">
-                        <div class="bar-label"><span class="clickable-agent" data-agent="Procurement DPA Review – Red Hat Paper">Procurement DPA Review – Red Hat Paper</span></div>
+                        <div class="bar-label"><span class="clickable-agent" data-agent="Policy Review Agent - Internal">Policy Review Agent - Internal</span></div>
                         <div class="bar-track">
-                            <div class="bar-fill red" style="width: 53%;"></div>
+                            <div class="bar-fill primary" style="width: 53%;"></div>
                         </div>
                         <div class="bar-value">182</div>
                     </div>
                     <div class="bar-item">
-                        <div class="bar-label"><span class="clickable-agent" data-agent="Revenue NDA Review - Customer Paper">Revenue NDA Review - Customer Paper</span></div>
+                        <div class="bar-label"><span class="clickable-agent" data-agent="Policy Review Agent - Customer">Policy Review Agent - Customer</span></div>
                         <div class="bar-track">
-                            <div class="bar-fill red" style="width: 47%;"></div>
+                            <div class="bar-fill primary" style="width: 47%;"></div>
                         </div>
                         <div class="bar-value">161</div>
                     </div>
                     <div class="bar-item">
-                        <div class="bar-label"><span class="clickable-agent" data-agent="Revenue Appendix 1 Review – Red Hat Paper">Revenue Appendix 1 Review – Red Hat Paper</span></div>
+                        <div class="bar-label"><span class="clickable-agent" data-agent="Invoice Processing Agent">Invoice Processing Agent</span></div>
                         <div class="bar-track">
-                            <div class="bar-fill red" style="width: 41%;"></div>
+                            <div class="bar-fill primary" style="width: 41%;"></div>
                         </div>
                         <div class="bar-value">140</div>
                     </div>
                     <div class="bar-item">
-                        <div class="bar-label"><span class="clickable-agent" data-agent="Revenue DORA Review - Red Hat Paper">Revenue DORA Review - Red Hat Paper</span></div>
+                        <div class="bar-label"><span class="clickable-agent" data-agent="Onboarding Assistant Agent">Onboarding Assistant Agent</span></div>
                         <div class="bar-track">
-                            <div class="bar-fill red" style="width: 35%;"></div>
+                            <div class="bar-fill primary" style="width: 35%;"></div>
                         </div>
                         <div class="bar-value">119</div>
                     </div>
                     <div class="bar-item">
-                        <div class="bar-label"><span class="clickable-agent" data-agent="Procurement AIA Review – Vendor Paper">Procurement AIA Review – Vendor Paper</span></div>
+                        <div class="bar-label"><span class="clickable-agent" data-agent="Risk Assessment Agent - Vendor">Risk Assessment Agent - Vendor</span></div>
                         <div class="bar-track">
-                            <div class="bar-fill red" style="width: 28%;"></div>
+                            <div class="bar-fill primary" style="width: 28%;"></div>
                         </div>
                         <div class="bar-value">96</div>
                     </div>
                     <div class="bar-item">
                         <div class="bar-label"><span class="clickable-agent" data-agent="Other Agents">Other Agents</span></div>
                         <div class="bar-track">
-                            <div class="bar-fill red" style="width: 22%;"></div>
+                            <div class="bar-fill primary" style="width: 22%;"></div>
                         </div>
                         <div class="bar-value">75</div>
                     </div>
@@ -1049,18 +1117,17 @@
             
             <div class="calculator-container">
                 <div class="calculator-intro">
-                    <p>Add Legal Associates and their tasks to calculate the time and cost savings of using custom agents.</p>
+                    <p>Add team members and their tasks to calculate the time and cost savings of using custom agents.</p>
                 </div>
 
                 <!-- Associates Container -->
                 <div id="associates-container" class="space-y-6">
-                    <!-- Associate cards will be injected here -->
                 </div>
 
                 <!-- Main Controls -->
                 <div class="flex justify-center mt-6">
-                    <button id="addAssociateBtn" style="font-family: 'IBM Plex Sans', sans-serif; color: #0f62fe; border: 1px solid #0f62fe; background-color: #fff;" class="font-semibold py-2 px-4 rounded-none transition-colors hover:bg-blue-50">
-                        + Add Associate
+                    <button id="addAssociateBtn" class="calc-outline-btn" style="padding: 8px 16px;">
+                        + Add Team Member
                     </button>
                 </div>
 
@@ -1077,7 +1144,7 @@
                                     <div id="grand-total-hours" class="summary-primary-value">0</div>
                                 </div>
                                 <div class="summary-secondary-item">
-                                    <div class="summary-secondary-label">watsonx Orchestrate Annual Cost <span class="calc-info-icon" data-info="agent-cost">?</span></div>
+                                    <div class="summary-secondary-label"><span data-bind="costLabel">Platform Annual Cost</span> <span class="calc-info-icon" data-info="agent-cost">?</span></div>
                                     <div id="agent-cost-total" class="summary-secondary-value">$0</div>
                                 </div>
                             </div>
@@ -1184,29 +1251,25 @@
     <button class="admin-back-to-top" id="adminBackToTop">Back to Top</button>
 
     <script>
-        // Password configuration - CHANGE THIS to your desired password
-        const ADMIN_PASSWORD = '{{ADMIN_PASSWORD}}';
-        
-        // Session key for this browser tab
-        const SESSION_KEY = 'clg_admin_authenticated';
+        var SP = SITE_CONFIG.storagePrefix;
+        var ADMIN_PASSWORD = SITE_CONFIG.adminPassword;
+        var SESSION_KEY = SP + 'admin_authenticated';
+        var COST_PER_USER = SITE_CONFIG.calculator.costPerUserPerYear;
 
-        // Check if already authenticated in this session
         function checkSession() {
             if (sessionStorage.getItem(SESSION_KEY) === 'true') {
                 showAdminContent();
             }
         }
 
-        // Show admin content and hide login
         function showAdminContent() {
             document.getElementById('loginOverlay').classList.add('hidden');
             document.getElementById('adminContent').classList.add('authenticated');
         }
 
-        // Handle login form submission
         document.getElementById('loginForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            const password = document.getElementById('passwordInput').value;
+            var password = document.getElementById('passwordInput').value;
             
             if (password === ADMIN_PASSWORD) {
                 sessionStorage.setItem(SESSION_KEY, 'true');
@@ -1218,17 +1281,15 @@
             }
         });
 
-        // Logout function
         function logout() {
             sessionStorage.removeItem(SESSION_KEY);
             window.location.reload();
         }
 
-        // Smooth scroll for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
+                var target = document.querySelector(this.getAttribute('href'));
                 if (target) {
                     target.scrollIntoView({
                         behavior: 'smooth',
@@ -1238,26 +1299,16 @@
             });
         });
 
-        // Check session on page load
         checkSession();
 
         // ========================================
         // ANALYTICS CONFIGURATION
         // ========================================
-        // 
-        // Live analytics is currently disabled pending a hosting solution.
-        // The dashboard displays sample data for demonstration purposes.
-        // The Productivity Gains Calculator remains fully functional.
-        //
-        // See server/ folder for Node.js backend implementation.
-        
-        let isApiConnected = false;
+        var isApiConnected = false;
 
-        // Initialize with sample data notice
         function initializeAnalytics() {
             isApiConnected = false;
-            document.getElementById('dataSourceText').innerHTML = 
-                'Displaying <strong>sample data</strong> for demonstration. Live analytics coming soon.';
+            document.getElementById('dataSourceText').textContent = 'Displaying sample data for demonstration. Live analytics coming soon.';
             document.getElementById('dataSourceNotice').style.borderLeftColor = '#17a2b8';
         }
 
@@ -1268,38 +1319,28 @@
             if (!isApiConnected) return;
             
             try {
-                const response = await fetch(`${APPS_SCRIPT_URL}?action=metrics`);
-                const data = await response.json();
+                var response = await fetch(APPS_SCRIPT_URL + '?action=metrics');
+                var data = await response.json();
                 
-                // Update metric cards
-                const metricsGrid = document.querySelector('.metrics-grid');
-                metricsGrid.innerHTML = `
-                    <div class="metric-card">
-                        <div class="metric-value">${data.totalInteractions.value.toLocaleString()}</div>
-                        <div class="metric-label">Total Interactions</div>
-                        <div class="metric-trend ${data.totalInteractions.trend}">${data.totalInteractions.trend === 'up' ? '↑' : '↓'} ${Math.abs(data.totalInteractions.change)}% this week</div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="metric-value">${data.dailyActiveUsers.value.toLocaleString()}</div>
-                        <div class="metric-label">Daily Active Users</div>
-                        <div class="metric-trend ${data.dailyActiveUsers.trend}">${data.dailyActiveUsers.trend === 'up' ? '↑' : '↓'} ${Math.abs(data.dailyActiveUsers.change)}% vs yesterday</div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="metric-value">${data.weeklyActiveUsers.value.toLocaleString()}</div>
-                        <div class="metric-label">Weekly Active Users</div>
-                        <div class="metric-trend ${data.weeklyActiveUsers.trend}">${data.weeklyActiveUsers.trend === 'up' ? '↑' : '↓'} ${Math.abs(data.weeklyActiveUsers.change)}% vs last week</div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="metric-value">${data.dailyRepeatUsers.value.toLocaleString()}</div>
-                        <div class="metric-label">Daily Repeat Users</div>
-                        <div class="metric-trend ${data.dailyRepeatUsers.trend}">${data.dailyRepeatUsers.trend === 'up' ? '↑' : '↓'} ${Math.abs(data.dailyRepeatUsers.change)}% vs yesterday</div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="metric-value">${data.weeklyRepeatUsers.value.toLocaleString()}</div>
-                        <div class="metric-label">Weekly Repeat Users</div>
-                        <div class="metric-trend ${data.weeklyRepeatUsers.trend}">${data.weeklyRepeatUsers.trend === 'up' ? '↑' : '↓'} ${Math.abs(data.weeklyRepeatUsers.change)}% vs last week</div>
-                    </div>
-                `;
+                var metricsGrid = document.querySelector('.metrics-grid');
+                metricsGrid.textContent = '';
+                var metrics = [
+                    { value: data.totalInteractions, label: 'Total Interactions', compare: 'this week' },
+                    { value: data.dailyActiveUsers, label: 'Daily Active Users', compare: 'vs yesterday' },
+                    { value: data.weeklyActiveUsers, label: 'Weekly Active Users', compare: 'vs last week' },
+                    { value: data.dailyRepeatUsers, label: 'Daily Repeat Users', compare: 'vs yesterday' },
+                    { value: data.weeklyRepeatUsers, label: 'Weekly Repeat Users', compare: 'vs last week' },
+                ];
+                metrics.forEach(function(m) {
+                    var card = document.createElement('div');
+                    card.className = 'metric-card';
+                    var arrow = m.value.trend === 'up' ? '\u2191' : '\u2193';
+                    var val = document.createElement('div'); val.className = 'metric-value'; val.textContent = m.value.value.toLocaleString();
+                    var lbl = document.createElement('div'); lbl.className = 'metric-label'; lbl.textContent = m.label;
+                    var trend = document.createElement('div'); trend.className = 'metric-trend ' + m.value.trend; trend.textContent = arrow + ' ' + Math.abs(m.value.change) + '% ' + m.compare;
+                    card.appendChild(val); card.appendChild(lbl); card.appendChild(trend);
+                    metricsGrid.appendChild(card);
+                });
             } catch (error) {
                 console.error('Failed to load metrics:', error);
             }
@@ -1315,31 +1356,37 @@
             }
             
             try {
-                const response = await fetch(`${APPS_SCRIPT_URL}?action=top-users&period=${period}`);
-                const data = await response.json();
+                var response = await fetch(APPS_SCRIPT_URL + '?action=top-users&period=' + period);
+                var data = await response.json();
                 
                 if (data.users && data.users.length > 0) {
-                    topUsersBody.innerHTML = data.users.map(user => {
-                        let rankClass = 'rank-default';
+                    topUsersBody.textContent = '';
+                    data.users.forEach(function(user) {
+                        var rankClass = 'rank-default';
                         if (user.rank === 1) rankClass = 'rank-1';
                         else if (user.rank === 2) rankClass = 'rank-2';
                         else if (user.rank === 3) rankClass = 'rank-3';
                         
-                        return `
-                            <tr>
-                                <td><span class="rank-badge ${rankClass}">${user.rank}</span></td>
-                                <td><span class="clickable-user" data-user="${user.user}">${user.user}</span></td>
-                                <td>${user.interactions.toLocaleString()}</td>
-                                <td>${user.mostUsedAgent || 'N/A'}</td>
-                            </tr>
-                        `;
-                    }).join('');
+                        var tr = document.createElement('tr');
+                        var tdRank = document.createElement('td');
+                        var badge = document.createElement('span'); badge.className = 'rank-badge ' + rankClass; badge.textContent = user.rank;
+                        tdRank.appendChild(badge);
+                        var tdUser = document.createElement('td');
+                        var uSpan = document.createElement('span'); uSpan.className = 'clickable-user'; uSpan.dataset.user = user.user; uSpan.textContent = user.user;
+                        tdUser.appendChild(uSpan);
+                        var tdInt = document.createElement('td'); tdInt.textContent = user.interactions.toLocaleString();
+                        var tdAgent = document.createElement('td'); tdAgent.textContent = user.mostUsedAgent || 'N/A';
+                        tr.appendChild(tdRank); tr.appendChild(tdUser); tr.appendChild(tdInt); tr.appendChild(tdAgent);
+                        topUsersBody.appendChild(tr);
+                    });
                 } else {
-                    topUsersBody.innerHTML = '<tr><td colspan="4" style="text-align: center; color: #888; padding: 2rem;">No user data available yet. Click on some agents to start tracking!</td></tr>';
+                    topUsersBody.textContent = '';
+                    var tr = document.createElement('tr'); var td = document.createElement('td'); td.colSpan = 4; td.style.textAlign = 'center'; td.style.color = '#888'; td.style.padding = '2rem'; td.textContent = 'No user data available yet. Click on some agents to start tracking!';
+                    tr.appendChild(td); topUsersBody.appendChild(tr);
                 }
             } catch (error) {
                 console.error('Failed to load top users:', error);
-                updateTopUsersTable(period); // Fallback to sample data
+                updateTopUsersTable(period);
             }
         }
 
@@ -1353,25 +1400,31 @@
             }
             
             try {
-                const response = await fetch(`${APPS_SCRIPT_URL}?action=clicks-by-agent&period=${period}`);
-                const data = await response.json();
+                var response = await fetch(APPS_SCRIPT_URL + '?action=clicks-by-agent&period=' + period);
+                var data = await response.json();
                 
                 if (data.agents && data.agents.length > 0) {
-                    clicksBarChart.innerHTML = data.agents.map(item => `
-                        <div class="bar-item">
-                            <div class="bar-label"><span class="clickable-agent" data-agent="${item.label}">${item.label}</span></div>
-                            <div class="bar-track">
-                                <div class="bar-fill red" style="width: ${item.percentage}%;"></div>
-                            </div>
-                            <div class="bar-value">${item.value.toLocaleString()}</div>
-                        </div>
-                    `).join('');
+                    clicksBarChart.textContent = '';
+                    data.agents.forEach(function(item) {
+                        var barItem = document.createElement('div'); barItem.className = 'bar-item';
+                        var barLabel = document.createElement('div'); barLabel.className = 'bar-label';
+                        var agentSpan = document.createElement('span'); agentSpan.className = 'clickable-agent'; agentSpan.dataset.agent = item.label; agentSpan.textContent = item.label;
+                        barLabel.appendChild(agentSpan);
+                        var barTrack = document.createElement('div'); barTrack.className = 'bar-track';
+                        var barFill = document.createElement('div'); barFill.className = 'bar-fill primary'; barFill.style.width = item.percentage + '%';
+                        barTrack.appendChild(barFill);
+                        var barValue = document.createElement('div'); barValue.className = 'bar-value'; barValue.textContent = item.value.toLocaleString();
+                        barItem.appendChild(barLabel); barItem.appendChild(barTrack); barItem.appendChild(barValue);
+                        clicksBarChart.appendChild(barItem);
+                    });
                 } else {
-                    clicksBarChart.innerHTML = '<div style="text-align: center; color: #888; padding: 2rem;">No click data available yet. Click on some agents to start tracking!</div>';
+                    clicksBarChart.textContent = '';
+                    var msg = document.createElement('div'); msg.style.textAlign = 'center'; msg.style.color = '#888'; msg.style.padding = '2rem'; msg.textContent = 'No click data available yet.';
+                    clicksBarChart.appendChild(msg);
                 }
             } catch (error) {
                 console.error('Failed to load clicks by agent:', error);
-                updateClicksChart(period); // Fallback to sample data
+                updateClicksChart(period);
             }
         }
 
@@ -1385,25 +1438,29 @@
             }
             
             try {
-                const response = await fetch(`${APPS_SCRIPT_URL}?action=user-details&email=${encodeURIComponent(userEmail)}&period=${period}`);
-                const data = await response.json();
+                var response = await fetch(APPS_SCRIPT_URL + '?action=user-details&email=' + encodeURIComponent(userEmail) + '&period=' + period);
+                var data = await response.json();
                 
                 userInteractionCount.textContent = data.totalInteractions;
                 
                 if (data.interactions && data.interactions.length > 0) {
-                    userDetailBody.innerHTML = data.interactions.map(item => `
-                        <tr>
-                            <td>${item.date}</td>
-                            <td>${item.time}</td>
-                            <td>${item.agent}</td>
-                        </tr>
-                    `).join('');
+                    userDetailBody.textContent = '';
+                    data.interactions.forEach(function(item) {
+                        var tr = document.createElement('tr');
+                        var td1 = document.createElement('td'); td1.textContent = item.date;
+                        var td2 = document.createElement('td'); td2.textContent = item.time;
+                        var td3 = document.createElement('td'); td3.textContent = item.agent;
+                        tr.appendChild(td1); tr.appendChild(td2); tr.appendChild(td3);
+                        userDetailBody.appendChild(tr);
+                    });
                 } else {
-                    userDetailBody.innerHTML = '<tr><td colspan="3" style="text-align: center; color: #888;">No interactions found for this period.</td></tr>';
+                    userDetailBody.textContent = '';
+                    var tr = document.createElement('tr'); var td = document.createElement('td'); td.colSpan = 3; td.style.textAlign = 'center'; td.style.color = '#888'; td.textContent = 'No interactions found for this period.';
+                    tr.appendChild(td); userDetailBody.appendChild(tr);
                 }
             } catch (error) {
                 console.error('Failed to load user details:', error);
-                updateUserDetails(period); // Fallback to sample data
+                updateUserDetails(period);
             }
         }
 
@@ -1417,30 +1474,33 @@
             }
             
             try {
-                const response = await fetch(`${APPS_SCRIPT_URL}?action=agent-details&agent=${encodeURIComponent(agentName)}&period=${period}`);
-                const data = await response.json();
+                var response = await fetch(APPS_SCRIPT_URL + '?action=agent-details&agent=' + encodeURIComponent(agentName) + '&period=' + period);
+                var data = await response.json();
                 
                 agentUsageCount.textContent = data.totalUses;
                 
                 if (data.uses && data.uses.length > 0) {
-                    agentDetailBody.innerHTML = data.uses.map(item => `
-                        <tr>
-                            <td>${item.date}</td>
-                            <td>${item.time}</td>
-                            <td>${item.user}</td>
-                        </tr>
-                    `).join('');
+                    agentDetailBody.textContent = '';
+                    data.uses.forEach(function(item) {
+                        var tr = document.createElement('tr');
+                        var td1 = document.createElement('td'); td1.textContent = item.date;
+                        var td2 = document.createElement('td'); td2.textContent = item.time;
+                        var td3 = document.createElement('td'); td3.textContent = item.user;
+                        tr.appendChild(td1); tr.appendChild(td2); tr.appendChild(td3);
+                        agentDetailBody.appendChild(tr);
+                    });
                 } else {
-                    agentDetailBody.innerHTML = '<tr><td colspan="3" style="text-align: center; color: #888;">No usage data found for this period.</td></tr>';
+                    agentDetailBody.textContent = '';
+                    var tr = document.createElement('tr'); var td = document.createElement('td'); td.colSpan = 3; td.style.textAlign = 'center'; td.style.color = '#888'; td.textContent = 'No usage data found for this period.';
+                    tr.appendChild(td); agentDetailBody.appendChild(tr);
                 }
             } catch (error) {
                 console.error('Failed to load agent details:', error);
-                updateAgentDetails(period); // Fallback to sample data
+                updateAgentDetails(period);
             }
         }
 
-        // Initialize analytics when admin content is shown
-        const originalShowAdminContent = showAdminContent;
+        var originalShowAdminContent = showAdminContent;
         showAdminContent = function() {
             originalShowAdminContent();
             initializeAnalytics();
@@ -1451,114 +1511,186 @@
         // IMPACT CALCULATOR FUNCTIONALITY
         // ========================================
         
-        const associatesContainer = document.getElementById('associates-container');
-        const addAssociateBtn = document.getElementById('addAssociateBtn');
+        var associatesContainer = document.getElementById('associates-container');
+        var addAssociateBtn = document.getElementById('addAssociateBtn');
 
-        // Grand Total Elements
-        const grandTotalHoursEl = document.getElementById('grand-total-hours');
-        const grandTotalSavingsEl = document.getElementById('grand-total-savings');
-        const agentCostTotalEl = document.getElementById('agent-cost-total');
-        const grandTotalRoiEl = document.getElementById('grand-total-roi');
+        var grandTotalHoursEl = document.getElementById('grand-total-hours');
+        var grandTotalSavingsEl = document.getElementById('grand-total-savings');
+        var agentCostTotalEl = document.getElementById('agent-cost-total');
+        var grandTotalRoiEl = document.getElementById('grand-total-roi');
 
         function addAssociate() {
-            const associateId = `associate-${Date.now()}`;
-            const card = document.createElement('div');
+            var associateId = 'associate-' + Date.now();
+            var card = document.createElement('div');
             card.className = 'associate-card';
             card.id = associateId;
-            card.innerHTML = `
-                <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4 gap-4">
-                    <div class="flex flex-wrap items-center gap-x-4 gap-y-2">
-                        <input type="text" placeholder="Associate Name" class="associate-name-input p-2 border rounded-none w-48">
-                        <div class="flex items-center">
-                            <span class="mr-2 text-sm text-gray-600">$</span>
-                            <input type="number" placeholder="Annual Salary" class="annual-salary-input p-2 border rounded-none w-40" style="text-align: right;">
-                        </div>
-                        <div class="text-sm text-gray-700 p-2 rounded-none bg-gray-100">
-                            Hourly Rate: <span class="hourly-rate font-semibold">$0.00</span> <span class="calc-info-icon" data-info="hourly-rate">?</span>
-                        </div>
-                    </div>
-                    <button class="delete-associate-btn font-semibold py-2 px-3 rounded-none transition-colors hover:bg-blue-50" style="font-family: 'IBM Plex Sans', sans-serif; color: #0f62fe; border: 1px solid #0f62fe; background-color: #fff;">Remove Associate</button>
-                </div>
-                <div class="overflow-x-auto">
-                    <table class="task-table">
-                        <thead>
-                            <tr>
-                                <th style="text-align: left;">Task Description</th>
-                                <th style="text-align: right;">Tasks/Year</th>
-                                <th style="text-align: right;">Annual Time w/o Agent (Hours)</th>
-                                <th style="text-align: right;">Annual Time w/ Agent (Hours)</th>
-                                <th style="text-align: right;">Annual Hours Saved</th>
-                                <th style="text-align: right;">Annual Savings ($)</th>
-                                <th style="text-align: center;"></th>
-                            </tr>
-                        </thead>
-                        <tbody class="task-body">
-                            <!-- Task rows will be injected here -->
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <td style="text-align: left; font-weight: 700;">Associate Total</td>
-                                <td style="text-align: right; font-weight: 700;" class="associate-total-tasks">0</td>
-                                <td style="text-align: right; font-weight: 700;" class="associate-total-time-without">0.00</td>
-                                <td style="text-align: right; font-weight: 700;" class="associate-total-time-with">0.00</td>
-                                <td style="text-align: right; font-weight: 700;" class="associate-total-hours">0.00</td>
-                                <td style="text-align: right; font-weight: 700;" class="associate-total-savings">$0.00</td>
-                                <td></td>
-                            </tr>
-                        </tfoot>
-                    </table>
-                </div>
-                <button class="add-task-btn mt-4 text-white text-sm font-semibold py-1 px-3 rounded-none" style="font-family: 'IBM Plex Sans', sans-serif; background-color: #0f62fe;">+ Add Task</button>
-            `;
+
+            var topRow = document.createElement('div');
+            topRow.className = 'flex flex-col md:flex-row justify-between items-start md:items-center mb-4 gap-4';
+
+            var inputsWrap = document.createElement('div');
+            inputsWrap.className = 'flex flex-wrap items-center gap-x-4 gap-y-2';
+
+            var nameInput = document.createElement('input');
+            nameInput.type = 'text'; nameInput.placeholder = 'Team Member Name'; nameInput.className = 'associate-name-input p-2 border rounded-none w-48';
+            inputsWrap.appendChild(nameInput);
+
+            var salaryDiv = document.createElement('div');
+            salaryDiv.className = 'flex items-center';
+            var dollarSign = document.createElement('span');
+            dollarSign.className = 'mr-2 text-sm text-gray-600'; dollarSign.textContent = '$';
+            var salaryInput = document.createElement('input');
+            salaryInput.type = 'number'; salaryInput.placeholder = 'Annual Salary'; salaryInput.className = 'annual-salary-input p-2 border rounded-none w-40'; salaryInput.style.textAlign = 'right';
+            salaryDiv.appendChild(dollarSign); salaryDiv.appendChild(salaryInput);
+            inputsWrap.appendChild(salaryDiv);
+
+            var rateDiv = document.createElement('div');
+            rateDiv.className = 'text-sm text-gray-700 p-2 rounded-none bg-gray-100';
+            rateDiv.textContent = 'Hourly Rate: ';
+            var rateSpan = document.createElement('span');
+            rateSpan.className = 'hourly-rate font-semibold'; rateSpan.textContent = '$0.00';
+            rateDiv.appendChild(rateSpan);
+            var rateInfo = document.createElement('span');
+            rateInfo.className = 'calc-info-icon'; rateInfo.dataset.info = 'hourly-rate'; rateInfo.textContent = '?';
+            rateDiv.appendChild(rateInfo);
+            inputsWrap.appendChild(rateDiv);
+            topRow.appendChild(inputsWrap);
+
+            var removeBtn = document.createElement('button');
+            removeBtn.className = 'delete-associate-btn calc-outline-btn';
+            removeBtn.style.padding = '8px 12px';
+            removeBtn.textContent = 'Remove';
+            topRow.appendChild(removeBtn);
+            card.appendChild(topRow);
+
+            var tableWrap = document.createElement('div');
+            tableWrap.className = 'overflow-x-auto';
+            var table = document.createElement('table');
+            table.className = 'task-table';
+
+            var thead = document.createElement('thead');
+            var headRow = document.createElement('tr');
+            var headers = [
+                { text: 'Task Description', align: 'left' },
+                { text: 'Tasks/Year', align: 'right' },
+                { text: 'Annual Time w/o Agent (Hours)', align: 'right' },
+                { text: 'Annual Time w/ Agent (Hours)', align: 'right' },
+                { text: 'Annual Hours Saved', align: 'right' },
+                { text: 'Annual Savings ($)', align: 'right' },
+                { text: '', align: 'center' }
+            ];
+            headers.forEach(function(h) {
+                var th = document.createElement('th');
+                th.style.textAlign = h.align; th.textContent = h.text;
+                headRow.appendChild(th);
+            });
+            thead.appendChild(headRow);
+            table.appendChild(thead);
+
+            var tbody = document.createElement('tbody');
+            tbody.className = 'task-body';
+            table.appendChild(tbody);
+
+            var tfoot = document.createElement('tfoot');
+            var footRow = document.createElement('tr');
+            var footCells = [
+                { text: 'Associate Total', cls: '', align: 'left' },
+                { text: '0', cls: 'associate-total-tasks', align: 'right' },
+                { text: '0.00', cls: 'associate-total-time-without', align: 'right' },
+                { text: '0.00', cls: 'associate-total-time-with', align: 'right' },
+                { text: '0.00', cls: 'associate-total-hours', align: 'right' },
+                { text: '$0.00', cls: 'associate-total-savings', align: 'right' },
+                { text: '', cls: '', align: 'center' }
+            ];
+            footCells.forEach(function(fc) {
+                var td = document.createElement('td');
+                td.style.textAlign = fc.align; td.style.fontWeight = '700'; td.textContent = fc.text;
+                if (fc.cls) td.className = fc.cls;
+                footRow.appendChild(td);
+            });
+            tfoot.appendChild(footRow);
+            table.appendChild(tfoot);
+            tableWrap.appendChild(table);
+            card.appendChild(tableWrap);
+
+            var addTaskBtn = document.createElement('button');
+            addTaskBtn.className = 'add-task-btn calc-primary-btn';
+            addTaskBtn.style.marginTop = '1rem'; addTaskBtn.style.padding = '4px 12px'; addTaskBtn.style.fontSize = '0.875rem';
+            addTaskBtn.textContent = '+ Add Task';
+            card.appendChild(addTaskBtn);
+
             associatesContainer.appendChild(card);
-            addTask(card.querySelector('.task-body'));
+            addTask(tbody);
             updateCalculations();
         }
 
         function addTask(taskBody) {
-            const row = document.createElement('tr');
+            var row = document.createElement('tr');
             row.className = 'task-row';
-            row.innerHTML = `
-                <td style="text-align: left;"><input type="text" placeholder="e.g., Review Enterprise Agreement" class="task-name-input p-1 border rounded-none w-full"></td>
-                <td style="text-align: right;"><input type="number" class="tasks-per-year-input p-1 border rounded-none w-16" style="text-align: right;"></td>
-                <td style="text-align: right;"><input type="number" step="0.1" class="time-without-input p-1 border rounded-none w-20" style="text-align: right;"></td>
-                <td style="text-align: right;"><input type="number" step="0.1" class="time-with-input p-1 border rounded-none w-20" style="text-align: right;"></td>
-                <td style="text-align: right; font-size: 0.85rem; font-weight: 500;" class="task-hours-saved">0.00</td>
-                <td style="text-align: right; font-size: 0.85rem; font-weight: 500;" class="task-savings">$0.00</td>
-                <td style="text-align: center;">
-                    <button class="delete-task-btn" style="color: #9ca3af; cursor: pointer;">🗑</button>
-                </td>
-            `;
+
+            var fields = [
+                { tag: 'input', type: 'text', cls: 'task-name-input p-1 border rounded-none w-full', placeholder: 'e.g., Review Enterprise Agreement', align: 'left' },
+                { tag: 'input', type: 'number', cls: 'tasks-per-year-input p-1 border rounded-none w-16', align: 'right' },
+                { tag: 'input', type: 'number', cls: 'time-without-input p-1 border rounded-none w-20', align: 'right', step: '0.1' },
+                { tag: 'input', type: 'number', cls: 'time-with-input p-1 border rounded-none w-20', align: 'right', step: '0.1' },
+                { tag: 'span', cls: 'task-hours-saved', text: '0.00', align: 'right' },
+                { tag: 'span', cls: 'task-savings', text: '$0.00', align: 'right' },
+                { tag: 'button', cls: 'delete-task-btn', text: '\uD83D\uDDD1', align: 'center' }
+            ];
+
+            fields.forEach(function(f) {
+                var td = document.createElement('td');
+                td.style.textAlign = f.align;
+                if (f.tag === 'input') {
+                    var input = document.createElement('input');
+                    input.type = f.type; input.className = f.cls;
+                    if (f.placeholder) input.placeholder = f.placeholder;
+                    if (f.step) input.step = f.step;
+                    if (f.align === 'right') input.style.textAlign = 'right';
+                    td.appendChild(input);
+                } else if (f.tag === 'button') {
+                    var btn = document.createElement('button');
+                    btn.className = f.cls; btn.style.color = '#9ca3af'; btn.style.cursor = 'pointer';
+                    btn.textContent = f.text;
+                    td.appendChild(btn);
+                } else {
+                    td.className = f.cls;
+                    td.style.fontSize = '0.85rem'; td.style.fontWeight = '500';
+                    td.textContent = f.text;
+                }
+                row.appendChild(td);
+            });
+
             taskBody.appendChild(row);
         }
 
         function updateCalculations() {
-            let grandTotalHours = 0;
-            let grandTotalSavings = 0;
-            const associates = document.querySelectorAll('.associate-card');
+            var grandTotalHours = 0;
+            var grandTotalSavings = 0;
+            var associates = document.querySelectorAll('.associate-card');
             
-            associates.forEach(card => {
-                let associateTotalTasks = 0;
-                let associateTotalHours = 0;
-                let associateTotalSavings = 0;
-                let associateTotalTimeWithout = 0;
-                let associateTotalTimeWith = 0;
+            associates.forEach(function(card) {
+                var associateTotalTasks = 0;
+                var associateTotalHours = 0;
+                var associateTotalSavings = 0;
+                var associateTotalTimeWithout = 0;
+                var associateTotalTimeWith = 0;
 
-                const salaryInput = card.querySelector('.annual-salary-input');
-                const salary = parseFloat(salaryInput.value) || 0;
-                const hourlyRate = (salary / 2080) * 1.3;
-                card.querySelector('.hourly-rate').textContent = `$${hourlyRate.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+                var salaryInput = card.querySelector('.annual-salary-input');
+                var salary = parseFloat(salaryInput.value) || 0;
+                var hourlyRate = (salary / 2080) * 1.3;
+                card.querySelector('.hourly-rate').textContent = '$' + hourlyRate.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
 
-                card.querySelectorAll('.task-row').forEach(row => {
-                    const tasksPerYear = parseInt(row.querySelector('.tasks-per-year-input').value, 10) || 0;
-                    const timeWithout = parseFloat(row.querySelector('.time-without-input').value) || 0;
-                    const timeWith = parseFloat(row.querySelector('.time-with-input').value) || 0;
+                card.querySelectorAll('.task-row').forEach(function(row) {
+                    var tasksPerYear = parseInt(row.querySelector('.tasks-per-year-input').value, 10) || 0;
+                    var timeWithout = parseFloat(row.querySelector('.time-without-input').value) || 0;
+                    var timeWith = parseFloat(row.querySelector('.time-with-input').value) || 0;
 
-                    const annualTotalHoursSavedForRow = timeWithout - timeWith > 0 ? timeWithout - timeWith : 0;
-                    const annualSavingsForRow = annualTotalHoursSavedForRow * hourlyRate;
+                    var annualTotalHoursSavedForRow = timeWithout - timeWith > 0 ? timeWithout - timeWith : 0;
+                    var annualSavingsForRow = annualTotalHoursSavedForRow * hourlyRate;
 
                     row.querySelector('.task-hours-saved').textContent = annualTotalHoursSavedForRow.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
-                    row.querySelector('.task-savings').textContent = `$${annualSavingsForRow.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+                    row.querySelector('.task-savings').textContent = '$' + annualSavingsForRow.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
                     
                     associateTotalTasks += tasksPerYear;
                     associateTotalTimeWithout += timeWithout;
@@ -1571,19 +1703,19 @@
                 card.querySelector('.associate-total-time-without').textContent = associateTotalTimeWithout.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
                 card.querySelector('.associate-total-time-with').textContent = associateTotalTimeWith.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
                 card.querySelector('.associate-total-hours').textContent = associateTotalHours.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
-                card.querySelector('.associate-total-savings').textContent = `$${associateTotalSavings.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+                card.querySelector('.associate-total-savings').textContent = '$' + associateTotalSavings.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
 
                 grandTotalHours += associateTotalHours;
                 grandTotalSavings += associateTotalSavings;
             });
 
-            const agentCost = associates.length * 500;
-            const roi = agentCost > 0 ? ((grandTotalSavings - agentCost) / agentCost) * 100 : 0;
+            var agentCost = associates.length * COST_PER_USER;
+            var roi = agentCost > 0 ? ((grandTotalSavings - agentCost) / agentCost) * 100 : 0;
 
             grandTotalHoursEl.textContent = grandTotalHours.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
-            grandTotalSavingsEl.textContent = `$${grandTotalSavings.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
-            agentCostTotalEl.textContent = `$${agentCost.toLocaleString()}`;
-            grandTotalRoiEl.textContent = `${roi.toFixed(2)}%`;
+            grandTotalSavingsEl.textContent = '$' + grandTotalSavings.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+            agentCostTotalEl.textContent = '$' + agentCost.toLocaleString();
+            grandTotalRoiEl.textContent = roi.toFixed(2) + '%';
 
             grandTotalRoiEl.classList.remove('positive-roi', 'negative-roi');
             if (roi >= 0) {
@@ -1596,51 +1728,54 @@
         // ========================================
         // TOP USERS TIME PERIOD DROPDOWN
         // ========================================
-        const topUsersTimePeriod = document.getElementById('topUsersTimePeriod');
-        const topUsersBody = document.getElementById('topUsersBody');
+        var topUsersTimePeriod = document.getElementById('topUsersTimePeriod');
+        var topUsersBody = document.getElementById('topUsersBody');
 
-        // Sample data for top users by different time periods
-        const topUsersData = {
+        var topUsersData = {
             week: [
-                { rank: 1, user: 'sarah.johnson@ibm.com', interactions: 45, agent: 'Revenue EA Review - Red Hat Paper' },
-                { rank: 2, user: 'michael.chen@ibm.com', interactions: 38, agent: 'Procurement MPA Review – Vendor Paper' },
-                { rank: 3, user: 'emily.rodriguez@ibm.com', interactions: 32, agent: 'General Document Comparison' },
-                { rank: 4, user: 'david.kim@ibm.com', interactions: 24, agent: 'Revenue NDA Review - Customer Paper' },
-                { rank: 5, user: 'jennifer.martinez@ibm.com', interactions: 21, agent: 'Procurement MPA Review – Red Hat Paper' }
+                { rank: 1, user: 'sarah.johnson@example.com', interactions: 45, agent: 'Contract Review Agent - Internal' },
+                { rank: 2, user: 'michael.chen@example.com', interactions: 38, agent: 'Compliance Check Agent - Vendor' },
+                { rank: 3, user: 'emily.rodriguez@example.com', interactions: 32, agent: 'General Document Comparison' },
+                { rank: 4, user: 'david.kim@example.com', interactions: 24, agent: 'Policy Review Agent - Customer' },
+                { rank: 5, user: 'jennifer.martinez@example.com', interactions: 21, agent: 'Compliance Check Agent - Internal' }
             ],
             month: [
-                { rank: 1, user: 'sarah.johnson@ibm.com', interactions: 187, agent: 'Revenue EA Review - Red Hat Paper' },
-                { rank: 2, user: 'michael.chen@ibm.com', interactions: 154, agent: 'Procurement MPA Review – Vendor Paper' },
-                { rank: 3, user: 'emily.rodriguez@ibm.com', interactions: 132, agent: 'General Document Comparison' },
-                { rank: 4, user: 'david.kim@ibm.com', interactions: 98, agent: 'Revenue NDA Review - Customer Paper' },
-                { rank: 5, user: 'jennifer.martinez@ibm.com', interactions: 87, agent: 'Procurement MPA Review – Red Hat Paper' }
+                { rank: 1, user: 'sarah.johnson@example.com', interactions: 187, agent: 'Contract Review Agent - Internal' },
+                { rank: 2, user: 'michael.chen@example.com', interactions: 154, agent: 'Compliance Check Agent - Vendor' },
+                { rank: 3, user: 'emily.rodriguez@example.com', interactions: 132, agent: 'General Document Comparison' },
+                { rank: 4, user: 'david.kim@example.com', interactions: 98, agent: 'Policy Review Agent - Customer' },
+                { rank: 5, user: 'jennifer.martinez@example.com', interactions: 87, agent: 'Compliance Check Agent - Internal' }
             ],
             year: [
-                { rank: 1, user: 'sarah.johnson@ibm.com', interactions: 2145, agent: 'Revenue EA Review - Red Hat Paper' },
-                { rank: 2, user: 'michael.chen@ibm.com', interactions: 1876, agent: 'Procurement MPA Review – Vendor Paper' },
-                { rank: 3, user: 'emily.rodriguez@ibm.com', interactions: 1654, agent: 'General Document Comparison' },
-                { rank: 4, user: 'david.kim@ibm.com', interactions: 1243, agent: 'Revenue NDA Review - Customer Paper' },
-                { rank: 5, user: 'jennifer.martinez@ibm.com', interactions: 1098, agent: 'Procurement MPA Review – Red Hat Paper' }
+                { rank: 1, user: 'sarah.johnson@example.com', interactions: 2145, agent: 'Contract Review Agent - Internal' },
+                { rank: 2, user: 'michael.chen@example.com', interactions: 1876, agent: 'Compliance Check Agent - Vendor' },
+                { rank: 3, user: 'emily.rodriguez@example.com', interactions: 1654, agent: 'General Document Comparison' },
+                { rank: 4, user: 'david.kim@example.com', interactions: 1243, agent: 'Policy Review Agent - Customer' },
+                { rank: 5, user: 'jennifer.martinez@example.com', interactions: 1098, agent: 'Compliance Check Agent - Internal' }
             ]
         };
 
         function updateTopUsersTable(period) {
-            const data = topUsersData[period];
-            topUsersBody.innerHTML = data.map(user => {
-                let rankClass = 'rank-default';
+            var data = topUsersData[period];
+            topUsersBody.textContent = '';
+            data.forEach(function(user) {
+                var rankClass = 'rank-default';
                 if (user.rank === 1) rankClass = 'rank-1';
                 else if (user.rank === 2) rankClass = 'rank-2';
                 else if (user.rank === 3) rankClass = 'rank-3';
                 
-                return `
-                    <tr>
-                        <td><span class="rank-badge ${rankClass}">${user.rank}</span></td>
-                        <td><span class="clickable-user" data-user="${user.user}">${user.user}</span></td>
-                        <td>${user.interactions.toLocaleString()}</td>
-                        <td>${user.agent}</td>
-                    </tr>
-                `;
-            }).join('');
+                var tr = document.createElement('tr');
+                var tdRank = document.createElement('td');
+                var badge = document.createElement('span'); badge.className = 'rank-badge ' + rankClass; badge.textContent = user.rank;
+                tdRank.appendChild(badge);
+                var tdUser = document.createElement('td');
+                var uSpan = document.createElement('span'); uSpan.className = 'clickable-user'; uSpan.dataset.user = user.user; uSpan.textContent = user.user;
+                tdUser.appendChild(uSpan);
+                var tdInt = document.createElement('td'); tdInt.textContent = user.interactions.toLocaleString();
+                var tdAgent = document.createElement('td'); tdAgent.textContent = user.agent;
+                tr.appendChild(tdRank); tr.appendChild(tdUser); tr.appendChild(tdInt); tr.appendChild(tdAgent);
+                topUsersBody.appendChild(tr);
+            });
         }
 
         if (topUsersTimePeriod) {
@@ -1654,43 +1789,43 @@
         }
         
         function exportToCSV() {
-            let csvContent = "data:text/csv;charset=utf-8,";
-            csvContent += "Associate,Annual Salary,Hourly Rate,Task Description,Tasks Per Year,Annual Time w/o Agent (Hours),Annual Time w/ Agent (Hours),Annual Hours Saved,Annual Savings ($)\n";
+            var csvContent = "data:text/csv;charset=utf-8,";
+            csvContent += "Team Member,Annual Salary,Hourly Rate,Task Description,Tasks Per Year,Annual Time w/o Agent (Hours),Annual Time w/ Agent (Hours),Annual Hours Saved,Annual Savings ($)\n";
 
-            document.querySelectorAll('.associate-card').forEach(card => {
-                const associateName = card.querySelector('.associate-name-input').value.replace(/,/g, '');
-                const salary = card.querySelector('.annual-salary-input').value;
-                const hourlyRate = card.querySelector('.hourly-rate').textContent.replace('$', '').replace(/,/g, '');
+            document.querySelectorAll('.associate-card').forEach(function(card) {
+                var associateName = card.querySelector('.associate-name-input').value.replace(/,/g, '');
+                var salary = card.querySelector('.annual-salary-input').value;
+                var hourlyRate = card.querySelector('.hourly-rate').textContent.replace('$', '').replace(/,/g, '');
                 
-                csvContent += `${associateName},${salary},${hourlyRate},,,,\n`;
+                csvContent += associateName + ',' + salary + ',' + hourlyRate + ',,,,\n';
 
-                card.querySelectorAll('.task-row').forEach(row => {
-                    const taskName = row.querySelector('.task-name-input').value.replace(/,/g, '');
-                    const tasksPerYear = row.querySelector('.tasks-per-year-input').value;
-                    const timeWithout = row.querySelector('.time-without-input').value;
-                    const timeWith = row.querySelector('.time-with-input').value;
-                    const hoursSaved = row.querySelector('.task-hours-saved').textContent.replace(/,/g, '');
-                    const savings = row.querySelector('.task-savings').textContent.replace('$', '').replace(/,/g, '');
-                    csvContent += ` ,,${taskName},${tasksPerYear},${timeWithout},${timeWith},${hoursSaved},${savings}\n`;
+                card.querySelectorAll('.task-row').forEach(function(row) {
+                    var taskName = row.querySelector('.task-name-input').value.replace(/,/g, '');
+                    var tasksPerYear = row.querySelector('.tasks-per-year-input').value;
+                    var timeWithout = row.querySelector('.time-without-input').value;
+                    var timeWith = row.querySelector('.time-with-input').value;
+                    var hoursSaved = row.querySelector('.task-hours-saved').textContent.replace(/,/g, '');
+                    var savings = row.querySelector('.task-savings').textContent.replace('$', '').replace(/,/g, '');
+                    csvContent += ' ,,' + taskName + ',' + tasksPerYear + ',' + timeWithout + ',' + timeWith + ',' + hoursSaved + ',' + savings + '\n';
                 });
 
-                const totalTasks = card.querySelector('.associate-total-tasks').textContent;
-                const totalHours = card.querySelector('.associate-total-hours').textContent.replace(/,/g, '');
-                const totalSavings = card.querySelector('.associate-total-savings').textContent.replace('$', '').replace(/,/g, '');
-                csvContent += ` ,Associate Total,,${totalTasks},, ,${totalHours},${totalSavings}\n`;
-                csvContent += `\n`;
+                var totalTasks = card.querySelector('.associate-total-tasks').textContent;
+                var totalHours = card.querySelector('.associate-total-hours').textContent.replace(/,/g, '');
+                var totalSavings = card.querySelector('.associate-total-savings').textContent.replace('$', '').replace(/,/g, '');
+                csvContent += ' ,Team Member Total,,' + totalTasks + ',, ,' + totalHours + ',' + totalSavings + '\n';
+                csvContent += '\n';
             });
             
-            csvContent += "\nOverall Productivity Gains\n";
-            csvContent += `Total Hours Saved,${grandTotalHoursEl.textContent.replace(/,/g, '')}\n`;
-            csvContent += `Total Savings ($),${grandTotalSavingsEl.textContent.replace('$', '').replace(/,/g, '')}\n`;
-            csvContent += `watsonx Orchestrate Annual Cost ($),${agentCostTotalEl.textContent.replace('$', '').replace(/,/g, '')}\n`;
-            csvContent += `Total ROI (%),${grandTotalRoiEl.textContent.replace('%', '')}\n`;
+            csvContent += '\nOverall Productivity Gains\n';
+            csvContent += 'Total Hours Saved,' + grandTotalHoursEl.textContent.replace(/,/g, '') + '\n';
+            csvContent += 'Total Savings ($),' + grandTotalSavingsEl.textContent.replace('$', '').replace(/,/g, '') + '\n';
+            csvContent += SITE_CONFIG.calculator.costLabel + ' ($),' + agentCostTotalEl.textContent.replace('$', '').replace(/,/g, '') + '\n';
+            csvContent += 'Total ROI (%),' + grandTotalRoiEl.textContent.replace('%', '') + '\n';
 
-            const encodedUri = encodeURI(csvContent);
-            const link = document.createElement("a");
-            link.setAttribute("href", encodedUri);
-            link.setAttribute("download", "productivity_savings_data.csv");
+            var encodedUri = encodeURI(csvContent);
+            var link = document.createElement('a');
+            link.setAttribute('href', encodedUri);
+            link.setAttribute('download', 'productivity_savings_data.csv');
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
@@ -1699,13 +1834,13 @@
         // ========================================
         // CALCULATOR LOCAL STORAGE PERSISTENCE
         // ========================================
-        const CALC_STORAGE_KEY = 'clg_calculator_data';
+        var CALC_STORAGE_KEY = SP + 'calculator_data';
 
         function saveCalculatorData() {
-            const associates = [];
-            document.querySelectorAll('.associate-card').forEach(card => {
-                const tasks = [];
-                card.querySelectorAll('.task-row').forEach(row => {
+            var associates = [];
+            document.querySelectorAll('.associate-card').forEach(function(card) {
+                var tasks = [];
+                card.querySelectorAll('.task-row').forEach(function(row) {
                     tasks.push({
                         name: row.querySelector('.task-name-input').value,
                         tasksPerYear: row.querySelector('.tasks-per-year-input').value,
@@ -1725,26 +1860,26 @@
         }
 
         function loadCalculatorData() {
-            let data;
+            var data;
             try {
                 data = JSON.parse(localStorage.getItem(CALC_STORAGE_KEY));
             } catch (e) { return; }
             if (!Array.isArray(data) || data.length === 0) return;
 
-            associatesContainer.innerHTML = '';
+            associatesContainer.textContent = '';
 
-            data.forEach(assoc => {
+            data.forEach(function(assoc) {
                 addAssociate();
-                const card = associatesContainer.lastElementChild;
+                var card = associatesContainer.lastElementChild;
                 card.querySelector('.associate-name-input').value = assoc.name || '';
                 card.querySelector('.annual-salary-input').value = assoc.salary || '';
 
-                const taskBody = card.querySelector('.task-body');
-                taskBody.innerHTML = '';
+                var taskBody = card.querySelector('.task-body');
+                taskBody.textContent = '';
 
-                (assoc.tasks || []).forEach(task => {
+                (assoc.tasks || []).forEach(function(task) {
                     addTask(taskBody);
-                    const row = taskBody.lastElementChild;
+                    var row = taskBody.lastElementChild;
                     row.querySelector('.task-name-input').value = task.name || '';
                     row.querySelector('.tasks-per-year-input').value = task.tasksPerYear || '';
                     row.querySelector('.time-without-input').value = task.timeWithout || '';
@@ -1755,25 +1890,24 @@
             updateCalculations();
         }
 
-        // Event Listeners for Calculator
         if (addAssociateBtn) {
-            addAssociateBtn.addEventListener('click', () => {
+            addAssociateBtn.addEventListener('click', function() {
                 addAssociate();
                 saveCalculatorData();
             });
         }
 
         if (associatesContainer) {
-            associatesContainer.addEventListener('input', (e) => {
+            associatesContainer.addEventListener('input', function(e) {
                 if (e.target.matches('input')) {
                     updateCalculations();
                     saveCalculatorData();
                 }
             });
 
-            associatesContainer.addEventListener('click', (e) => {
+            associatesContainer.addEventListener('click', function(e) {
                 if (e.target.matches('.add-task-btn')) {
-                    const taskBody = e.target.closest('.associate-card').querySelector('.task-body');
+                    var taskBody = e.target.closest('.associate-card').querySelector('.task-body');
                     addTask(taskBody);
                     saveCalculatorData();
                 }
@@ -1791,36 +1925,43 @@
         }
 
         // Calculator Modal Logic
-        const calcModal = document.getElementById('calcInfoModal');
-        const calcModalText = document.getElementById('calc-modal-text');
-        const calcCloseBtn = document.querySelector('.calc-close-btn');
+        var calcModal = document.getElementById('calcInfoModal');
+        var calcModalText = document.getElementById('calc-modal-text');
+        var calcCloseBtn = document.querySelector('.calc-close-btn');
 
-        const calcInfoContent = {
-            "hourly-rate": { title: "Fully Loaded Hourly Rate", body: "An estimate of the true cost of an employee per hour. <br><strong>Formula:</strong> (Annual Salary / 2080) * 1.3" },
-            "total-roi": { title: "Total ROI Calculation", body: "The overall Return on Investment for the tool. <br><strong>Formula:</strong> ((Total Savings - Annual Cost) / Annual Cost) * 100%" },
-            "agent-cost": { title: "watsonx Orchestrate Annual Cost", body: "Based on $500 per user per year (this is a best guess and need to confirm with IBM watsonx team). Cost is automatically calculated based on the number of associates entered." }
+        var calcInfoContent = {
+            "hourly-rate": { title: "Fully Loaded Hourly Rate", body: "An estimate of the true cost of an employee per hour. Formula: (Annual Salary / 2080) * 1.3" },
+            "total-roi": { title: "Total ROI Calculation", body: "The overall Return on Investment for the tool. Formula: ((Total Savings - Annual Cost) / Annual Cost) * 100%" },
+            "agent-cost": { title: SITE_CONFIG.calculator.costLabel, body: SITE_CONFIG.calculator.costDescription + " Cost is automatically calculated based on the number of team members entered." }
         };
         
-        document.body.addEventListener('click', e => {
+        document.body.addEventListener('click', function(e) {
             if (e.target.classList.contains('calc-info-icon')) {
-                const type = e.target.dataset.info;
+                var type = e.target.dataset.info;
                 if (calcInfoContent[type]) {
-                    calcModalText.innerHTML = `<h3 class="font-bold text-lg mb-2">${calcInfoContent[type].title}</h3><p class="text-sm text-gray-600">${calcInfoContent[type].body}</p>`;
+                    calcModalText.textContent = '';
+                    var title = document.createElement('h3');
+                    title.className = 'font-bold text-lg mb-2';
+                    title.textContent = calcInfoContent[type].title;
+                    var body = document.createElement('p');
+                    body.className = 'text-sm text-gray-600';
+                    body.textContent = calcInfoContent[type].body;
+                    calcModalText.appendChild(title);
+                    calcModalText.appendChild(body);
                     calcModal.style.display = 'flex';
                 }
             }
         });
         
         if (calcCloseBtn) {
-            calcCloseBtn.onclick = () => calcModal.style.display = "none";
+            calcCloseBtn.onclick = function() { calcModal.style.display = 'none'; };
         }
-        window.addEventListener('click', (event) => { 
+        window.addEventListener('click', function(event) { 
             if (event.target == calcModal) { 
-                calcModal.style.display = "none"; 
+                calcModal.style.display = 'none'; 
             } 
         });
 
-        // Initialize calculator with one associate
         if (associatesContainer) {
             addAssociate();
         }
@@ -1828,7 +1969,7 @@
         // ========================================
         // DYNAMIC BACK TO TOP BUTTON
         // ========================================
-        const adminBackToTop = document.getElementById('adminBackToTop');
+        var adminBackToTop = document.getElementById('adminBackToTop');
         
         window.addEventListener('scroll', function() {
             if (window.scrollY > 300) {
@@ -1848,113 +1989,115 @@
         // ========================================
         // USER DETAIL MODAL FUNCTIONALITY
         // ========================================
-        const userDetailModal = document.getElementById('userDetailModal');
-        const userDetailTitle = document.getElementById('userDetailTitle');
-        const userDetailBody = document.getElementById('userDetailBody');
-        const userInteractionCount = document.getElementById('userInteractionCount');
-        const userTimePeriod = document.getElementById('userTimePeriod');
-        const userModalClose = document.getElementById('userModalClose');
+        var userDetailModal = document.getElementById('userDetailModal');
+        var userDetailTitle = document.getElementById('userDetailTitle');
+        var userDetailBody = document.getElementById('userDetailBody');
+        var userInteractionCount = document.getElementById('userInteractionCount');
+        var userTimePeriod = document.getElementById('userTimePeriod');
+        var userModalClose = document.getElementById('userModalClose');
         
-        let currentUser = null;
+        var currentUser = null;
 
-        // Sample user interaction data
-        const userInteractionData = {
-            'sarah.johnson@ibm.com': {
+        var sampleAgents = ['Contract Review Agent - Internal', 'General Document Comparison', 'Compliance Check Agent - Internal', 'Invoice Processing Agent'];
+        var sampleAgents2 = ['Compliance Check Agent - Vendor', 'Policy Review Agent - Internal', 'Risk Assessment Agent - Vendor'];
+        var sampleAgents3 = ['General Document Comparison', 'Invoice Processing Agent', 'Onboarding Assistant Agent'];
+
+        var userInteractionData = {
+            'sarah.johnson@example.com': {
                 week: [
-                    { date: '2024-12-14', time: '09:23 AM', agent: 'Revenue EA Review - Red Hat Paper' },
-                    { date: '2024-12-14', time: '02:15 PM', agent: 'General Document Comparison' },
-                    { date: '2024-12-13', time: '11:45 AM', agent: 'Revenue EA Review - Red Hat Paper' },
-                    { date: '2024-12-12', time: '03:30 PM', agent: 'Procurement MPA Review – Red Hat Paper' },
-                    { date: '2024-12-11', time: '10:00 AM', agent: 'Revenue EA Review - Red Hat Paper' },
+                    { date: '2025-03-14', time: '09:23 AM', agent: 'Contract Review Agent - Internal' },
+                    { date: '2025-03-14', time: '02:15 PM', agent: 'General Document Comparison' },
+                    { date: '2025-03-13', time: '11:45 AM', agent: 'Contract Review Agent - Internal' },
+                    { date: '2025-03-12', time: '03:30 PM', agent: 'Compliance Check Agent - Internal' },
+                    { date: '2025-03-11', time: '10:00 AM', agent: 'Contract Review Agent - Internal' },
                 ],
                 month: [
-                    { date: '2024-12-14', time: '09:23 AM', agent: 'Revenue EA Review - Red Hat Paper' },
-                    { date: '2024-12-14', time: '02:15 PM', agent: 'General Document Comparison' },
-                    { date: '2024-12-13', time: '11:45 AM', agent: 'Revenue EA Review - Red Hat Paper' },
-                    { date: '2024-12-12', time: '03:30 PM', agent: 'Procurement MPA Review – Red Hat Paper' },
-                    { date: '2024-12-11', time: '10:00 AM', agent: 'Revenue EA Review - Red Hat Paper' },
-                    { date: '2024-12-08', time: '04:22 PM', agent: 'Revenue NDA Review - Customer Paper' },
-                    { date: '2024-12-05', time: '09:10 AM', agent: 'Revenue EA Review - Red Hat Paper' },
-                    { date: '2024-12-02', time: '01:45 PM', agent: 'Revenue Appendix 1 Review – Red Hat Paper' },
-                    { date: '2024-11-28', time: '11:30 AM', agent: 'Revenue EA Review - Red Hat Paper' },
-                    { date: '2024-11-25', time: '02:00 PM', agent: 'General Document Comparison' },
+                    { date: '2025-03-14', time: '09:23 AM', agent: 'Contract Review Agent - Internal' },
+                    { date: '2025-03-14', time: '02:15 PM', agent: 'General Document Comparison' },
+                    { date: '2025-03-13', time: '11:45 AM', agent: 'Contract Review Agent - Internal' },
+                    { date: '2025-03-12', time: '03:30 PM', agent: 'Compliance Check Agent - Internal' },
+                    { date: '2025-03-11', time: '10:00 AM', agent: 'Contract Review Agent - Internal' },
+                    { date: '2025-03-08', time: '04:22 PM', agent: 'Policy Review Agent - Customer' },
+                    { date: '2025-03-05', time: '09:10 AM', agent: 'Contract Review Agent - Internal' },
+                    { date: '2025-03-02', time: '01:45 PM', agent: 'Invoice Processing Agent' },
+                    { date: '2025-02-28', time: '11:30 AM', agent: 'Contract Review Agent - Internal' },
+                    { date: '2025-02-25', time: '02:00 PM', agent: 'General Document Comparison' },
                 ],
-                year: Array.from({length: 187}, (_, i) => ({
-                    date: `2024-${String(Math.floor(Math.random() * 12) + 1).padStart(2, '0')}-${String(Math.floor(Math.random() * 28) + 1).padStart(2, '0')}`,
-                    time: `${String(Math.floor(Math.random() * 12) + 1).padStart(2, '0')}:${String(Math.floor(Math.random() * 60)).padStart(2, '0')} ${Math.random() > 0.5 ? 'AM' : 'PM'}`,
-                    agent: ['Revenue EA Review - Red Hat Paper', 'General Document Comparison', 'Procurement MPA Review – Red Hat Paper', 'Revenue Appendix 1 Review – Red Hat Paper'][Math.floor(Math.random() * 4)]
-                }))
+                year: Array.from({length: 187}, function(_, i) { return {
+                    date: '2025-' + String(Math.floor(Math.random() * 12) + 1).padStart(2, '0') + '-' + String(Math.floor(Math.random() * 28) + 1).padStart(2, '0'),
+                    time: String(Math.floor(Math.random() * 12) + 1).padStart(2, '0') + ':' + String(Math.floor(Math.random() * 60)).padStart(2, '0') + (Math.random() > 0.5 ? ' AM' : ' PM'),
+                    agent: sampleAgents[Math.floor(Math.random() * sampleAgents.length)]
+                }; })
             },
-            'michael.chen@ibm.com': {
+            'michael.chen@example.com': {
                 week: [
-                    { date: '2024-12-14', time: '10:15 AM', agent: 'Procurement MPA Review – Vendor Paper' },
-                    { date: '2024-12-13', time: '03:45 PM', agent: 'Procurement MPA Review – Vendor Paper' },
-                    { date: '2024-12-12', time: '09:30 AM', agent: 'Procurement DPA Review – Red Hat Paper' },
-                    { date: '2024-12-10', time: '02:00 PM', agent: 'Procurement MPA Review – Vendor Paper' },
+                    { date: '2025-03-14', time: '10:15 AM', agent: 'Compliance Check Agent - Vendor' },
+                    { date: '2025-03-13', time: '03:45 PM', agent: 'Compliance Check Agent - Vendor' },
+                    { date: '2025-03-12', time: '09:30 AM', agent: 'Policy Review Agent - Internal' },
+                    { date: '2025-03-10', time: '02:00 PM', agent: 'Compliance Check Agent - Vendor' },
                 ],
-                month: Array.from({length: 35}, (_, i) => ({
-                    date: `2024-12-${String(Math.floor(Math.random() * 14) + 1).padStart(2, '0')}`,
-                    time: `${String(Math.floor(Math.random() * 12) + 1).padStart(2, '0')}:${String(Math.floor(Math.random() * 60)).padStart(2, '0')} ${Math.random() > 0.5 ? 'AM' : 'PM'}`,
-                    agent: ['Procurement MPA Review – Vendor Paper', 'Procurement DPA Review – Red Hat Paper', 'Procurement AIA Review – Vendor Paper'][Math.floor(Math.random() * 3)]
-                })),
-                year: Array.from({length: 154}, (_, i) => ({
-                    date: `2024-${String(Math.floor(Math.random() * 12) + 1).padStart(2, '0')}-${String(Math.floor(Math.random() * 28) + 1).padStart(2, '0')}`,
-                    time: `${String(Math.floor(Math.random() * 12) + 1).padStart(2, '0')}:${String(Math.floor(Math.random() * 60)).padStart(2, '0')} ${Math.random() > 0.5 ? 'AM' : 'PM'}`,
-                    agent: ['Procurement MPA Review – Vendor Paper', 'Procurement DPA Review – Red Hat Paper', 'Procurement AIA Review – Vendor Paper'][Math.floor(Math.random() * 3)]
-                }))
+                month: Array.from({length: 35}, function(_, i) { return {
+                    date: '2025-03-' + String(Math.floor(Math.random() * 14) + 1).padStart(2, '0'),
+                    time: String(Math.floor(Math.random() * 12) + 1).padStart(2, '0') + ':' + String(Math.floor(Math.random() * 60)).padStart(2, '0') + (Math.random() > 0.5 ? ' AM' : ' PM'),
+                    agent: sampleAgents2[Math.floor(Math.random() * sampleAgents2.length)]
+                }; }),
+                year: Array.from({length: 154}, function(_, i) { return {
+                    date: '2025-' + String(Math.floor(Math.random() * 12) + 1).padStart(2, '0') + '-' + String(Math.floor(Math.random() * 28) + 1).padStart(2, '0'),
+                    time: String(Math.floor(Math.random() * 12) + 1).padStart(2, '0') + ':' + String(Math.floor(Math.random() * 60)).padStart(2, '0') + (Math.random() > 0.5 ? ' AM' : ' PM'),
+                    agent: sampleAgents2[Math.floor(Math.random() * sampleAgents2.length)]
+                }; })
             },
-            'emily.rodriguez@ibm.com': {
+            'emily.rodriguez@example.com': {
                 week: [
-                    { date: '2024-12-14', time: '11:00 AM', agent: 'General Document Comparison' },
-                    { date: '2024-12-13', time: '04:30 PM', agent: 'General Document Comparison' },
-                    { date: '2024-12-11', time: '09:15 AM', agent: 'Revenue Appendix 1 Review – Red Hat Paper' },
+                    { date: '2025-03-14', time: '11:00 AM', agent: 'General Document Comparison' },
+                    { date: '2025-03-13', time: '04:30 PM', agent: 'General Document Comparison' },
+                    { date: '2025-03-11', time: '09:15 AM', agent: 'Invoice Processing Agent' },
                 ],
-                month: Array.from({length: 28}, (_, i) => ({
-                    date: `2024-12-${String(Math.floor(Math.random() * 14) + 1).padStart(2, '0')}`,
-                    time: `${String(Math.floor(Math.random() * 12) + 1).padStart(2, '0')}:${String(Math.floor(Math.random() * 60)).padStart(2, '0')} ${Math.random() > 0.5 ? 'AM' : 'PM'}`,
-                    agent: ['General Document Comparison', 'Revenue Appendix 1 Review – Red Hat Paper', 'Revenue DORA Review - Red Hat Paper'][Math.floor(Math.random() * 3)]
-                })),
-                year: Array.from({length: 132}, (_, i) => ({
-                    date: `2024-${String(Math.floor(Math.random() * 12) + 1).padStart(2, '0')}-${String(Math.floor(Math.random() * 28) + 1).padStart(2, '0')}`,
-                    time: `${String(Math.floor(Math.random() * 12) + 1).padStart(2, '0')}:${String(Math.floor(Math.random() * 60)).padStart(2, '0')} ${Math.random() > 0.5 ? 'AM' : 'PM'}`,
-                    agent: ['General Document Comparison', 'Revenue Appendix 1 Review – Red Hat Paper', 'Revenue DORA Review - Red Hat Paper'][Math.floor(Math.random() * 3)]
-                }))
+                month: Array.from({length: 28}, function(_, i) { return {
+                    date: '2025-03-' + String(Math.floor(Math.random() * 14) + 1).padStart(2, '0'),
+                    time: String(Math.floor(Math.random() * 12) + 1).padStart(2, '0') + ':' + String(Math.floor(Math.random() * 60)).padStart(2, '0') + (Math.random() > 0.5 ? ' AM' : ' PM'),
+                    agent: sampleAgents3[Math.floor(Math.random() * sampleAgents3.length)]
+                }; }),
+                year: Array.from({length: 132}, function(_, i) { return {
+                    date: '2025-' + String(Math.floor(Math.random() * 12) + 1).padStart(2, '0') + '-' + String(Math.floor(Math.random() * 28) + 1).padStart(2, '0'),
+                    time: String(Math.floor(Math.random() * 12) + 1).padStart(2, '0') + ':' + String(Math.floor(Math.random() * 60)).padStart(2, '0') + (Math.random() > 0.5 ? ' AM' : ' PM'),
+                    agent: sampleAgents3[Math.floor(Math.random() * sampleAgents3.length)]
+                }; })
             },
-            'david.kim@ibm.com': {
+            'david.kim@example.com': {
                 week: [
-                    { date: '2024-12-13', time: '10:30 AM', agent: 'Revenue NDA Review - Customer Paper' },
-                    { date: '2024-12-11', time: '02:45 PM', agent: 'Revenue NDA Review - Customer Paper' },
+                    { date: '2025-03-13', time: '10:30 AM', agent: 'Policy Review Agent - Customer' },
+                    { date: '2025-03-11', time: '02:45 PM', agent: 'Policy Review Agent - Customer' },
                 ],
-                month: Array.from({length: 22}, (_, i) => ({
-                    date: `2024-12-${String(Math.floor(Math.random() * 14) + 1).padStart(2, '0')}`,
-                    time: `${String(Math.floor(Math.random() * 12) + 1).padStart(2, '0')}:${String(Math.floor(Math.random() * 60)).padStart(2, '0')} ${Math.random() > 0.5 ? 'AM' : 'PM'}`,
-                    agent: ['Revenue NDA Review - Customer Paper', 'Revenue EA Review - Red Hat Paper'][Math.floor(Math.random() * 2)]
-                })),
-                year: Array.from({length: 98}, (_, i) => ({
-                    date: `2024-${String(Math.floor(Math.random() * 12) + 1).padStart(2, '0')}-${String(Math.floor(Math.random() * 28) + 1).padStart(2, '0')}`,
-                    time: `${String(Math.floor(Math.random() * 12) + 1).padStart(2, '0')}:${String(Math.floor(Math.random() * 60)).padStart(2, '0')} ${Math.random() > 0.5 ? 'AM' : 'PM'}`,
-                    agent: ['Revenue NDA Review - Customer Paper', 'Revenue EA Review - Red Hat Paper'][Math.floor(Math.random() * 2)]
-                }))
+                month: Array.from({length: 22}, function(_, i) { return {
+                    date: '2025-03-' + String(Math.floor(Math.random() * 14) + 1).padStart(2, '0'),
+                    time: String(Math.floor(Math.random() * 12) + 1).padStart(2, '0') + ':' + String(Math.floor(Math.random() * 60)).padStart(2, '0') + (Math.random() > 0.5 ? ' AM' : ' PM'),
+                    agent: ['Policy Review Agent - Customer', 'Contract Review Agent - Internal'][Math.floor(Math.random() * 2)]
+                }; }),
+                year: Array.from({length: 98}, function(_, i) { return {
+                    date: '2025-' + String(Math.floor(Math.random() * 12) + 1).padStart(2, '0') + '-' + String(Math.floor(Math.random() * 28) + 1).padStart(2, '0'),
+                    time: String(Math.floor(Math.random() * 12) + 1).padStart(2, '0') + ':' + String(Math.floor(Math.random() * 60)).padStart(2, '0') + (Math.random() > 0.5 ? ' AM' : ' PM'),
+                    agent: ['Policy Review Agent - Customer', 'Contract Review Agent - Internal'][Math.floor(Math.random() * 2)]
+                }; })
             },
-            'jennifer.martinez@ibm.com': {
+            'jennifer.martinez@example.com': {
                 week: [
-                    { date: '2024-12-14', time: '01:15 PM', agent: 'Procurement MPA Review – Red Hat Paper' },
-                    { date: '2024-12-12', time: '11:00 AM', agent: 'Procurement MPA Review – Red Hat Paper' },
+                    { date: '2025-03-14', time: '01:15 PM', agent: 'Compliance Check Agent - Internal' },
+                    { date: '2025-03-12', time: '11:00 AM', agent: 'Compliance Check Agent - Internal' },
                 ],
-                month: Array.from({length: 18}, (_, i) => ({
-                    date: `2024-12-${String(Math.floor(Math.random() * 14) + 1).padStart(2, '0')}`,
-                    time: `${String(Math.floor(Math.random() * 12) + 1).padStart(2, '0')}:${String(Math.floor(Math.random() * 60)).padStart(2, '0')} ${Math.random() > 0.5 ? 'AM' : 'PM'}`,
-                    agent: ['Procurement MPA Review – Red Hat Paper', 'General Document Comparison'][Math.floor(Math.random() * 2)]
-                })),
-                year: Array.from({length: 87}, (_, i) => ({
-                    date: `2024-${String(Math.floor(Math.random() * 12) + 1).padStart(2, '0')}-${String(Math.floor(Math.random() * 28) + 1).padStart(2, '0')}`,
-                    time: `${String(Math.floor(Math.random() * 12) + 1).padStart(2, '0')}:${String(Math.floor(Math.random() * 60)).padStart(2, '0')} ${Math.random() > 0.5 ? 'AM' : 'PM'}`,
-                    agent: ['Procurement MPA Review – Red Hat Paper', 'General Document Comparison', 'Revenue Appendix 1 Review – Red Hat Paper'][Math.floor(Math.random() * 3)]
-                }))
+                month: Array.from({length: 18}, function(_, i) { return {
+                    date: '2025-03-' + String(Math.floor(Math.random() * 14) + 1).padStart(2, '0'),
+                    time: String(Math.floor(Math.random() * 12) + 1).padStart(2, '0') + ':' + String(Math.floor(Math.random() * 60)).padStart(2, '0') + (Math.random() > 0.5 ? ' AM' : ' PM'),
+                    agent: ['Compliance Check Agent - Internal', 'General Document Comparison'][Math.floor(Math.random() * 2)]
+                }; }),
+                year: Array.from({length: 87}, function(_, i) { return {
+                    date: '2025-' + String(Math.floor(Math.random() * 12) + 1).padStart(2, '0') + '-' + String(Math.floor(Math.random() * 28) + 1).padStart(2, '0'),
+                    time: String(Math.floor(Math.random() * 12) + 1).padStart(2, '0') + ':' + String(Math.floor(Math.random() * 60)).padStart(2, '0') + (Math.random() > 0.5 ? ' AM' : ' PM'),
+                    agent: ['Compliance Check Agent - Internal', 'General Document Comparison', 'Invoice Processing Agent'][Math.floor(Math.random() * 3)]
+                }; })
             }
         };
 
-        // User click handler
         document.addEventListener('click', function(e) {
             if (e.target.classList.contains('clickable-user')) {
                 currentUser = e.target.dataset.user;
@@ -1970,19 +2113,24 @@
         });
 
         function updateUserDetails(period) {
-            const data = userInteractionData[currentUser]?.[period] || [];
+            var data = (userInteractionData[currentUser] && userInteractionData[currentUser][period]) || [];
             userInteractionCount.textContent = data.length;
             
-            userDetailBody.innerHTML = data.slice(0, 50).map(item => `
-                <tr>
-                    <td>${item.date}</td>
-                    <td>${item.time}</td>
-                    <td>${item.agent}</td>
-                </tr>
-            `).join('');
+            userDetailBody.textContent = '';
+            data.slice(0, 50).forEach(function(item) {
+                var tr = document.createElement('tr');
+                var td1 = document.createElement('td'); td1.textContent = item.date;
+                var td2 = document.createElement('td'); td2.textContent = item.time;
+                var td3 = document.createElement('td'); td3.textContent = item.agent;
+                tr.appendChild(td1); tr.appendChild(td2); tr.appendChild(td3);
+                userDetailBody.appendChild(tr);
+            });
             
             if (data.length > 50) {
-                userDetailBody.innerHTML += `<tr><td colspan="3" style="text-align: center; color: #888; font-style: italic;">Showing 50 of ${data.length} interactions...</td></tr>`;
+                var tr = document.createElement('tr');
+                var td = document.createElement('td'); td.colSpan = 3; td.style.textAlign = 'center'; td.style.color = '#888'; td.style.fontStyle = 'italic';
+                td.textContent = 'Showing 50 of ' + data.length + ' interactions...';
+                tr.appendChild(td); userDetailBody.appendChild(tr);
             }
         }
 
@@ -2001,61 +2149,59 @@
         // ========================================
         // AGENT DETAIL MODAL FUNCTIONALITY
         // ========================================
-        const agentDetailModal = document.getElementById('agentDetailModal');
-        const agentDetailTitle = document.getElementById('agentDetailTitle');
-        const agentDetailBody = document.getElementById('agentDetailBody');
-        const agentUsageCount = document.getElementById('agentUsageCount');
-        const agentTimePeriod = document.getElementById('agentTimePeriod');
-        const agentModalClose = document.getElementById('agentModalClose');
+        var agentDetailModal = document.getElementById('agentDetailModal');
+        var agentDetailTitle = document.getElementById('agentDetailTitle');
+        var agentDetailBody = document.getElementById('agentDetailBody');
+        var agentUsageCount = document.getElementById('agentUsageCount');
+        var agentTimePeriod = document.getElementById('agentTimePeriod');
+        var agentModalClose = document.getElementById('agentModalClose');
         
-        let currentAgent = null;
+        var currentAgent = null;
 
-        // Sample agent usage data
-        const agentUsageData = {
-            'Revenue EA Review - Red Hat Paper': {
-                week: Array.from({length: 342}, (_, i) => ({
-                    date: `2024-12-${String(Math.floor(Math.random() * 7) + 8).padStart(2, '0')}`,
-                    time: `${String(Math.floor(Math.random() * 12) + 1).padStart(2, '0')}:${String(Math.floor(Math.random() * 60)).padStart(2, '0')} ${Math.random() > 0.5 ? 'AM' : 'PM'}`,
-                    user: ['sarah.johnson@ibm.com', 'michael.chen@ibm.com', 'emily.rodriguez@ibm.com', 'david.kim@ibm.com', 'jennifer.martinez@ibm.com', 'alex.wong@ibm.com', 'maria.garcia@ibm.com'][Math.floor(Math.random() * 7)]
-                })).slice(0, 45),
-                month: Array.from({length: 1420}, (_, i) => ({
-                    date: `2024-${String(Math.floor(Math.random() * 1) + 12).padStart(2, '0')}-${String(Math.floor(Math.random() * 30) + 1).padStart(2, '0')}`,
-                    time: `${String(Math.floor(Math.random() * 12) + 1).padStart(2, '0')}:${String(Math.floor(Math.random() * 60)).padStart(2, '0')} ${Math.random() > 0.5 ? 'AM' : 'PM'}`,
-                    user: ['sarah.johnson@ibm.com', 'michael.chen@ibm.com', 'emily.rodriguez@ibm.com', 'david.kim@ibm.com', 'jennifer.martinez@ibm.com'][Math.floor(Math.random() * 5)]
-                })).slice(0, 150),
-                year: Array.from({length: 16850}, (_, i) => ({
-                    date: `2024-${String(Math.floor(Math.random() * 12) + 1).padStart(2, '0')}-${String(Math.floor(Math.random() * 28) + 1).padStart(2, '0')}`,
-                    time: `${String(Math.floor(Math.random() * 12) + 1).padStart(2, '0')}:${String(Math.floor(Math.random() * 60)).padStart(2, '0')} ${Math.random() > 0.5 ? 'AM' : 'PM'}`,
-                    user: ['sarah.johnson@ibm.com', 'michael.chen@ibm.com', 'emily.rodriguez@ibm.com', 'david.kim@ibm.com', 'jennifer.martinez@ibm.com'][Math.floor(Math.random() * 5)]
-                })).slice(0, 500)
+        var users = ['sarah.johnson@example.com', 'michael.chen@example.com', 'emily.rodriguez@example.com', 'david.kim@example.com', 'jennifer.martinez@example.com', 'alex.wong@example.com', 'maria.garcia@example.com'];
+
+        var agentUsageData = {
+            'Contract Review Agent - Internal': {
+                week: Array.from({length: 45}, function(_, i) { return {
+                    date: '2025-03-' + String(Math.floor(Math.random() * 7) + 8).padStart(2, '0'),
+                    time: String(Math.floor(Math.random() * 12) + 1).padStart(2, '0') + ':' + String(Math.floor(Math.random() * 60)).padStart(2, '0') + (Math.random() > 0.5 ? ' AM' : ' PM'),
+                    user: users[Math.floor(Math.random() * users.length)]
+                }; }),
+                month: Array.from({length: 150}, function(_, i) { return {
+                    date: '2025-03-' + String(Math.floor(Math.random() * 30) + 1).padStart(2, '0'),
+                    time: String(Math.floor(Math.random() * 12) + 1).padStart(2, '0') + ':' + String(Math.floor(Math.random() * 60)).padStart(2, '0') + (Math.random() > 0.5 ? ' AM' : ' PM'),
+                    user: users[Math.floor(Math.random() * 5)]
+                }; }),
+                year: Array.from({length: 500}, function(_, i) { return {
+                    date: '2025-' + String(Math.floor(Math.random() * 12) + 1).padStart(2, '0') + '-' + String(Math.floor(Math.random() * 28) + 1).padStart(2, '0'),
+                    time: String(Math.floor(Math.random() * 12) + 1).padStart(2, '0') + ':' + String(Math.floor(Math.random() * 60)).padStart(2, '0') + (Math.random() > 0.5 ? ' AM' : ' PM'),
+                    user: users[Math.floor(Math.random() * 5)]
+                }; })
             }
         };
 
-        // Generate data for other agents
-        const agents = ['Procurement MPA Review – Vendor Paper', 'General Document Comparison', 'Procurement MPA Review – Red Hat Paper', 'Procurement DPA Review – Red Hat Paper', 'Revenue NDA Review - Customer Paper', 'Revenue Appendix 1 Review – Red Hat Paper', 'Revenue DORA Review - Red Hat Paper', 'Procurement AIA Review – Vendor Paper', 'Other Agents'];
-        const users = ['sarah.johnson@ibm.com', 'michael.chen@ibm.com', 'emily.rodriguez@ibm.com', 'david.kim@ibm.com', 'jennifer.martinez@ibm.com', 'alex.wong@ibm.com', 'maria.garcia@ibm.com'];
+        var agents = ['Compliance Check Agent - Vendor', 'General Document Comparison', 'Compliance Check Agent - Internal', 'Policy Review Agent - Internal', 'Policy Review Agent - Customer', 'Invoice Processing Agent', 'Onboarding Assistant Agent', 'Risk Assessment Agent - Vendor', 'Other Agents'];
         
-        agents.forEach(agent => {
+        agents.forEach(function(agent) {
             agentUsageData[agent] = {
-                week: Array.from({length: Math.floor(Math.random() * 30) + 20}, (_, i) => ({
-                    date: `2024-12-${String(Math.floor(Math.random() * 7) + 8).padStart(2, '0')}`,
-                    time: `${String(Math.floor(Math.random() * 12) + 1).padStart(2, '0')}:${String(Math.floor(Math.random() * 60)).padStart(2, '0')} ${Math.random() > 0.5 ? 'AM' : 'PM'}`,
+                week: Array.from({length: Math.floor(Math.random() * 30) + 20}, function(_, i) { return {
+                    date: '2025-03-' + String(Math.floor(Math.random() * 7) + 8).padStart(2, '0'),
+                    time: String(Math.floor(Math.random() * 12) + 1).padStart(2, '0') + ':' + String(Math.floor(Math.random() * 60)).padStart(2, '0') + (Math.random() > 0.5 ? ' AM' : ' PM'),
                     user: users[Math.floor(Math.random() * users.length)]
-                })),
-                month: Array.from({length: Math.floor(Math.random() * 100) + 50}, (_, i) => ({
-                    date: `2024-12-${String(Math.floor(Math.random() * 30) + 1).padStart(2, '0')}`,
-                    time: `${String(Math.floor(Math.random() * 12) + 1).padStart(2, '0')}:${String(Math.floor(Math.random() * 60)).padStart(2, '0')} ${Math.random() > 0.5 ? 'AM' : 'PM'}`,
+                }; }),
+                month: Array.from({length: Math.floor(Math.random() * 100) + 50}, function(_, i) { return {
+                    date: '2025-03-' + String(Math.floor(Math.random() * 30) + 1).padStart(2, '0'),
+                    time: String(Math.floor(Math.random() * 12) + 1).padStart(2, '0') + ':' + String(Math.floor(Math.random() * 60)).padStart(2, '0') + (Math.random() > 0.5 ? ' AM' : ' PM'),
                     user: users[Math.floor(Math.random() * users.length)]
-                })),
-                year: Array.from({length: Math.floor(Math.random() * 300) + 100}, (_, i) => ({
-                    date: `2024-${String(Math.floor(Math.random() * 12) + 1).padStart(2, '0')}-${String(Math.floor(Math.random() * 28) + 1).padStart(2, '0')}`,
-                    time: `${String(Math.floor(Math.random() * 12) + 1).padStart(2, '0')}:${String(Math.floor(Math.random() * 60)).padStart(2, '0')} ${Math.random() > 0.5 ? 'AM' : 'PM'}`,
+                }; }),
+                year: Array.from({length: Math.floor(Math.random() * 300) + 100}, function(_, i) { return {
+                    date: '2025-' + String(Math.floor(Math.random() * 12) + 1).padStart(2, '0') + '-' + String(Math.floor(Math.random() * 28) + 1).padStart(2, '0'),
+                    time: String(Math.floor(Math.random() * 12) + 1).padStart(2, '0') + ':' + String(Math.floor(Math.random() * 60)).padStart(2, '0') + (Math.random() > 0.5 ? ' AM' : ' PM'),
                     user: users[Math.floor(Math.random() * users.length)]
-                }))
+                }; })
             };
         });
 
-        // Agent click handler
         document.addEventListener('click', function(e) {
             if (e.target.classList.contains('clickable-agent')) {
                 currentAgent = e.target.dataset.agent;
@@ -2071,19 +2217,24 @@
         });
 
         function updateAgentDetails(period) {
-            const data = agentUsageData[currentAgent]?.[period] || [];
+            var data = (agentUsageData[currentAgent] && agentUsageData[currentAgent][period]) || [];
             agentUsageCount.textContent = data.length;
             
-            agentDetailBody.innerHTML = data.slice(0, 50).map(item => `
-                <tr>
-                    <td>${item.date}</td>
-                    <td>${item.time}</td>
-                    <td>${item.user}</td>
-                </tr>
-            `).join('');
+            agentDetailBody.textContent = '';
+            data.slice(0, 50).forEach(function(item) {
+                var tr = document.createElement('tr');
+                var td1 = document.createElement('td'); td1.textContent = item.date;
+                var td2 = document.createElement('td'); td2.textContent = item.time;
+                var td3 = document.createElement('td'); td3.textContent = item.user;
+                tr.appendChild(td1); tr.appendChild(td2); tr.appendChild(td3);
+                agentDetailBody.appendChild(tr);
+            });
             
             if (data.length > 50) {
-                agentDetailBody.innerHTML += `<tr><td colspan="3" style="text-align: center; color: #888; font-style: italic;">Showing 50 of ${data.length} uses...</td></tr>`;
+                var tr = document.createElement('tr');
+                var td = document.createElement('td'); td.colSpan = 3; td.style.textAlign = 'center'; td.style.color = '#888'; td.style.fontStyle = 'italic';
+                td.textContent = 'Showing 50 of ' + data.length + ' uses...';
+                tr.appendChild(td); agentDetailBody.appendChild(tr);
             }
         }
 
@@ -2099,7 +2250,6 @@
             agentDetailModal.style.display = 'none';
         });
 
-        // Close modals when clicking outside
         window.addEventListener('click', function(e) {
             if (e.target === userDetailModal) {
                 userDetailModal.style.display = 'none';
@@ -2112,45 +2262,44 @@
         // ========================================
         // CLICKS PER AGENT TIME PERIOD DROPDOWN
         // ========================================
-        const clicksTimePeriod = document.getElementById('clicksTimePeriod');
-        const clicksBarChart = document.getElementById('clicksBarChart');
+        var clicksTimePeriod = document.getElementById('clicksTimePeriod');
+        var clicksBarChart = document.getElementById('clicksBarChart');
 
-        // Sample data for different time periods
-        const clicksData = {
+        var clicksData = {
             week: [
-                { label: 'Revenue EA Review - Red Hat Paper', value: 342 },
-                { label: 'Procurement MPA Review – Vendor Paper', value: 281 },
+                { label: 'Contract Review Agent - Internal', value: 342 },
+                { label: 'Compliance Check Agent - Vendor', value: 281 },
                 { label: 'General Document Comparison', value: 243 },
-                { label: 'Procurement MPA Review – Red Hat Paper', value: 222 },
-                { label: 'Procurement DPA Review – Red Hat Paper', value: 182 },
-                { label: 'Revenue NDA Review - Customer Paper', value: 161 },
-                { label: 'Revenue Appendix 1 Review – Red Hat Paper', value: 140 },
-                { label: 'Revenue DORA Review - Red Hat Paper', value: 119 },
-                { label: 'Procurement AIA Review – Vendor Paper', value: 96 },
+                { label: 'Compliance Check Agent - Internal', value: 222 },
+                { label: 'Policy Review Agent - Internal', value: 182 },
+                { label: 'Policy Review Agent - Customer', value: 161 },
+                { label: 'Invoice Processing Agent', value: 140 },
+                { label: 'Onboarding Assistant Agent', value: 119 },
+                { label: 'Risk Assessment Agent - Vendor', value: 96 },
                 { label: 'Other Agents', value: 75 }
             ],
             month: [
-                { label: 'Revenue EA Review - Red Hat Paper', value: 1420 },
-                { label: 'Procurement MPA Review – Vendor Paper', value: 1180 },
+                { label: 'Contract Review Agent - Internal', value: 1420 },
+                { label: 'Compliance Check Agent - Vendor', value: 1180 },
                 { label: 'General Document Comparison', value: 1050 },
-                { label: 'Procurement MPA Review – Red Hat Paper', value: 920 },
-                { label: 'Procurement DPA Review – Red Hat Paper', value: 780 },
-                { label: 'Revenue NDA Review - Customer Paper', value: 690 },
-                { label: 'Revenue Appendix 1 Review – Red Hat Paper', value: 580 },
-                { label: 'Revenue DORA Review - Red Hat Paper', value: 490 },
-                { label: 'Procurement AIA Review – Vendor Paper', value: 410 },
+                { label: 'Compliance Check Agent - Internal', value: 920 },
+                { label: 'Policy Review Agent - Internal', value: 780 },
+                { label: 'Policy Review Agent - Customer', value: 690 },
+                { label: 'Invoice Processing Agent', value: 580 },
+                { label: 'Onboarding Assistant Agent', value: 490 },
+                { label: 'Risk Assessment Agent - Vendor', value: 410 },
                 { label: 'Other Agents', value: 320 }
             ],
             year: [
-                { label: 'Revenue EA Review - Red Hat Paper', value: 16850 },
-                { label: 'Procurement MPA Review – Vendor Paper', value: 14200 },
+                { label: 'Contract Review Agent - Internal', value: 16850 },
+                { label: 'Compliance Check Agent - Vendor', value: 14200 },
                 { label: 'General Document Comparison', value: 12600 },
-                { label: 'Procurement MPA Review – Red Hat Paper', value: 10980 },
-                { label: 'Procurement DPA Review – Red Hat Paper', value: 9340 },
-                { label: 'Revenue NDA Review - Customer Paper', value: 8280 },
-                { label: 'Revenue Appendix 1 Review – Red Hat Paper', value: 6960 },
-                { label: 'Revenue DORA Review - Red Hat Paper', value: 5880 },
-                { label: 'Procurement AIA Review – Vendor Paper', value: 4920 },
+                { label: 'Compliance Check Agent - Internal', value: 10980 },
+                { label: 'Policy Review Agent - Internal', value: 9340 },
+                { label: 'Policy Review Agent - Customer', value: 8280 },
+                { label: 'Invoice Processing Agent', value: 6960 },
+                { label: 'Onboarding Assistant Agent', value: 5880 },
+                { label: 'Risk Assessment Agent - Vendor', value: 4920 },
                 { label: 'Other Agents', value: 3840 }
             ]
         };
@@ -2166,21 +2315,23 @@
         }
 
         function updateClicksChart(period) {
-            const data = clicksData[period];
-            const maxValue = Math.max(...data.map(d => d.value));
+            var data = clicksData[period];
+            var maxValue = Math.max.apply(null, data.map(function(d) { return d.value; }));
             
-            clicksBarChart.innerHTML = data.map(item => {
-                const percentage = (item.value / maxValue * 100).toFixed(0);
-                return `
-                    <div class="bar-item">
-                        <div class="bar-label"><span class="clickable-agent" data-agent="${item.label}">${item.label}</span></div>
-                        <div class="bar-track">
-                            <div class="bar-fill red" style="width: ${percentage}%;"></div>
-                        </div>
-                        <div class="bar-value">${item.value.toLocaleString()}</div>
-                    </div>
-                `;
-            }).join('');
+            clicksBarChart.textContent = '';
+            data.forEach(function(item) {
+                var percentage = (item.value / maxValue * 100).toFixed(0);
+                var barItem = document.createElement('div'); barItem.className = 'bar-item';
+                var barLabel = document.createElement('div'); barLabel.className = 'bar-label';
+                var agentSpan = document.createElement('span'); agentSpan.className = 'clickable-agent'; agentSpan.dataset.agent = item.label; agentSpan.textContent = item.label;
+                barLabel.appendChild(agentSpan);
+                var barTrack = document.createElement('div'); barTrack.className = 'bar-track';
+                var barFill = document.createElement('div'); barFill.className = 'bar-fill primary'; barFill.style.width = percentage + '%';
+                barTrack.appendChild(barFill);
+                var barValue = document.createElement('div'); barValue.className = 'bar-value'; barValue.textContent = item.value.toLocaleString();
+                barItem.appendChild(barLabel); barItem.appendChild(barTrack); barItem.appendChild(barValue);
+                clicksBarChart.appendChild(barItem);
+            });
         }
     </script>
 
