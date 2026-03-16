@@ -12,7 +12,7 @@ const SITE_CONFIG = {
     companyName: "Acme Corp",
     siteTitle: "AI Agent Launchpad",
     departmentName: "Operations",
-    poweredByText: "powered by AI Agents",
+    poweredByText: "powered by <add your agents here>",
     badgeText: "BETA",
     adminBadgeText: "ADMIN",
 
