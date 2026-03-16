@@ -11,17 +11,17 @@ This site uses a **configurable theme engine** defined in `config.js`. All color
 
 ## CSS Variables (defined in `style.css`, overridden by `config.js`)
 
-| Token | Default (Carbon) | Usage |
-|-------|-------------------|-------|
-| `--color-primary` | `#0f62fe` | Primary actions, links |
-| `--color-primary-hover` | `#0043ce` | Hover state for primary |
-| `--color-accent` | `#4589ff` | Badge, gradients |
-| `--text-primary` | `#161616` | Headings, body text |
-| `--text-secondary` | `#525252` | Subheadings, labels |
-| `--text-helper` | `#6f6f6f` | Helper/muted text |
-| `--header-bg` | `#161616` | Header background |
-| `--bg-page` | `#f4f4f4` | Page background |
-| `--radius` | `0px` | Border radius for interactive elements |
+| Token | Default | Usage |
+|-------|---------|-------|
+| `--color-primary` | `#4A90D9` | Primary actions, links |
+| `--color-primary-hover` | `#3A7BC8` | Hover state for primary |
+| `--color-accent` | `#6CB4EE` | Badge, gradients |
+| `--text-primary` | `#1C1917` | Headings, body text |
+| `--text-secondary` | `#57534E` | Subheadings, labels |
+| `--text-helper` | `#A8A29E` | Helper/muted text |
+| `--header-bg` | `#292524` | Header background |
+| `--bg-page` | `#F5F4F1` | Page background |
+| `--radius` | `12px` | Border radius for interactive elements |
 | `--font-family` | `'Inter'` | Site font |
 
 ## Theme Presets

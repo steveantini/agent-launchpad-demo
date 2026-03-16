@@ -1,19 +1,19 @@
 :root {
-    --color-primary: #0f62fe;
-    --color-primary-hover: #0043ce;
-    --color-accent: #4589ff;
-    --card-bg: #ffffff;
-    --text-primary: #161616;
-    --text-secondary: #525252;
-    --text-helper: #6f6f6f;
+    --color-primary: #4A90D9;
+    --color-primary-hover: #3A7BC8;
+    --color-accent: #6CB4EE;
+    --card-bg: #FFFFFF;
+    --text-primary: #1C1917;
+    --text-secondary: #57534E;
+    --text-helper: #A8A29E;
     --shadow-color: rgba(0, 0, 0, 0.1);
     --disabled-color: #bbbbbb;
     --disabled-bg: #f5f5f5;
-    --header-bg: #161616;
+    --header-bg: #292524;
     --header-text: #ffffff;
     --header-divider: #525252;
-    --bg-page: #f4f4f4;
-    --radius: 0px;
+    --bg-page: #F5F4F1;
+    --radius: 12px;
     --font-family: 'Inter', sans-serif;
 }
 body {
@@ -145,7 +145,7 @@ h5 {
 }
 .icon-card {
     background-color: var(--card-bg);
-    border-radius: 4px;
+    border-radius: var(--radius);
     padding: 1.5rem;
     text-decoration: none;
     color: var(--text-primary);

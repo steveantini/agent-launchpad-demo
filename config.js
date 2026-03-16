@@ -19,19 +19,19 @@ const SITE_CONFIG = {
     // ── Theme ──────────────────────────────────────────────────
     // Choose a preset ("carbon", "modern", "minimal") or set to "custom"
     // and fill in the custom theme values below.
-    themePreset: "carbon",
+    themePreset: "custom",
 
     custom: {
-        primaryColor: "#0f62fe",
-        primaryHover: "#0043ce",
-        accentColor: "#4589ff",
-        headerBg: "#161616",
-        pageBg: "#f4f4f4",
-        cardBg: "#ffffff",
-        textPrimary: "#161616",
-        textSecondary: "#525252",
-        textHelper: "#6f6f6f",
-        borderRadius: "0px",
+        primaryColor: "#4A90D9",
+        primaryHover: "#3A7BC8",
+        accentColor: "#6CB4EE",
+        headerBg: "#292524",
+        pageBg: "#F5F4F1",
+        cardBg: "#FFFFFF",
+        textPrimary: "#1C1917",
+        textSecondary: "#57534E",
+        textHelper: "#A8A29E",
+        borderRadius: "12px",
         fontFamily: "'Inter', sans-serif",
         fontUrl: "https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;600;700&display=swap",
     },
