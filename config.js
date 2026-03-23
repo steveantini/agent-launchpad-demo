@@ -9,10 +9,10 @@
 const SITE_CONFIG = {
 
     // ── Branding ───────────────────────────────────────────────
-    companyName: "Acme Corp",
+    companyName: "<Your Company>",
     siteTitle: "AI Agent Launchpad",
-    departmentName: "Operations",
-    poweredByText: "powered by <add your agents here>",
+    departmentName: "Legal & Compliance",
+    poweredByText: "powered by <your AI model>",
     badgeText: "BETA",
     adminBadgeText: "ADMIN",
 
@@ -61,15 +61,15 @@ const SITE_CONFIG = {
     // ── Support ────────────────────────────────────────────────
     support: {
         slackUrl: "",
-        slackName: "#help-agents",
-        email: "support@example.com",
+        slackName: "#legal-agents-support",
+        email: "support@yourcompany.com",
     },
 
     // ── Productivity Calculator ────────────────────────────────
     calculator: {
         costPerUserPerYear: 500,
         costLabel: "Platform Annual Cost",
-        costDescription: "Estimated annual platform cost per user. Adjust this value in config.js to match your vendor pricing.",
+        costDescription: "Estimated annual AI platform cost per user. Adjust this value in config.js to match your vendor pricing.",
     },
 
     // ── Storage ────────────────────────────────────────────────
