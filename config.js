@@ -10,7 +10,7 @@ const SITE_CONFIG = {
 
     // ── Branding ───────────────────────────────────────────────
     companyName: "<Your Company>",
-    siteTitle: "AI Agent Launchpad",
+    siteTitle: "AI Agents",
     departmentName: "Legal & Compliance",
     poweredByText: "powered by <your AI model>",
     badgeText: "BETA",
