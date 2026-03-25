@@ -9,7 +9,7 @@
 const SITE_CONFIG = {
 
     // ── Branding ───────────────────────────────────────────────
-    companyName: "<Your Company>",
+    companyName: "Agiloft",
     siteTitle: "AI Agents",
     departmentName: "Legal & Compliance",
     poweredByText: "powered by <your AI model>",
